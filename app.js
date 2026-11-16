@@ -248,7 +248,7 @@ async function vistaFicha(id) {
     <section class="bloque"><h2>Ritmo</h2>
       <div class="seg">${disponibles.map(([r, t]) => `<button data-ritmo="${r}" aria-pressed="${ui.ritmo === r}">${t} · ${fmtMin(infos[r].duracion)}</button>`).join('')}</div>
     </section>
-    <p class="consejos">Ponte auriculares y busca un sitio tranquilo. Durante el ejercicio la pantalla se queda en negro.${e.voz ? ' Al final te preguntará cómo de intenso es el malestar: dilo en voz alta y, si es 5 o más, te ofrecerá repetir el ciclo.' : ''}</p>
+    <p class="consejos">Busca un sitio tranquilo. Durante el ejercicio la pantalla se queda en negro.${e.voz ? ' Al final te preguntará cómo de intenso es el malestar: dilo en voz alta y, si es 5 o más, te ofrecerá repetir el ciclo.' : ''}</p>
     <div class="empezar"><button class="btn" id="empezar">Empezar</button></div>`;
   app.querySelectorAll('[data-ritmo]').forEach(b => b.addEventListener('click', () => {
     ui.ritmo = b.dataset.ritmo; store.set('ritmo', ui.ritmo);
@@ -514,11 +514,9 @@ function rutear() {
 function bienvenida() {
   const s = document.createElement('div');
   s.className = 'splash';
-  s.innerHTML = '<h1>Tu roca, tus vistas, tu paz.</h1>';
-  s.addEventListener('click', () => quitar());
+  s.innerHTML = '<h1>Tu roca, tus vistas, tu paz.</h1><p class="toca">Toca para entrar</p>';
+  s.addEventListener('click', () => { s.classList.add('fuera'); setTimeout(() => s.remove(), 1000); });
   document.body.appendChild(s);
-  const quitar = () => { s.classList.add('fuera'); setTimeout(() => s.remove(), 1000); };
-  setTimeout(quitar, 3500);
 }
 
 (async () => {

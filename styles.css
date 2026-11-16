@@ -62,6 +62,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
   position: relative; color: #fff; font-size: 34px; line-height: 1.25;
   text-shadow: 0 2px 18px rgba(0,0,0,.45);
 }
+.splash { flex-direction: column; align-items: center; justify-content: flex-end; gap: 14px; cursor: pointer; }
+.splash .toca {
+  position: relative; margin: 0; color: rgba(255,255,255,.85); font-size: 15px; letter-spacing: .04em;
+  animation: respira 3s ease-in-out infinite;
+}
+@keyframes respira { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
 .splash.fuera { opacity: 0; pointer-events: none; }
 
 /* Hablar */
