@@ -1,0 +1,303 @@
+{
+  "estados": [
+    { "id": "ansiedad",   "nombre": "Ansiedad o nervios" },
+    { "id": "bucle",      "nombre": "Pensamientos que no paran" },
+    { "id": "saturacion", "nombre": "Mente saturada, estrés" },
+    { "id": "emocion",    "nombre": "Atrapado en una emoción" },
+    { "id": "recuerdo",   "nombre": "Un recuerdo que duele" },
+    { "id": "limites",    "nombre": "Me afecta lo que otros dicen" },
+    { "id": "confianza",  "nombre": "Me falta confianza" },
+    { "id": "disperso",   "nombre": "Disperso, desconectado" },
+    { "id": "dormir",     "nombre": "No puedo dormir" },
+    { "id": "rumbo",      "nombre": "Sin rumbo, sin objetivos claros" },
+    { "id": "pendientes", "nombre": "Cosas pendientes que no cierro" },
+    { "id": "impulsos",   "nombre": "Impulsos que no quiero" }
+  ],
+  "ejercicios": [
+    {
+      "id": "havening",
+      "titulo": "Havening",
+      "subtitulo": "La técnica del refugio",
+      "sesion": 5,
+      "tipo": "guiada",
+      "minutos": 7,
+      "requisitos": ["voz_alta", "sentado"],
+      "estados": { "ansiedad": 1, "recuerdo": 1, "impulsos": 1, "emocion": 2 },
+      "para_que": "Desvincular un pensamiento o recuerdo de la emoción dolorosa que lleva pegada. Las caricias suaves y repetidas en los brazos imitan el gesto con el que una madre consuela a su bebé y llevan al sistema nervioso a un estado de calma.",
+      "cuando": "Ansiedad, crisis de pánico, fobias, duelo, rupturas o pérdidas, impulsos o deseos que no quieres y alivio de dolor físico.",
+      "pasos": [
+        "Valora del 1 al 10 el malestar que te genera la situación.",
+        "Brazos cruzados, manos sobre los hombros, ojos cerrados.",
+        "Tres pases acariciando los brazos de los hombros a los codos: playa, jardín y escalera, contando en voz alta del 1 al 20.",
+        "Entre pase y pase, abre los ojos y muévelos a derecha e izquierda.",
+        "Vuelve a valorar el malestar. Si sigue en 5 o más, repite el ciclo."
+      ],
+      "contexto": "Desarrollada por los doctores Steven y Ronald Ruden. Según el método, el toque genera ondas cerebrales delta y aumenta la serotonina. El movimiento ocular lateral procede de la estimulación bilateral del EMDR.",
+      "aviso": "Si el recuerdo es muy intenso (9 o 10) o traumático, trabájalo con Gerard en sesión.",
+      "audio": "havening",
+      "voz": true
+    },
+    {
+      "id": "neurotap",
+      "titulo": "Neurotap",
+      "subtitulo": "El baile de ondas sinápticas",
+      "sesion": 3,
+      "tipo": "guiada",
+      "minutos": 15,
+      "requisitos": ["voz_alta", "sentado"],
+      "estados": { "ansiedad": 1, "saturacion": 1, "confianza": 2, "recuerdo": 2 },
+      "para_que": "Reducir la intensidad del estrés, la ansiedad o una carga emocional y devolver la calma al sistema nervioso, dando suaves golpecitos en puntos clave.",
+      "cuando": "Pauta de la sesión 3: tres o cuatro veces por semana, o una vez al día si lo prefieres.",
+      "pasos": [
+        "Automasaje de cabeza, cuello y entrecejo.",
+        "Valora del 1 al 10 el malestar.",
+        "Unos 10 golpecitos en: canto de la mano, punta del índice, bajo la nariz, barbilla, costado del índice y canto de la otra mano.",
+        "Debajo del ojo, clavícula y dorso de la mano.",
+        "Con golpecitos continuos en el dorso: abrir y cerrar los ojos, mirada abajo a derecha e izquierda, giros de ojos, tararear, contar 5-4-3-2-1, tararear y suspiro de liberación. Se repite de 3 a 5 series.",
+        "Risa a carcajadas soltando el aire con una «A».",
+        "Vuelve a valorar el malestar.",
+        "Cierre: manos en el corazón, «Confianza», cuenta del 1 al 5 y «Cada vez que necesite paz, lo único que deberé hacer es ponerme las manos en el corazón»."
+      ],
+      "contexto": "Combina principios de la Terapia del Campo del Pensamiento (TFT, creada por Roger Callahan) y la medicina energética, estimulando meridianos con tapping.",
+      "audio": null
+    },
+    {
+      "id": "relajacion",
+      "titulo": "Práctica de relajación",
+      "subtitulo": "Tu botiquín de relajación",
+      "sesion": 2,
+      "tipo": "guiada",
+      "minutos": 8,
+      "requisitos": ["voz_alta"],
+      "estados": { "dormir": 1, "ansiedad": 2, "saturacion": 2 },
+      "para_que": "Llegar a un estado de relajación profunda que puedes usar para dormir, para preparar ejercicios de cambio de tu voz interna o para reordenar la mente. Es la primera herramienta de tu botiquín.",
+      "cuando": "Antes de dormir, o como preparación para otros ejercicios.",
+      "pasos": [
+        "Masaje en la cara, la cabeza y el cuello.",
+        "Unas inspiraciones desde el diafragma, la zona intercostal y la clavicular.",
+        "Aguanta el aire lo máximo que puedas, suéltalo poco a poco en un hilito y, al final, todo de golpe con una «A». De tres a cuatro veces.",
+        "Busca la parte del cuerpo más relajada y deja que esa calma se extienda al resto."
+      ],
+      "aviso": "Si te mareas al retener el aire o tienes la tensión alta, no fuerces la retención.",
+      "audio": null
+    },
+    {
+      "id": "autopolaridades",
+      "titulo": "Autopolaridades",
+      "subtitulo": "Despejar la mente con las manos",
+      "sesion": 2,
+      "tipo": "guiada",
+      "minutos": 5,
+      "requisitos": ["sentado"],
+      "estados": { "saturacion": 1, "bucle": 2, "disperso": 2 },
+      "para_que": "Despejar y desenturbiar la mente en pocos minutos, sin pensar ni visualizar nada: solo relajarte y sentir cómo fluye la energía.",
+      "cuando": "Cuando la cabeza va cargada o necesitas un reinicio corto.",
+      "pasos": [
+        "Mano derecha en la frente y mano izquierda en la base de la nuca (2 minutos).",
+        "Una mano tapando los ojos y la otra a la misma altura por detrás de la cabeza (1,5 minutos).",
+        "Cuna occipital: las dos manos sosteniendo la cabeza (1,5 minutos)."
+      ],
+      "audio": null
+    },
+    {
+      "id": "sentidos",
+      "titulo": "Meditación de los sentidos",
+      "subtitulo": "Estar aquí",
+      "sesion": 5,
+      "tipo": "guiada",
+      "minutos": 10,
+      "requisitos": [],
+      "estados": { "disperso": 1, "bucle": 1, "ansiedad": 2 },
+      "para_que": "Llevar la atención plena a cada uno de los cinco sentidos para afinar la percepción y volver a un estado de presencia y equilibrio.",
+      "cuando": "Cuando estás disperso, en piloto automático o con la mente en otra parte.",
+      "pasos": [
+        "Pregúntate «¿Dónde estoy?», mira el entorno como si fuera nuevo y respóndete «¡Estoy aquí!».",
+        "Con los ojos cerrados, recorre el oído (cerca, lejos, intermedio), la vista, el olfato, el tacto y el gusto, 1,5 minutos cada uno.",
+        "Respira de forma consciente durante todo el proceso.",
+        "Integra los cinco sentidos a la vez."
+      ],
+      "audio": null
+    },
+    {
+      "id": "escucha-interna",
+      "titulo": "Escucha interna",
+      "subtitulo": "Los 5 pasos",
+      "sesion": 1,
+      "tipo": "guiada",
+      "minutos": 10,
+      "requisitos": [],
+      "estados": { "emocion": 1, "limites": 2 },
+      "para_que": "Reconectar con tu mundo emocional y comprender la necesidad que hay detrás de una emoción. La emoción actúa como un mensajero.",
+      "cuando": "Cuando una emoción se te queda pegada y no sabes qué hacer con ella.",
+      "pasos": [
+        "Reconocer lo que está presente, sin juzgarlo.",
+        "Nombrarlo con precisión: frustración, tristeza, decepción…",
+        "Escuchar la necesidad que hay detrás: seguridad, descanso, límites, reconocimiento o afecto.",
+        "Elegir una respuesta consciente: una acción o un límite pequeño que honre esa necesidad.",
+        "Mantener una actitud de cuidado interno: un diálogo amable contigo mismo."
+      ],
+      "audio": null
+    },
+    {
+      "id": "zona-poder",
+      "titulo": "Zona de poder",
+      "subtitulo": "El anclaje de «MÍO»",
+      "sesion": 4,
+      "tipo": "guiada",
+      "minutos": 10,
+      "requisitos": ["de_pie"],
+      "estados": { "limites": 1, "confianza": 2 },
+      "para_que": "Delimitar tu territorio personal y distinguir lo que es tuyo (tu mente, tus emociones, tu voz y tus acciones) de lo que pertenece a los demás.",
+      "cuando": "Cuando te afectan las opiniones ajenas, te cuesta poner límites o te sientes desempoderado.",
+      "pasos": [
+        "De pie, dibuja con los brazos un círculo a tu alrededor: tu Zona de Poder.",
+        "Da la bienvenida a tus 4 poderes: mente, emociones, voz y acción.",
+        "Evoca la sensación de algo innegablemente tuyo, súbela a 8 o 9 sobre 10 y aplícala: «Mi mente es MÍA…».",
+        "Marca la frontera: lo mío es mío; lo de los demás es suyo.",
+        "Celebra tu «maravillosa falibilidad humana».",
+        "Visualiza una situación futura respondiendo desde tu Zona de Poder."
+      ],
+      "contexto": "Herramienta neurosemántica.",
+      "audio": null
+    },
+    {
+      "id": "silva",
+      "titulo": "Variaciones del método Silva",
+      "subtitulo": "Autohipnosis y la Gran Puerta",
+      "sesion": 5,
+      "tipo": "guiada",
+      "minutos": 20,
+      "requisitos": [],
+      "estados": { "rumbo": 1, "confianza": 1, "dormir": 2 },
+      "para_que": "Bajar la actividad mental hacia estados Alfa y Theta para transformar el estado de ánimo, conectar con el subconsciente y encontrarte con la versión de ti que ya ha alcanzado sus metas.",
+      "cuando": "Con tiempo y sin prisa. De noche te deja listo para dormir; de día, con energía.",
+      "pasos": [
+        "Respiración 4-7-8.",
+        "Visualiza los números 3, 2 y 1, cada vez más tenues.",
+        "Cuenta atrás del 10 al 0 y, en el 0, multiplica la relajación por dos y por cuatro.",
+        "«Cada día, en todos los sentidos, estoy mejor y mejor».",
+        "Siente lo que te hace único y el amor en el centro del corazón.",
+        "El pasillo y la Gran Puerta: abraza a tu versión que ya lo ha conseguido.",
+        "Agradece y despierta con la cuenta del 10 al 0."
+      ],
+      "contexto": "Basado en el método de José Silva y en la fórmula de Émile Coué.",
+      "audio": null
+    },
+    {
+      "id": "respiracion-478",
+      "titulo": "Respiración 4-7-8",
+      "subtitulo": "Al momento",
+      "sesion": 5,
+      "tipo": "expres",
+      "minutos": 2,
+      "requisitos": [],
+      "estados": { "ansiedad": 1, "dormir": 2 },
+      "para_que": "Bajar las revoluciones en un par de minutos. Es la preparación del método Silva.",
+      "cuando": "En cualquier momento y en cualquier sitio.",
+      "pasos": [
+        "Inhala en 4 segundos.",
+        "Retén el aire 7 segundos.",
+        "Exhala lentamente en 8 segundos.",
+        "Repite 4 veces."
+      ],
+      "audio": null
+    },
+    {
+      "id": "manos-corazon",
+      "titulo": "Manos en el corazón",
+      "subtitulo": "Al momento",
+      "sesion": 3,
+      "tipo": "expres",
+      "minutos": 1,
+      "requisitos": [],
+      "estados": { "ansiedad": 2, "emocion": 2 },
+      "para_que": "El ancla de paz que programas al cerrar el Neurotap.",
+      "cuando": "Cuando necesites paz, en cualquier sitio.",
+      "pasos": [
+        "Pon las manos en el corazón.",
+        "Recuerda: «Cada vez que necesite paz, lo único que deberé hacer es ponerme las manos en el corazón».",
+        "Quédate unos segundos sintiendo tu propia presencia."
+      ],
+      "audio": null
+    },
+    {
+      "id": "cancelo",
+      "titulo": "Cancelo, cancelo",
+      "subtitulo": "Cortar el pensamiento",
+      "sesion": 1,
+      "tipo": "ficha",
+      "minutos": 1,
+      "requisitos": [],
+      "estados": { "bucle": 1, "ansiedad": 2, "confianza": 2 },
+      "para_que": "Desarmar un pensamiento intrusivo o limitante en el momento exacto en que aparece.",
+      "cuando": "En cuanto detectes un pensamiento derrotista o ansioso.",
+      "pasos": [
+        "Detectar e interrumpir: di con firmeza, en voz alta o mentalmente, «Cancelo, cancelo». Visualiza una señal de STOP. Usa la energía del NO y mueve el cuerpo.",
+        "Sustituir: reemplázalo enseguida por un pensamiento constructivo o una afirmación que refuerce tu poder personal y tu confianza. Usa la energía del SÍ, también con el cuerpo.",
+        "Anclar con la respiración: una inhalación y una exhalación profundas para asentar la nueva sensación en el cuerpo."
+      ],
+      "audio": null
+    },
+    {
+      "id": "journaling",
+      "titulo": "Journaling: las 3 cartas",
+      "subtitulo": "Vaciar, madurar, sembrar",
+      "sesion": 4,
+      "tipo": "ficha",
+      "minutos": 30,
+      "requisitos": ["escribir"],
+      "estados": { "emocion": 1, "recuerdo": 2, "rumbo": 2 },
+      "para_que": "Acceder a tu mundo interno, liberar emociones reprimidas y después integrar y transformar la experiencia desde una perspectiva madura.",
+      "cuando": "Tras un conflicto o cuando hay algo que necesitas sacar. Adáptalo a lo trabajado en sesión.",
+      "pasos": [
+        "Carta 1 · Vaciado: escribe sin filtros todo lo que sientes (ira, rabia, tristeza, frustración). Olvida la ortografía y la coherencia: vomítalo todo sobre el papel.",
+        "Carta 2 · Maduración: mira la situación con distancia y escribe un discurso de comprensión que incluya a todas las partes, sin culpables ni dramatismo. ¿Cómo responderías hoy con tus herramientas? ¿Cómo te gustaría reaccionar en tu versión ideal?",
+        "Carta 3 · Recoger lo sembrado: comprométete con tu versión más sabia. ¿Cómo quieres vivir a partir de ahora y qué decisiones tomarás según tus valores? ¿Cómo trasladarás la madurez de tu guerrero interior al día a día? ¿Cómo cultivarás la alegría y la aceptación serena?"
+      ],
+      "contexto": "Según el método, la escritura sin freno de la primera carta salta la censura lógica y conecta con el cerebro emocional.",
+      "audio": null
+    },
+    {
+      "id": "tres-preguntas",
+      "titulo": "Las tres preguntas",
+      "subtitulo": "Cerrado, merecedor, espacio",
+      "sesion": 3,
+      "tipo": "ficha",
+      "minutos": 15,
+      "requisitos": ["escribir"],
+      "estados": { "pendientes": 1, "confianza": 2, "rumbo": 2 },
+      "para_que": "Revisar si hay asuntos abiertos, si te sientes merecedor de lo que quieres y si tienes espacio en tu vida para ello.",
+      "cuando": "Cuando algo que quieres no termina de llegar.",
+      "pasos": [
+        "¿Tengo todo cerrado? Haz una lista de lo que sí puedes hacer y de lo que no con lo que queda pendiente.",
+        "¿Me siento merecedor? ¿Qué tendría que pasar para sentirte merecedor? ¿Qué necesitas sentir o qué imágenes internas tienen que aparecer?",
+        "¿Tengo espacio en mi vida para esto que quiero? Si no lo hay, identifica qué tendría que cambiar y anótalo."
+      ],
+      "audio": null
+    },
+    {
+      "id": "maestria",
+      "titulo": "Maestría personal",
+      "subtitulo": "Tu propia definición",
+      "sesion": 2,
+      "tipo": "ficha",
+      "minutos": 20,
+      "requisitos": ["escribir"],
+      "estados": { "rumbo": 2 },
+      "para_que": "Encontrar tu propia definición de maestría personal, en relación con hacia dónde quieres llegar con las sesiones y con tu objetivo vital.",
+      "cuando": "En un momento tranquilo de reflexión.",
+      "pasos": [
+        "¿Cuál es tu significado de maestría personal?",
+        "¿Cómo llegarías a ese superestado de conciencia?",
+        "Apóyate en los cinco nuevos valores que estáis trabajando en las sesiones."
+      ],
+      "audio": null
+    }
+  ],
+  "requisitos": {
+    "voz_alta": "Hablarás o contarás en voz alta",
+    "sentado": "Sentado y cómodo",
+    "de_pie": "De pie, con espacio para extender los brazos",
+    "escribir": "Papel y bolígrafo"
+  }
+}
