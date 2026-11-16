@@ -1,7 +1,8 @@
 // Service worker: la app funciona sin conexión.
 // - Interfaz y datos: red primero y, sin red, la copia guardada.
-// - Audio: si está guardado (caché "audio-v1"), se sirve de ahí respetando los rangos de bytes.
-const SHELL = 'shell-v2';
+// - Audio: si está guardado (caché "audio-v2"), se sirve de ahí respetando los rangos de bytes.
+const SHELL = 'shell-v3';
+const AUDIO = 'audio-v2'; // súbelo cuando cambien los audios para que el móvil descargue los nuevos
 const ARCHIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
   'data/catalogo.json', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'img/inicio.jpg'];
 
@@ -11,7 +12,7 @@ self.addEventListener('install', ev => {
 
 self.addEventListener('activate', ev => {
   ev.waitUntil(caches.keys()
-    .then(ks => Promise.all(ks.filter(k => k.startsWith('shell-') && k !== SHELL).map(k => caches.delete(k))))
+    .then(ks => Promise.all(ks.filter(k => (k.startsWith('shell-') && k !== SHELL) || (k.startsWith('audio-') && k !== AUDIO)).map(k => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 
@@ -43,8 +44,8 @@ self.addEventListener('fetch', ev => {
 
   if (url.pathname.includes('/audio/') && url.pathname.endsWith('.mp3')) {
     ev.respondWith((async () => {
-      const guardado = await caches.match(url.pathname.replace(/^.*\/audio\//, 'audio/'), { cacheName: 'audio-v1' })
-        || await caches.match(req.url, { ignoreSearch: true, cacheName: 'audio-v1' });
+      const guardado = await caches.match(url.pathname.replace(/^.*\/audio\//, 'audio/'), { cacheName: 'audio-v2' })
+        || await caches.match(req.url, { ignoreSearch: true, cacheName: 'audio-v2' });
       return guardado ? conRango(req, guardado) : fetch(req);
     })());
     return;

@@ -1,17 +1,53 @@
 {
   "estados": [
-    { "id": "ansiedad",   "nombre": "Ansiedad o nervios" },
-    { "id": "bucle",      "nombre": "Pensamientos que no paran" },
-    { "id": "saturacion", "nombre": "Mente saturada, estrés" },
-    { "id": "emocion",    "nombre": "Atrapado en una emoción" },
-    { "id": "recuerdo",   "nombre": "Un recuerdo que duele" },
-    { "id": "limites",    "nombre": "Me afecta lo que otros dicen" },
-    { "id": "confianza",  "nombre": "Me falta confianza" },
-    { "id": "disperso",   "nombre": "Disperso, desconectado" },
-    { "id": "dormir",     "nombre": "No puedo dormir" },
-    { "id": "rumbo",      "nombre": "Sin rumbo, sin objetivos claros" },
-    { "id": "pendientes", "nombre": "Cosas pendientes que no cierro" },
-    { "id": "impulsos",   "nombre": "Impulsos que no quiero" }
+    {
+      "id": "ansiedad",
+      "nombre": "Ansiedad o nervios"
+    },
+    {
+      "id": "bucle",
+      "nombre": "Pensamientos que no paran"
+    },
+    {
+      "id": "saturacion",
+      "nombre": "Mente saturada, estrés"
+    },
+    {
+      "id": "emocion",
+      "nombre": "Atrapado en una emoción"
+    },
+    {
+      "id": "recuerdo",
+      "nombre": "Un recuerdo que duele"
+    },
+    {
+      "id": "limites",
+      "nombre": "Me afecta lo que otros dicen"
+    },
+    {
+      "id": "confianza",
+      "nombre": "Me falta confianza"
+    },
+    {
+      "id": "disperso",
+      "nombre": "Disperso, desconectado"
+    },
+    {
+      "id": "dormir",
+      "nombre": "No puedo dormir"
+    },
+    {
+      "id": "rumbo",
+      "nombre": "Sin rumbo, sin objetivos claros"
+    },
+    {
+      "id": "pendientes",
+      "nombre": "Cosas pendientes que no cierro"
+    },
+    {
+      "id": "impulsos",
+      "nombre": "Impulsos que no quiero"
+    }
   ],
   "ejercicios": [
     {
@@ -21,8 +57,16 @@
       "sesion": 5,
       "tipo": "guiada",
       "minutos": 7,
-      "requisitos": ["voz_alta", "sentado"],
-      "estados": { "ansiedad": 1, "recuerdo": 1, "impulsos": 1, "emocion": 2 },
+      "requisitos": [
+        "voz_alta",
+        "sentado"
+      ],
+      "estados": {
+        "ansiedad": 1,
+        "recuerdo": 1,
+        "impulsos": 1,
+        "emocion": 2
+      },
       "para_que": "Desvincular un pensamiento o recuerdo de la emoción dolorosa que lleva pegada. Las caricias suaves y repetidas en los brazos imitan el gesto con el que una madre consuela a su bebé y llevan al sistema nervioso a un estado de calma.",
       "cuando": "Ansiedad, crisis de pánico, fobias, duelo, rupturas o pérdidas, impulsos o deseos que no quieres y alivio de dolor físico.",
       "pasos": [
@@ -43,23 +87,30 @@
       "subtitulo": "El baile de ondas sinápticas",
       "sesion": 3,
       "tipo": "guiada",
-      "minutos": 15,
-      "requisitos": ["voz_alta", "sentado"],
-      "estados": { "ansiedad": 1, "saturacion": 1, "confianza": 2, "recuerdo": 2 },
+      "minutos": 17,
+      "requisitos": [
+        "voz_alta",
+        "sentado"
+      ],
+      "estados": {
+        "ansiedad": 1,
+        "saturacion": 1,
+        "confianza": 2,
+        "recuerdo": 2
+      },
       "para_que": "Reducir la intensidad del estrés, la ansiedad o una carga emocional y devolver la calma al sistema nervioso, dando suaves golpecitos en puntos clave.",
       "cuando": "Pauta de la sesión 3: tres o cuatro veces por semana, o una vez al día si lo prefieres.",
       "pasos": [
         "Automasaje de cabeza, cuello y entrecejo.",
         "Valora del 1 al 10 el malestar.",
-        "Unos 10 golpecitos en: canto de la mano, punta del índice, bajo la nariz, barbilla, costado del índice y canto de la otra mano.",
-        "Debajo del ojo, clavícula y dorso de la mano.",
-        "Con golpecitos continuos en el dorso: abrir y cerrar los ojos, mirada abajo a derecha e izquierda, giros de ojos, tararear, contar 5-4-3-2-1, tararear y suspiro de liberación. Se repite de 3 a 5 series.",
+        "Unos 10 golpecitos en cada punto: punto de kárate, punta del índice, pómulos, debajo de la nariz, mandíbula, barbilla, debajo de la clavícula, hombros, pecho, esternón, costillas inferiores, parte baja del estómago, espalda baja (riñones), de nuevo punto de kárate y punta del índice, y termina en el dorso de la mano.",
+        "Cuatro series con golpecitos continuos en la parte de arriba de la mano: abrir y cerrar los ojos, mirada abajo a derecha e izquierda, giros de ojos (tres en cada sentido), tararear sonriendo, suspiro de liberación y cuenta atrás del 5 al 0, cada número más tenue.",
         "Risa a carcajadas soltando el aire con una «A».",
         "Vuelve a valorar el malestar.",
-        "Cierre: manos en el corazón, «Confianza», cuenta del 1 al 5 y «Cada vez que necesite paz, lo único que deberé hacer es ponerme las manos en el corazón»."
+        "Cierre: manos en el corazón, «Confianza», cuenta del 1 al 5 con parada en el 3 y «Cada vez que necesite paz, lo único que deberé hacer es ponerme las manos en el corazón»."
       ],
       "contexto": "Combina principios de la Terapia del Campo del Pensamiento (TFT, creada por Roger Callahan) y la medicina energética, estimulando meridianos con tapping.",
-      "audio": null
+      "audio": "neurotap"
     },
     {
       "id": "relajacion",
@@ -68,8 +119,14 @@
       "sesion": 2,
       "tipo": "guiada",
       "minutos": 8,
-      "requisitos": ["voz_alta"],
-      "estados": { "dormir": 1, "ansiedad": 2, "saturacion": 2 },
+      "requisitos": [
+        "voz_alta"
+      ],
+      "estados": {
+        "dormir": 1,
+        "ansiedad": 2,
+        "saturacion": 2
+      },
       "para_que": "Llegar a un estado de relajación profunda que puedes usar para dormir, para preparar ejercicios de cambio de tu voz interna o para reordenar la mente. Es la primera herramienta de tu botiquín.",
       "cuando": "Antes de dormir, o como preparación para otros ejercicios.",
       "pasos": [
@@ -88,8 +145,14 @@
       "sesion": 2,
       "tipo": "guiada",
       "minutos": 5,
-      "requisitos": ["sentado"],
-      "estados": { "saturacion": 1, "bucle": 2, "disperso": 2 },
+      "requisitos": [
+        "sentado"
+      ],
+      "estados": {
+        "saturacion": 1,
+        "bucle": 2,
+        "disperso": 2
+      },
       "para_que": "Despejar y desenturbiar la mente en pocos minutos, sin pensar ni visualizar nada: solo relajarte y sentir cómo fluye la energía.",
       "cuando": "Cuando la cabeza va cargada o necesitas un reinicio corto.",
       "pasos": [
@@ -107,7 +170,11 @@
       "tipo": "guiada",
       "minutos": 10,
       "requisitos": [],
-      "estados": { "disperso": 1, "bucle": 1, "ansiedad": 2 },
+      "estados": {
+        "disperso": 1,
+        "bucle": 1,
+        "ansiedad": 2
+      },
       "para_que": "Llevar la atención plena a cada uno de los cinco sentidos para afinar la percepción y volver a un estado de presencia y equilibrio.",
       "cuando": "Cuando estás disperso, en piloto automático o con la mente en otra parte.",
       "pasos": [
@@ -126,7 +193,10 @@
       "tipo": "guiada",
       "minutos": 10,
       "requisitos": [],
-      "estados": { "emocion": 1, "limites": 2 },
+      "estados": {
+        "emocion": 1,
+        "limites": 2
+      },
       "para_que": "Reconectar con tu mundo emocional y comprender la necesidad que hay detrás de una emoción. La emoción actúa como un mensajero.",
       "cuando": "Cuando una emoción se te queda pegada y no sabes qué hacer con ella.",
       "pasos": [
@@ -145,8 +215,13 @@
       "sesion": 4,
       "tipo": "guiada",
       "minutos": 10,
-      "requisitos": ["de_pie"],
-      "estados": { "limites": 1, "confianza": 2 },
+      "requisitos": [
+        "de_pie"
+      ],
+      "estados": {
+        "limites": 1,
+        "confianza": 2
+      },
       "para_que": "Delimitar tu territorio personal y distinguir lo que es tuyo (tu mente, tus emociones, tu voz y tus acciones) de lo que pertenece a los demás.",
       "cuando": "Cuando te afectan las opiniones ajenas, te cuesta poner límites o te sientes desempoderado.",
       "pasos": [
@@ -168,7 +243,11 @@
       "tipo": "guiada",
       "minutos": 20,
       "requisitos": [],
-      "estados": { "rumbo": 1, "confianza": 1, "dormir": 2 },
+      "estados": {
+        "rumbo": 1,
+        "confianza": 1,
+        "dormir": 2
+      },
       "para_que": "Bajar la actividad mental hacia estados Alfa y Theta para transformar el estado de ánimo, conectar con el subconsciente y encontrarte con la versión de ti que ya ha alcanzado sus metas.",
       "cuando": "Con tiempo y sin prisa. De noche te deja listo para dormir; de día, con energía.",
       "pasos": [
@@ -191,7 +270,10 @@
       "tipo": "expres",
       "minutos": 2,
       "requisitos": [],
-      "estados": { "ansiedad": 1, "dormir": 2 },
+      "estados": {
+        "ansiedad": 1,
+        "dormir": 2
+      },
       "para_que": "Bajar las revoluciones en un par de minutos. Es la preparación del método Silva.",
       "cuando": "En cualquier momento y en cualquier sitio.",
       "pasos": [
@@ -210,7 +292,10 @@
       "tipo": "expres",
       "minutos": 1,
       "requisitos": [],
-      "estados": { "ansiedad": 2, "emocion": 2 },
+      "estados": {
+        "ansiedad": 2,
+        "emocion": 2
+      },
       "para_que": "El ancla de paz que programas al cerrar el Neurotap.",
       "cuando": "Cuando necesites paz, en cualquier sitio.",
       "pasos": [
@@ -228,7 +313,11 @@
       "tipo": "ficha",
       "minutos": 1,
       "requisitos": [],
-      "estados": { "bucle": 1, "ansiedad": 2, "confianza": 2 },
+      "estados": {
+        "bucle": 1,
+        "ansiedad": 2,
+        "confianza": 2
+      },
       "para_que": "Desarmar un pensamiento intrusivo o limitante en el momento exacto en que aparece.",
       "cuando": "En cuanto detectes un pensamiento derrotista o ansioso.",
       "pasos": [
@@ -245,8 +334,14 @@
       "sesion": 4,
       "tipo": "ficha",
       "minutos": 30,
-      "requisitos": ["escribir"],
-      "estados": { "emocion": 1, "recuerdo": 2, "rumbo": 2 },
+      "requisitos": [
+        "escribir"
+      ],
+      "estados": {
+        "emocion": 1,
+        "recuerdo": 2,
+        "rumbo": 2
+      },
       "para_que": "Acceder a tu mundo interno, liberar emociones reprimidas y después integrar y transformar la experiencia desde una perspectiva madura.",
       "cuando": "Tras un conflicto o cuando hay algo que necesitas sacar. Adáptalo a lo trabajado en sesión.",
       "pasos": [
@@ -264,8 +359,14 @@
       "sesion": 3,
       "tipo": "ficha",
       "minutos": 15,
-      "requisitos": ["escribir"],
-      "estados": { "pendientes": 1, "confianza": 2, "rumbo": 2 },
+      "requisitos": [
+        "escribir"
+      ],
+      "estados": {
+        "pendientes": 1,
+        "confianza": 2,
+        "rumbo": 2
+      },
       "para_que": "Revisar si hay asuntos abiertos, si te sientes merecedor de lo que quieres y si tienes espacio en tu vida para ello.",
       "cuando": "Cuando algo que quieres no termina de llegar.",
       "pasos": [
@@ -282,8 +383,12 @@
       "sesion": 2,
       "tipo": "ficha",
       "minutos": 20,
-      "requisitos": ["escribir"],
-      "estados": { "rumbo": 2 },
+      "requisitos": [
+        "escribir"
+      ],
+      "estados": {
+        "rumbo": 2
+      },
       "para_que": "Encontrar tu propia definición de maestría personal, en relación con hacia dónde quieres llegar con las sesiones y con tu objetivo vital.",
       "cuando": "En un momento tranquilo de reflexión.",
       "pasos": [

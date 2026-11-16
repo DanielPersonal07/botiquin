@@ -482,7 +482,7 @@ async function iniciarSesion(e, info) {
 async function guardarSinConexion(e, info) {
   if (!('caches' in window)) return;
   try {
-    const c = await caches.open('audio-v1');
+    const c = await caches.open('audio-v2');
     const urls = [`audio/${info.archivo}`, ...(info.eventos || []).filter(ev => ev.clip).map(ev => `audio/${ev.clip}`)];
     if (info.ciclo) urls.push(`audio/${info.ciclo.enlace_clip}`);
     for (const u of urls) if (!(await c.match(u))) await c.add(u);

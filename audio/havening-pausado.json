@@ -1,7 +1,7 @@
 {
   "archivo": "havening-pausado.mp3",
   "ritmo": "pausado",
-  "duracion": 450.21,
+  "duracion": 437.09,
   "marcas": [
     {
       "id": "0",
@@ -11,64 +11,64 @@
     {
       "id": "1",
       "titulo": "Línea base",
-      "inicio": 52.28
+      "inicio": 49.66
     },
     {
       "id": "2",
       "titulo": "Posición de partida",
-      "inicio": 91.77
+      "inicio": 88.08
     },
     {
       "id": "3",
       "titulo": "Pase 1 · La playa",
-      "inicio": 112.66
+      "inicio": 106.86
     },
     {
       "id": "4",
       "titulo": "Movimiento ocular",
-      "inicio": 194.42
+      "inicio": 187.5
     },
     {
       "id": "5",
       "titulo": "Pase 2 · El jardín",
-      "inicio": 225.6
+      "inicio": 218.67
     },
     {
       "id": "6",
       "titulo": "Movimiento ocular",
-      "inicio": 295.36
+      "inicio": 285.83
     },
     {
       "id": "7",
       "titulo": "Pase 3 · La escalera",
-      "inicio": 321.35
+      "inicio": 311.51
     },
     {
       "id": "8",
       "titulo": "Última serie de movimientos oculares",
-      "inicio": 379.1
+      "inicio": 368.81
     },
     {
       "id": "9",
       "titulo": "Reevaluación",
-      "inicio": 410.95
+      "inicio": 400.37
     },
     {
       "id": "10",
       "titulo": "Cierre",
-      "inicio": 437.42
+      "inicio": 425.85
     }
   ],
   "eventos": [
     {
-      "t": 437.42,
+      "t": 425.85,
       "tipo": "escuchar",
       "modo": "numero",
       "guardar": "sud_final",
       "espera": 8
     },
     {
-      "t": 437.42,
+      "t": 425.85,
       "tipo": "rama",
       "si": "repetir_ciclo",
       "condicion": "sud_final >= 5",
