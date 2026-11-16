@@ -1,9 +1,9 @@
 // Service worker: la app funciona sin conexión.
 // - Interfaz y datos: red primero y, sin red, la copia guardada.
 // - Audio: si está guardado (caché "audio-v1"), se sirve de ahí respetando los rangos de bytes.
-const SHELL = 'shell-v1';
+const SHELL = 'shell-v2';
 const ARCHIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
-  'data/catalogo.json', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'];
+  'data/catalogo.json', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'img/inicio.jpg'];
 
 self.addEventListener('install', ev => {
   ev.waitUntil(caches.open(SHELL).then(c => c.addAll(ARCHIVOS)).then(() => self.skipWaiting()));

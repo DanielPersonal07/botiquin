@@ -35,7 +35,7 @@ function saludo() {
 function tarjeta(e, extra = '') {
   const tags = [`<span class="tag">${e.minutos} min</span>`, `<span class="tag">${TIPOS[e.tipo]}</span>`];
   if (e.audio) tags.push('<span class="tag ok">Con voz</span>');
-  else if (e.tipo !== 'ficha') tags.push('<span class="tag">Audio pendiente</span>');
+  else if (e.tipo === 'guiada') tags.push('<span class="tag">Audio pendiente</span>');
   return `<button class="card" data-ir="#/ej/${e.id}">
     <h3>${esc(e.titulo)}</h3><div class="sub">${esc(e.subtitulo || '')}</div>
     <div class="meta">${tags.join('')}</div>${extra}</button>`;
@@ -64,37 +64,137 @@ function recomendar() {
     .slice(0, 4);
 }
 
+// ---------- Entender lo que dices ----------
+const sinTildes = t => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const CLAVES = {
+  ansiedad: ['ansi', 'nervio', 'inquiet', 'agobi', 'panico', 'angusti', 'miedo', 'acelerad', 'alterad', 'intranquil', 'taquicardia', 'preocupad'],
+  bucle: ['no paro de pensar', 'no dejo de pensar', 'pensamiento', 'rumi', 'vueltas', 'obses', 'bucle', 'la cabeza no para', 'mente no para', 'no puedo parar de pensar'],
+  saturacion: ['estres', 'estresad', 'saturad', 'colapsad', 'desbordad', 'bloquead', 'agotad', 'quemad', 'mucho trabajo', 'tension', 'cargad', 'presionad'],
+  emocion: ['triste', 'tristeza', 'rabia', 'enfad', 'frustr', 'ira', 'dolid', 'decepcion', 'decepcionad', 'llorar', 'culpa', 'celos', 'rencor', 'resentid', 'atascad', 'hundid', 'desanimad', 'mal'],
+  recuerdo: ['recuerdo', 'duelo', 'perdida', 'ruptura', 'separacion', 'divorcio', 'muerte', 'fallec', 'trauma', 'echo de menos', 'nostalgi', 'me dejo', 'lo dejamos'],
+  limites: ['opinion', 'critica', 'criticad', 'lo que dicen', 'lo que piensen', 'me afecta', 'limite', 'juzgad', 'me juzgan', 'presion', 'decir que no', 'manipul', 'invadid', 'me pisan'],
+  confianza: ['confianza', 'insegur', 'no valgo', 'no soy capaz', 'no puedo con', 'merec', 'autoestima', 'inutil', 'fracas', 'dudo de mi', 'pequeno', 'incapaz'],
+  disperso: ['dispers', 'desconect', 'despist', 'concentr', 'en las nubes', 'piloto automatico', 'ausente', 'no estoy presente', 'distraid', 'en otra parte'],
+  dormir: ['dormir', 'insomnio', 'sueno', 'desvel', 'no duermo', 'dormido', 'descansar'],
+  rumbo: ['rumbo', 'objetivo', 'perdido', 'sin sentido', 'que hacer con mi vida', 'motivac', 'proposito', 'meta', 'desorientad', 'estancad'],
+  pendientes: ['pendiente', 'cerrar', 'procrastin', 'no acabo', 'tareas', 'aplazo', 'dejo para manana', 'sin terminar'],
+  impulsos: ['impulso', 'fumar', 'tabaco', 'picar', 'atracon', 'beber', 'alcohol', 'comprar', 'adicc', 'compuls', 'antojo'],
+};
+const CRISIS = ['suicid', 'matarme', 'quitarme la vida', 'hacerme dano', 'no quiero vivir', 'autolesion', 'acabar con todo', 'desaparecer para siempre'];
+
+function entender(texto) {
+  const t = ' ' + sinTildes(texto) + ' ';
+  if (CRISIS.some(c => t.includes(c))) return { crisis: true, estados: [] };
+  const estados = Object.entries(CLAVES).filter(([, ks]) => ks.some(k => {
+    if (k === 'mal') return /\bmal\b/.test(t);
+    if (k === 'ira') return /\bira\b/.test(t);
+    return t.includes(k);
+  })).map(([id]) => id);
+  // "mal" solo cuenta si no hay nada más concreto
+  if (estados.length > 1 && estados.includes('emocion') && !/triste|rabia|enfad|frustr|\bira\b|dolid|decepcion|llorar|culpa|celos|rencor|resentid|atascad|hundid|desanimad/.test(t)) {
+    estados.splice(estados.indexOf('emocion'), 1);
+  }
+  return { crisis: false, estados };
+}
+
+function oirFrase() {
+  return new Promise(resolve => {
+    if (!SR) return resolve(null);
+    const rec = new SR();
+    rec.lang = 'es-ES'; rec.interimResults = false; rec.maxAlternatives = 1; rec.continuous = false;
+    let texto = null;
+    rec.onresult = ev => { texto = ev.results[0][0].transcript; };
+    rec.onerror = () => {};
+    rec.onend = () => resolve(texto);
+    try { rec.start(); } catch { resolve(null); }
+  });
+}
+
 // ---------- Vistas ----------
+let ultimaFrase = null;
+
 function vistaInicio() {
-  const expres = CAT.ejercicios.filter(e => e.tipo === 'expres');
+  const recursos = CAT.ejercicios.filter(e => e.tipo === 'expres' || e.tipo === 'ficha');
   app.innerHTML = `
     <p class="saludo">${saludo()}, Daniel</p>
     <h1>¿Cómo te sientes ahora?</h1>
-    <div class="expres">${expres.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.minutos} min · al momento</span></button>`).join('')}</div>
-    <h2>Lo que te pasa</h2>
+    <div class="hablar">
+      <form class="hablar-fila" id="form-hablar">
+        <input id="frase" type="text" enterkeyhint="go" autocomplete="off" placeholder="Cuéntame: «estoy nervioso, triste…»" aria-label="Cómo te sientes">
+        <button type="button" class="btn-mic" id="mic" aria-label="Hablar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+      </form>
+      <p class="entendido" id="entendido">${SR ? 'Pulsa el micrófono y dime cómo estás, o escríbelo.' : 'Escribe cómo estás.'}</p>
+    </div>
+    <h2>Si no puedes hablar, selecciona cómo te sientes:</h2>
     <div class="chips">${CAT.estados.map(s => `<button class="chip" data-estado="${s.id}" aria-pressed="${ui.estados.has(s.id)}">${esc(s.nombre)}</button>`).join('')}</div>
     <h2>Tiempo que tienes</h2>
     <div class="seg" role="group" aria-label="Tiempo disponible">
       ${[[5, '5 min'], [10, '10 min'], [20, '20 min'], [999, 'Sin prisa']].map(([v, t]) => `<button data-tiempo="${v}" aria-pressed="${ui.tiempo === v}">${t}</button>`).join('')}
     </div>
     <label class="toggle"><span>Puedo hablar en voz alta aquí</span><input type="checkbox" id="voz" ${ui.vozAlta ? 'checked' : ''}></label>
-    <h2>Te propongo</h2>
+    <h2 id="titulo-recs">Te propongo</h2>
     <div class="lista" id="recs"></div>
-    <nav class="pie"><button data-ir="#/catalogo">Todos los ejercicios</button><button data-ir="#/historial">Mi historial</button></nav>
+    <h2>Recursos</h2>
+    <div class="recursos">${recursos.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.tipo === 'expres' ? `${e.minutos} min · al momento` : esc(e.subtitulo || '')}</span></button>`).join('')}</div>
+    <nav class="pie"><button data-ir="#/catalogo">Todos los ejercicios</button></nav>
     <p class="crisis">Si estás en crisis o piensas en hacerte daño: 024 (24 h, gratuito) o 112.</p>`;
 
+  let crisis = false;
+  const pintarChips = () => app.querySelectorAll('[data-estado]').forEach(b => b.setAttribute('aria-pressed', ui.estados.has(b.dataset.estado)));
   const pintarRecs = () => {
+    if (crisis) {
+      $('#recs').innerHTML = `<div class="crisis-card"><p><b>Lo que cuentas es importante y no tienes que llevarlo solo.</b></p>
+        <p>Llama ahora al <a href="tel:024">024</a> (línea de atención a la conducta suicida, 24 h, gratuita) o al <a href="tel:112">112</a>. Y habla con Gerard o con alguien de confianza.</p></div>`;
+      return;
+    }
     const r = recomendar();
     $('#recs').innerHTML = !ui.estados.size
-      ? '<div class="vacio">Marca una o varias cosas de arriba y te propongo ejercicios.</div>'
+      ? '<div class="vacio">Cuéntame cómo estás o marca una o varias cosas de arriba y te propongo ejercicios.</div>'
       : r.length
         ? r.map(x => tarjeta(x.e, `<div class="porque">Para: ${x.porque.map(nombreEstado).join(', ')}</div>`)).join('')
         : '<div class="vacio">Nada encaja con ese tiempo o ese sitio. Prueba con más tiempo o activando «voz alta».</div>';
     enlazar($('#recs'));
   };
 
+  const aplicarFrase = texto => {
+    ultimaFrase = texto;
+    const r = entender(texto);
+    crisis = r.crisis;
+    const nota = $('#entendido');
+    if (r.crisis) {
+      nota.innerHTML = `Has dicho: <b>«${esc(texto)}»</b>`;
+    } else if (r.estados.length) {
+      ui.estados = new Set(r.estados); store.set('estados', r.estados); pintarChips();
+      nota.innerHTML = `Has dicho: <b>«${esc(texto)}»</b>. Lo relaciono con: ${r.estados.map(nombreEstado).join(', ')}.`;
+    } else {
+      ui.estados = new Set(); store.set('estados', []); pintarChips();
+      nota.innerHTML = `Has dicho: <b>«${esc(texto)}»</b>. No he sabido relacionarlo con ningún ejercicio; prueba con otras palabras o marca cómo te sientes abajo.`;
+    }
+    pintarRecs();
+    if (r.crisis || r.estados.length) $('#titulo-recs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  $('#form-hablar').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const t = $('#frase').value.trim();
+    if (t) { $('#frase').blur(); aplicarFrase(t); }
+  });
+  const mic = $('#mic');
+  if (!SR) mic.hidden = true;
+  mic.addEventListener('click', async () => {
+    if (mic.classList.contains('activo')) return;
+    mic.classList.add('activo');
+    $('#entendido').textContent = 'Te escucho…';
+    const t = await oirFrase();
+    mic.classList.remove('activo');
+    if (t) { $('#frase').value = t; aplicarFrase(t); }
+    else $('#entendido').textContent = 'No te he oído bien. Vuelve a pulsar el micrófono o escríbelo.';
+  });
+  if (ultimaFrase) { $('#frase').value = ultimaFrase; }
+
   app.querySelectorAll('[data-estado]').forEach(b => b.addEventListener('click', () => {
     const id = b.dataset.estado;
+    crisis = false;
     ui.estados.has(id) ? ui.estados.delete(id) : ui.estados.add(id);
     b.setAttribute('aria-pressed', ui.estados.has(id));
     store.set('estados', [...ui.estados]); pintarRecs();
@@ -148,7 +248,7 @@ async function vistaFicha(id) {
     <section class="bloque"><h2>Ritmo</h2>
       <div class="seg">${disponibles.map(([r, t]) => `<button data-ritmo="${r}" aria-pressed="${ui.ritmo === r}">${t} · ${fmtMin(infos[r].duracion)}</button>`).join('')}</div>
     </section>
-    <p class="consejos">Ponte auriculares. La pantalla se quedará en negro y encendida. Con los botones de los auriculares: pausa, paso siguiente y repetir paso.${e.voz ? ' Al final te pedirá el número en voz alta.' : ''}</p>
+    <p class="consejos">Ponte auriculares y busca un sitio tranquilo. Durante el ejercicio la pantalla se queda en negro.${e.voz ? ' Al final te preguntará cómo de intenso es el malestar: dilo en voz alta y, si es 5 o más, te ofrecerá repetir el ciclo.' : ''}</p>
     <div class="empezar"><button class="btn" id="empezar">Empezar</button></div>`;
   app.querySelectorAll('[data-ritmo]').forEach(b => b.addEventListener('click', () => {
     ui.ritmo = b.dataset.ritmo; store.set('ritmo', ui.ritmo);
@@ -391,45 +491,12 @@ async function guardarSinConexion(e, info) {
 
 function vistaFin() {
   const d = sesionActual;
+  sesionActual = null;
   if (!d) return ir('#/');
-  let inicial = d.vars.sud_inicial ?? null, final = d.vars.sud_final ?? null;
-  const fila = (nombre, sel) => `<div class="numeros" data-fila="${nombre}">${Array.from({ length: 10 }, (_, i) => `<button data-v="${i + 1}" aria-pressed="${sel === i + 1}">${i + 1}</button>`).join('')}</div>`;
-  app.innerHTML = `<h1>Bien hecho</h1>
+  app.innerHTML = `<div class="fin"><h1>Bien hecho</h1>
     <p class="ficha-meta">${esc(d.titulo)}${d.ciclos > 1 ? ` · ${d.ciclos} ciclos` : ''}</p>
-    <h2>Malestar al empezar</h2><div class="fila-num">${fila('inicial', inicial)}</div>
-    <h2>Malestar ahora</h2><div class="fila-num">${fila('final', final)}</div>
-    <h2>Nota (opcional)</h2><textarea id="nota" placeholder="Qué has notado, sobre qué situación…"></textarea>
-    <div class="empezar"><button class="btn" id="guardar">Guardar</button>
-    <button class="btn sec" id="nosave" style="margin-top:10px">Salir sin guardar</button></div>`;
-  app.querySelectorAll('[data-fila]').forEach(f => f.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
-    f.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
-    if (f.dataset.fila === 'inicial') inicial = +b.dataset.v; else final = +b.dataset.v;
-  })));
-  $('#guardar').onclick = () => {
-    const h = store.get('historial', []);
-    h.push({ fecha: new Date().toISOString(), id: d.id, titulo: d.titulo, ritmo: d.ritmo, inicial, final, ciclos: d.ciclos, nota: $('#nota').value.trim() });
-    store.set('historial', h); sesionActual = null; ir('#/historial');
-  };
-  $('#nosave').onclick = () => { sesionActual = null; ir('#/'); };
-}
-
-function vistaHistorial() {
-  const h = store.get('historial', []).slice().reverse();
-  const porEj = {};
-  h.forEach(r => { if (r.inicial != null && r.final != null) (porEj[r.titulo] ||= []).push(r.inicial - r.final); });
-  const medias = Object.entries(porEj).filter(([, v]) => v.length >= 2)
-    .map(([t, v]) => `<p>${esc(t)}: baja media de <b>${(v.reduce((a, b) => a + b, 0) / v.length).toFixed(1).replace('.', ',')}</b> puntos (${v.length} veces)</p>`).join('');
-  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
-    <h1>Mi historial</h1>
-    ${medias ? `<section class="bloque"><h2>Lo que mejor te funciona</h2>${medias}</section>` : ''}
-    <div class="lista" style="margin-top:20px">${h.length ? h.map(r => {
-      const f = new Date(r.fecha);
-      const sud = r.inicial != null || r.final != null
-        ? `<span class="sud">${r.inicial ?? '–'} → <span class="${r.final != null && r.inicial != null && r.final < r.inicial ? 'baja' : ''}">${r.final ?? '–'}</span></span>` : '';
-      return `<div class="card"><div class="registro"><div><h3>${esc(r.titulo)}</h3>
-        <div class="sub">${f.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })} · ${f.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}${r.ciclos > 1 ? ` · ${r.ciclos} ciclos` : ''}</div></div>${sud}</div>
-        ${r.nota ? `<p class="porque">${esc(r.nota)}</p>` : ''}</div>`;
-    }).join('') : '<div class="vacio">Aún no has guardado ninguna sesión.</div>'}</div>`;
+    <p class="muted">Quédate un momento con lo que sientes antes de seguir.</p>
+    <button class="btn" data-ir="#/">Volver al inicio</button></div>`;
   enlazar();
 }
 
@@ -440,12 +507,22 @@ function rutear() {
   window.scrollTo(0, 0);
   if (h.startsWith('#/ej/')) return vistaFicha(decodeURIComponent(h.slice(5)));
   if (h === '#/catalogo') return vistaCatalogo();
-  if (h === '#/historial') return vistaHistorial();
   if (h === '#/fin') return vistaFin();
   return vistaInicio();
 }
 
+function bienvenida() {
+  const s = document.createElement('div');
+  s.className = 'splash';
+  s.innerHTML = '<h1>Tu roca, tus vistas, tu paz.</h1>';
+  s.addEventListener('click', () => quitar());
+  document.body.appendChild(s);
+  const quitar = () => { s.classList.add('fuera'); setTimeout(() => s.remove(), 1000); };
+  setTimeout(quitar, 3500);
+}
+
 (async () => {
+  bienvenida();
   CAT = await (await fetch('data/catalogo.json')).json();
   window.addEventListener('hashchange', rutear);
   rutear();
