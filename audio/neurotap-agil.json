@@ -1,83 +1,84 @@
 {
-  "archivo": "neurotap-agil.mp3",
-  "ritmo": "agil",
-  "duracion": 870.37,
-  "marcas": [
-    {
-      "id": "0",
-      "titulo": "Preparación",
-      "inicio": 1.0
-    },
-    {
-      "id": "1",
-      "titulo": "Automasaje",
-      "inicio": 23.44
-    },
-    {
-      "id": "2",
-      "titulo": "Línea base",
-      "inicio": 103.84
-    },
-    {
-      "id": "3",
-      "titulo": "Tapping",
-      "inicio": 132.42
-    },
-    {
-      "id": "5.1",
-      "titulo": "Integración · serie 1",
-      "inicio": 243.35
-    },
-    {
-      "id": "5.2",
-      "titulo": "Integración · serie 2",
-      "inicio": 352.57
-    },
-    {
-      "id": "5.3",
-      "titulo": "Integración · serie 3",
-      "inicio": 462.03
-    },
-    {
-      "id": "5.4",
-      "titulo": "Integración · serie 4",
-      "inicio": 573.19
-    },
-    {
-      "id": "6",
-      "titulo": "Risa",
-      "inicio": 683.13
-    },
-    {
-      "id": "7",
-      "titulo": "Reevaluación",
-      "inicio": 707.27
-    },
-    {
-      "id": "8",
-      "titulo": "Manos en el corazón",
-      "inicio": 722.19
-    },
-    {
-      "id": "9",
-      "titulo": "Confianza",
-      "inicio": 776.59
-    },
-    {
-      "id": "10",
-      "titulo": "Cuenta del 1 al 5",
-      "inicio": 830.15
-    },
-    {
-      "id": "11",
-      "titulo": "Programación de paz",
-      "inicio": 845.99
-    },
-    {
-      "id": "12",
-      "titulo": "Cierre",
-      "inicio": 861.85
-    }
-  ],
-  "eventos": []
+ "archivo": "neurotap-agil.mp3",
+ "version": "029e9f1c9b",
+ "ritmo": "agil",
+ "duracion": 870.37,
+ "marcas": [
+  {
+   "id": "0",
+   "titulo": "Preparación",
+   "inicio": 1.0
+  },
+  {
+   "id": "1",
+   "titulo": "Automasaje",
+   "inicio": 23.44
+  },
+  {
+   "id": "2",
+   "titulo": "Línea base",
+   "inicio": 103.84
+  },
+  {
+   "id": "3",
+   "titulo": "Tapping",
+   "inicio": 132.42
+  },
+  {
+   "id": "5.1",
+   "titulo": "Integración · serie 1",
+   "inicio": 243.35
+  },
+  {
+   "id": "5.2",
+   "titulo": "Integración · serie 2",
+   "inicio": 352.57
+  },
+  {
+   "id": "5.3",
+   "titulo": "Integración · serie 3",
+   "inicio": 462.03
+  },
+  {
+   "id": "5.4",
+   "titulo": "Integración · serie 4",
+   "inicio": 573.19
+  },
+  {
+   "id": "6",
+   "titulo": "Risa",
+   "inicio": 683.13
+  },
+  {
+   "id": "7",
+   "titulo": "Reevaluación",
+   "inicio": 707.27
+  },
+  {
+   "id": "8",
+   "titulo": "Manos en el corazón",
+   "inicio": 722.19
+  },
+  {
+   "id": "9",
+   "titulo": "Confianza",
+   "inicio": 776.59
+  },
+  {
+   "id": "10",
+   "titulo": "Cuenta del 1 al 5",
+   "inicio": 830.15
+  },
+  {
+   "id": "11",
+   "titulo": "Programación de paz",
+   "inicio": 845.99
+  },
+  {
+   "id": "12",
+   "titulo": "Cierre",
+   "inicio": 861.85
+  }
+ ],
+ "eventos": []
 }

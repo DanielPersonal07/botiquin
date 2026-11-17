@@ -403,7 +403,7 @@ async function iniciarSesion(e, info) {
 
   const ICONO_PAUSA = $('#pp').innerHTML;
   const ICONO_PLAY = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>';
-  const a = new Audio(`audio/${info.archivo}`);
+  const a = new Audio(`audio/${info.archivo}?v=${info.version || ''}`);  // ?v= cambia con cada versión del audio
   a.preload = 'auto';
   const clip = new Audio();
   const marcas = info.marcas, eventos = info.eventos || [];
@@ -516,19 +516,8 @@ async function iniciarSesion(e, info) {
   a.onended = () => terminar(true);
   $('#salir').onclick = () => terminar(false);
 
-  guardarSinConexion(e, info);
   a.play().catch(() => { $('#pp').innerHTML = ICONO_PLAY; });
   pintar();
-}
-
-async function guardarSinConexion(e, info) {
-  if (!('caches' in window)) return;
-  try {
-    const c = await caches.open('audio-v3');
-    const urls = [`audio/${info.archivo}`, ...(info.eventos || []).filter(ev => ev.clip).map(ev => `audio/${ev.clip}`)];
-    if (info.ciclo) urls.push(`audio/${info.ciclo.enlace_clip}`);
-    for (const u of urls) if (!(await c.match(u))) await c.add(u);
-  } catch { /* sin espacio o sin red */ }
 }
 
 function vistaFin() {

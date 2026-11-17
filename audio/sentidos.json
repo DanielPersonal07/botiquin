@@ -1,58 +1,59 @@
 {
-  "archivo": "sentidos.mp3",
-  "ritmo": "normal",
-  "duracion": 670.06,
-  "marcas": [
-    {
-      "id": "0",
-      "titulo": "Preparación",
-      "inicio": 1.0
-    },
-    {
-      "id": "1",
-      "titulo": "Apertura · ¿Dónde estoy?",
-      "inicio": 16.32
-    },
-    {
-      "id": "2",
-      "titulo": "Respiración consciente",
-      "inicio": 59.74
-    },
-    {
-      "id": "3",
-      "titulo": "El oído",
-      "inicio": 85.82
-    },
-    {
-      "id": "4",
-      "titulo": "La vista",
-      "inicio": 194.22
-    },
-    {
-      "id": "5",
-      "titulo": "El olfato",
-      "inicio": 292.1
-    },
-    {
-      "id": "6",
-      "titulo": "El tacto",
-      "inicio": 380.42
-    },
-    {
-      "id": "7",
-      "titulo": "El gusto",
-      "inicio": 468.4
-    },
-    {
-      "id": "8",
-      "titulo": "Integración",
-      "inicio": 563.26
-    },
-    {
-      "id": "9",
-      "titulo": "Cierre",
-      "inicio": 646.62
-    }
-  ],
-  "eventos": []
+ "archivo": "sentidos.mp3",
+ "version": "91c4da6b66",
+ "ritmo": "normal",
+ "duracion": 670.06,
+ "marcas": [
+  {
+   "id": "0",
+   "titulo": "Preparación",
+   "inicio": 1.0
+  },
+  {
+   "id": "1",
+   "titulo": "Apertura · ¿Dónde estoy?",
+   "inicio": 16.32
+  },
+  {
+   "id": "2",
+   "titulo": "Respiración consciente",
+   "inicio": 59.74
+  },
+  {
+   "id": "3",
+   "titulo": "El oído",
+   "inicio": 85.82
+  },
+  {
+   "id": "4",
+   "titulo": "La vista",
+   "inicio": 194.22
+  },
+  {
+   "id": "5",
+   "titulo": "El olfato",
+   "inicio": 292.1
+  },
+  {
+   "id": "6",
+   "titulo": "El tacto",
+   "inicio": 380.42
+  },
+  {
+   "id": "7",
+   "titulo": "El gusto",
+   "inicio": 468.4
+  },
+  {
+   "id": "8",
+   "titulo": "Integración",
+   "inicio": 563.26
+  },
+  {
+   "id": "9",
+   "titulo": "Cierre",
+   "inicio": 646.62
+  }
+ ],
+ "eventos": []
 }

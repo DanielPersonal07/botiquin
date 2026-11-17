@@ -1,53 +1,54 @@
 {
-  "archivo": "zona-poder.mp3",
-  "ritmo": "normal",
-  "duracion": 496.41,
-  "marcas": [
-    {
-      "id": "0",
-      "titulo": "Preparación",
-      "inicio": 1.0
-    },
-    {
-      "id": "1",
-      "titulo": "Delimitación del territorio",
-      "inicio": 29.82
-    },
-    {
-      "id": "2",
-      "titulo": "Tus cuatro poderes",
-      "inicio": 71.8
-    },
-    {
-      "id": "3",
-      "titulo": "La sensación de «MÍO»",
-      "inicio": 144.88
-    },
-    {
-      "id": "4",
-      "titulo": "«MÍO» en tus cuatro poderes",
-      "inicio": 235.61
-    },
-    {
-      "id": "5",
-      "titulo": "Mío y no mío",
-      "inicio": 273.05
-    },
-    {
-      "id": "6",
-      "titulo": "Maravillosa falibilidad humana",
-      "inicio": 341.03
-    },
-    {
-      "id": "7",
-      "titulo": "Puente al futuro",
-      "inicio": 385.57
-    },
-    {
-      "id": "8",
-      "titulo": "Cierre",
-      "inicio": 479.83
-    }
-  ],
-  "eventos": []
+ "archivo": "zona-poder.mp3",
+ "version": "b35de85445",
+ "ritmo": "normal",
+ "duracion": 496.41,
+ "marcas": [
+  {
+   "id": "0",
+   "titulo": "Preparación",
+   "inicio": 1.0
+  },
+  {
+   "id": "1",
+   "titulo": "Delimitación del territorio",
+   "inicio": 29.82
+  },
+  {
+   "id": "2",
+   "titulo": "Tus cuatro poderes",
+   "inicio": 71.8
+  },
+  {
+   "id": "3",
+   "titulo": "La sensación de «MÍO»",
+   "inicio": 144.88
+  },
+  {
+   "id": "4",
+   "titulo": "«MÍO» en tus cuatro poderes",
+   "inicio": 235.61
+  },
+  {
+   "id": "5",
+   "titulo": "Mío y no mío",
+   "inicio": 273.05
+  },
+  {
+   "id": "6",
+   "titulo": "Maravillosa falibilidad humana",
+   "inicio": 341.03
+  },
+  {
+   "id": "7",
+   "titulo": "Puente al futuro",
+   "inicio": 385.57
+  },
+  {
+   "id": "8",
+   "titulo": "Cierre",
+   "inicio": 479.83
+  }
+ ],
+ "eventos": []
 }

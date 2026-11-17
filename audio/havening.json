@@ -1,58 +1,59 @@
 {
-  "archivo": "havening.mp3",
-  "ritmo": "normal",
-  "duracion": 344.01,
-  "marcas": [
-    {
-      "id": "0",
-      "titulo": "Preparación",
-      "inicio": 1.0
-    },
-    {
-      "id": "1",
-      "titulo": "Línea base",
-      "inicio": 43.06
-    },
-    {
-      "id": "2",
-      "titulo": "Posición de partida",
-      "inicio": 71.24
-    },
-    {
-      "id": "3",
-      "titulo": "Pase 1 · La playa",
-      "inicio": 87.62
-    },
-    {
-      "id": "4",
-      "titulo": "Movimiento ocular",
-      "inicio": 154.22
-    },
-    {
-      "id": "5",
-      "titulo": "Pase 2 · El jardín",
-      "inicio": 180.29
-    },
-    {
-      "id": "6",
-      "titulo": "Movimiento ocular",
-      "inicio": 235.21
-    },
-    {
-      "id": "7",
-      "titulo": "Pase 3 · La escalera",
-      "inicio": 255.79
-    },
-    {
-      "id": "8",
-      "titulo": "Última serie de movimientos oculares",
-      "inicio": 302.35
-    },
-    {
-      "id": "9",
-      "titulo": "Final",
-      "inicio": 328.51
-    }
-  ],
-  "eventos": []
+ "archivo": "havening.mp3",
+ "version": "f40a90dff2",
+ "ritmo": "normal",
+ "duracion": 344.01,
+ "marcas": [
+  {
+   "id": "0",
+   "titulo": "Preparación",
+   "inicio": 1.0
+  },
+  {
+   "id": "1",
+   "titulo": "Línea base",
+   "inicio": 43.06
+  },
+  {
+   "id": "2",
+   "titulo": "Posición de partida",
+   "inicio": 71.24
+  },
+  {
+   "id": "3",
+   "titulo": "Pase 1 · La playa",
+   "inicio": 87.62
+  },
+  {
+   "id": "4",
+   "titulo": "Movimiento ocular",
+   "inicio": 154.22
+  },
+  {
+   "id": "5",
+   "titulo": "Pase 2 · El jardín",
+   "inicio": 180.29
+  },
+  {
+   "id": "6",
+   "titulo": "Movimiento ocular",
+   "inicio": 235.21
+  },
+  {
+   "id": "7",
+   "titulo": "Pase 3 · La escalera",
+   "inicio": 255.79
+  },
+  {
+   "id": "8",
+   "titulo": "Última serie de movimientos oculares",
+   "inicio": 302.35
+  },
+  {
+   "id": "9",
+   "titulo": "Final",
+   "inicio": 328.51
+  }
+ ],
+ "eventos": []
 }

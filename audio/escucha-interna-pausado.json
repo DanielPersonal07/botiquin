@@ -1,43 +1,44 @@
 {
-  "archivo": "escucha-interna-pausado.mp3",
-  "ritmo": "pausado",
-  "duracion": 720.0,
-  "marcas": [
-    {
-      "id": "0",
-      "titulo": "Preparación",
-      "inicio": 1.0
-    },
-    {
-      "id": "1",
-      "titulo": "Reconocer",
-      "inicio": 56.58
-    },
-    {
-      "id": "2",
-      "titulo": "Nombrar",
-      "inicio": 200.06
-    },
-    {
-      "id": "3",
-      "titulo": "Escuchar la necesidad",
-      "inicio": 325.36
-    },
-    {
-      "id": "4",
-      "titulo": "Elegir una respuesta",
-      "inicio": 459.6
-    },
-    {
-      "id": "5",
-      "titulo": "Cuidado interno",
-      "inicio": 589.18
-    },
-    {
-      "id": "6",
-      "titulo": "Cierre",
-      "inicio": 701.22
-    }
-  ],
-  "eventos": []
+ "archivo": "escucha-interna-pausado.mp3",
+ "version": "cd4d8b2a02",
+ "ritmo": "pausado",
+ "duracion": 720.0,
+ "marcas": [
+  {
+   "id": "0",
+   "titulo": "Preparación",
+   "inicio": 1.0
+  },
+  {
+   "id": "1",
+   "titulo": "Reconocer",
+   "inicio": 56.58
+  },
+  {
+   "id": "2",
+   "titulo": "Nombrar",
+   "inicio": 200.06
+  },
+  {
+   "id": "3",
+   "titulo": "Escuchar la necesidad",
+   "inicio": 325.36
+  },
+  {
+   "id": "4",
+   "titulo": "Elegir una respuesta",
+   "inicio": 459.6
+  },
+  {
+   "id": "5",
+   "titulo": "Cuidado interno",
+   "inicio": 589.18
+  },
+  {
+   "id": "6",
+   "titulo": "Cierre",
+   "inicio": 701.22
+  }
+ ],
+ "eventos": []
 }
