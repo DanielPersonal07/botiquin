@@ -1,0 +1,58 @@
+{
+  "archivo": "sentidos-agil.mp3",
+  "ritmo": "agil",
+  "duracion": 572.46,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Apertura · ¿Dónde estoy?",
+      "inicio": 15.12
+    },
+    {
+      "id": "2",
+      "titulo": "Respiración consciente",
+      "inicio": 52.54
+    },
+    {
+      "id": "3",
+      "titulo": "El oído",
+      "inicio": 75.62
+    },
+    {
+      "id": "4",
+      "titulo": "La vista",
+      "inicio": 169.02
+    },
+    {
+      "id": "5",
+      "titulo": "El olfato",
+      "inicio": 252.7
+    },
+    {
+      "id": "6",
+      "titulo": "El tacto",
+      "inicio": 326.82
+    },
+    {
+      "id": "7",
+      "titulo": "El gusto",
+      "inicio": 401.0
+    },
+    {
+      "id": "8",
+      "titulo": "Integración",
+      "inicio": 481.26
+    },
+    {
+      "id": "9",
+      "titulo": "Cierre",
+      "inicio": 551.42
+    }
+  ],
+  "eventos": []
+}

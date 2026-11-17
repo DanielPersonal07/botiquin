@@ -167,7 +167,7 @@
       "subtitulo": "Estar aquí",
       "sesion": 5,
       "tipo": "guiada",
-      "minutos": 10,
+      "minutos": 11,
       "requisitos": [],
       "estados": {
         "disperso": 1,
@@ -182,7 +182,7 @@
         "Respira de forma consciente durante todo el proceso.",
         "Integra los cinco sentidos a la vez."
       ],
-      "audio": null
+      "audio": "sentidos"
     },
     {
       "id": "escucha-interna",
