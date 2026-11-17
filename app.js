@@ -24,7 +24,8 @@ let finSesion = null;      // función para cortar la sesión en curso
 // ---------- Utilidades ----------
 const ej = id => CAT.ejercicios.find(e => e.id === id);
 const nombreEstado = id => CAT.estados.find(s => s.id === id)?.nombre.toLowerCase() || id;
-const ir = h => { location.hash = h; };
+// si ya estamos en esa dirección, el navegador no avisa: se pinta la vista directamente
+const ir = h => { if (location.hash === h) rutear(); else location.hash = h; };
 const fmtMin = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
 function saludo() {
@@ -125,8 +126,16 @@ function vistaInicio() {
       </form>
       <p class="entendido" id="entendido">${SR ? 'Pulsa el micrófono y dime cómo estás, o escríbelo.' : 'Escribe cómo estás.'}</p>
     </div>
-    <h2>Si no puedes hablar, selecciona cómo te sientes:</h2>
-    <div class="chips">${CAT.estados.map(s => `<button class="chip" data-estado="${s.id}" aria-pressed="${ui.estados.has(s.id)}">${esc(s.nombre)}</button>`).join('')}</div>
+    <div class="sentir">
+      <button class="sentir-cab" id="abrir-nube" aria-expanded="false" aria-controls="nube">
+        <span>Si no puedes hablar, selecciona cómo te sientes</span><span class="mas" aria-hidden="true">+</span>
+      </button>
+      <div class="sentir-sel" id="sentir-sel"></div>
+      <div class="nube" id="nube" hidden>
+        <div class="chips">${CAT.estados.map(s => `<button class="chip" data-estado="${s.id}" aria-pressed="${ui.estados.has(s.id)}">${esc(s.nombre)}</button>`).join('')}</div>
+        <button class="nube-listo" id="nube-listo">Listo</button>
+      </div>
+    </div>
     <h2>Tiempo que tienes</h2>
     <div class="seg" role="group" aria-label="Tiempo disponible">
       ${[[5, '5 min'], [10, '10 min'], [20, '20 min'], [999, 'Sin prisa']].map(([v, t]) => `<button data-tiempo="${v}" aria-pressed="${ui.tiempo === v}">${t}</button>`).join('')}
@@ -140,7 +149,21 @@ function vistaInicio() {
     <p class="crisis">Si estás en crisis o piensas en hacerte daño: 024 (24 h, gratuito) o 112.</p>`;
 
   let crisis = false;
-  const pintarChips = () => app.querySelectorAll('[data-estado]').forEach(b => b.setAttribute('aria-pressed', ui.estados.has(b.dataset.estado)));
+  const pintarChips = () => {
+    app.querySelectorAll('[data-estado]').forEach(b => b.setAttribute('aria-pressed', ui.estados.has(b.dataset.estado)));
+    // con la nube cerrada, se ven solo las elegidas (y se pueden quitar con un toque)
+    $('#sentir-sel').innerHTML = [...ui.estados].map(id => `<button class="sel" data-quitar="${id}" aria-label="Quitar ${esc(nombreEstado(id))}">${esc(CAT.estados.find(x => x.id === id)?.nombre || id)} <span aria-hidden="true">×</span></button>`).join('');
+    $('#sentir-sel').querySelectorAll('[data-quitar]').forEach(b => b.addEventListener('click', () => {
+      ui.estados.delete(b.dataset.quitar); store.set('estados', [...ui.estados]); crisis = false; pintarChips(); pintarRecs();
+    }));
+  };
+  const nube = $('#nube'), abrir = $('#abrir-nube');
+  const ponerNube = abierta => {
+    nube.hidden = !abierta; abrir.setAttribute('aria-expanded', abierta);
+    $('#sentir-sel').hidden = abierta;
+  };
+  abrir.addEventListener('click', () => ponerNube(nube.hidden));
+  $('#nube-listo').addEventListener('click', () => { ponerNube(false); $('#titulo-recs').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   const pintarRecs = () => {
     if (crisis) {
       $('#recs').innerHTML = `<div class="crisis-card"><p><b>Lo que cuentas es importante y no tienes que llevarlo solo.</b></p>
@@ -196,8 +219,7 @@ function vistaInicio() {
     const id = b.dataset.estado;
     crisis = false;
     ui.estados.has(id) ? ui.estados.delete(id) : ui.estados.add(id);
-    b.setAttribute('aria-pressed', ui.estados.has(id));
-    store.set('estados', [...ui.estados]); pintarRecs();
+    store.set('estados', [...ui.estados]); pintarChips(); pintarRecs();
   }));
   app.querySelectorAll('[data-tiempo]').forEach(b => b.addEventListener('click', () => {
     ui.tiempo = +b.dataset.tiempo; store.set('tiempo', ui.tiempo);
@@ -205,7 +227,7 @@ function vistaInicio() {
     pintarRecs();
   }));
   $('#voz').addEventListener('change', ev => { ui.vozAlta = ev.target.checked; store.set('vozAlta', ui.vozAlta); pintarRecs(); });
-  enlazar(); pintarRecs();
+  enlazar(); pintarChips(); pintarRecs();
 }
 
 function vistaCatalogo() {

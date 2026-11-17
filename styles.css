@@ -201,3 +201,46 @@ body.en-sesion #app { max-width: none; padding: 0; }
 .linea .barra { margin-top: 0; height: 3px; }
 .linea:focus-visible { outline: 1px solid #4d5b58; outline-offset: 2px; border-radius: 4px; }
 .tiempos { display: flex; justify-content: space-between; font-size: 12px; color: #4d5b58; font-variant-numeric: tabular-nums; }
+
+/* Cómo te sientes: nube desplegable */
+.sentir { margin-top: 22px; }
+.sentir-cab {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: none; border: 0; padding: 6px 0; text-align: left;
+  font-family: var(--serif); font-size: 18px; color: var(--text);
+}
+.sentir-cab .mas {
+  flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--fucsia-suave); color: var(--fucsia); font: 400 24px/1 var(--sans);
+  transition: transform .3s ease, background .3s ease;
+}
+.sentir-cab[aria-expanded="true"] .mas { transform: rotate(45deg); background: var(--fucsia); color: var(--on-fucsia); }
+.sentir-sel { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.sentir-sel:empty, .sentir-sel[hidden] { display: none; }
+.sel {
+  border: 0; border-radius: 999px; padding: 6px 12px; font-size: 14px;
+  background: var(--fucsia); color: var(--on-fucsia);
+}
+.sel span { opacity: .8; margin-left: 2px; }
+.nube {
+  position: relative; margin-top: 10px; padding: 18px 14px 14px; border-radius: 28px;
+  background: radial-gradient(120% 90% at 20% 0%, #fff 0%, var(--surface-2) 70%);
+  box-shadow: var(--sombra); border: 1px solid var(--line);
+  animation: brotar .35s cubic-bezier(.2,.8,.3,1.2);
+  transform-origin: 90% 0;
+}
+.nube::before {
+  content: ""; position: absolute; top: -8px; right: 22px; width: 16px; height: 16px;
+  background: #fff; border-left: 1px solid var(--line); border-top: 1px solid var(--line); transform: rotate(45deg);
+}
+.nube .chips { justify-content: center; gap: 7px; }
+.nube .chip { font-size: 13.5px; padding: 6px 11px; animation: aparecer .4s both; }
+.nube .chip:nth-child(3n+2) { animation-delay: .04s; }
+.nube .chip:nth-child(3n) { animation-delay: .08s; }
+.nube-listo {
+  display: block; margin: 14px auto 0; border: 0; background: none; color: var(--fucsia);
+  font-weight: 600; padding: 6px 18px;
+}
+@keyframes brotar { from { opacity: 0; transform: scale(.92) translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes aparecer { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .nube, .nube .chip { animation: none; } .sentir-cab .mas { transition: none; } }

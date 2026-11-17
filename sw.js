@@ -1,7 +1,7 @@
 // Service worker: la app funciona sin conexión.
 // - Interfaz y datos: red primero y, sin red, la copia guardada.
 // - Audio: si está guardado (caché "audio-v2"), se sirve de ahí respetando los rangos de bytes.
-const SHELL = 'shell-v4';
+const SHELL = 'shell-v5';
 const AUDIO = 'audio-v3'; // súbelo cuando cambien los audios para que el móvil descargue los nuevos
 const ARCHIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
   'data/catalogo.json', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'img/inicio.jpg'];
