@@ -195,3 +195,9 @@ body.en-sesion #app { max-width: none; padding: 0; }
 .fin .btn { margin-top: 28px; }
 
 @media (prefers-reduced-motion: reduce) { .mic, .btn-mic.activo { animation: none; } .splash { transition: none; } }
+
+/* Línea temporal clicable */
+.linea { padding: 16px 0; margin-top: 4px; cursor: pointer; touch-action: none; }
+.linea .barra { margin-top: 0; height: 3px; }
+.linea:focus-visible { outline: 1px solid #4d5b58; outline-offset: 2px; border-radius: 4px; }
+.tiempos { display: flex; justify-content: space-between; font-size: 12px; color: #4d5b58; font-variant-numeric: tabular-nums; }

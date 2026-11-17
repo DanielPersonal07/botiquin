@@ -368,7 +368,8 @@ async function iniciarSesion(e, info) {
   document.body.classList.add('en-sesion');
   app.innerHTML = `<div class="sesion">
       <div class="centro"><div class="paso" id="paso">Preparando…</div><div class="num" id="num"></div>
-      <div class="barra"><i id="prog"></i></div></div>
+      <div class="linea" id="linea" role="slider" aria-label="Posición del audio" tabindex="0"><div class="barra"><i id="prog"></i></div></div>
+      <div class="tiempos"><span id="t-act">0:00</span><span>${fmtMin(info.duracion)}</span></div></div>
       <div class="controles">
         <button id="ant" aria-label="Repetir paso"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
         <button id="pp" aria-label="Pausa"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
@@ -394,9 +395,12 @@ async function iniciarSesion(e, info) {
     a.currentTime = t;
     disparados = new Set(eventos.map((ev, i) => (ev.t < t - 0.01 ? i : -1)).filter(i => i >= 0));
   };
-  const pintar = () => {
-    const i = indicePaso(a.currentTime);
-    $('#prog').style.width = `${Math.min(100, (a.currentTime / info.duracion) * 100)}%`;
+  let destino = null, temporizador = null;   // salto pendiente: varias pulsaciones seguidas = un solo salto
+  const posicion = () => (destino ?? a.currentTime);
+  const pintar = (t = posicion()) => {
+    const i = indicePaso(t);
+    $('#prog').style.width = `${Math.min(100, (t / info.duracion) * 100)}%`;
+    $('#t-act').textContent = fmtMin(t);
     if (i === pasoActual) return;
     pasoActual = i;
     $('#paso').textContent = marcas[i].titulo;
@@ -432,19 +436,35 @@ async function iniciarSesion(e, info) {
   }
 
   const reloj = setInterval(() => {
-    if (ocupado || a.paused) return;
+    if (ocupado || a.paused || destino !== null) return;
     pintar();
     const i = eventos.findIndex((ev, k) => !disparados.has(k) && a.currentTime >= ev.t - 0.08);
     if (i >= 0) procesar(i);
   }, 100);
 
-  const saltar = dir => {
+  const buscar = t => {
     if (ocupado) return;
-    const i = indicePaso(a.currentTime);
-    if (dir > 0 && i + 1 < marcas.length) irA(marcas[i + 1].inicio);
-    if (dir < 0) irA(a.currentTime - marcas[i].inicio < 3 && i > 0 ? marcas[i - 1].inicio : marcas[i].inicio);
-    pintar();
+    destino = Math.max(0, Math.min(t, info.duracion - 0.5));
+    pintar(destino);
+    clearTimeout(temporizador);
+    temporizador = setTimeout(() => { const t2 = destino; destino = null; irA(t2); pintar(t2); }, 350);
   };
+  const saltar = dir => {
+    const t = posicion(); const i = indicePaso(t);
+    if (dir > 0 && i + 1 < marcas.length) buscar(marcas[i + 1].inicio);
+    if (dir < 0) buscar(t - marcas[i].inicio < 3 && i > 0 ? marcas[i - 1].inicio : marcas[i].inicio);
+  };
+  const linea = $('#linea');
+  const tocarLinea = ev => {
+    const r = linea.getBoundingClientRect();
+    buscar(Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)) * info.duracion);
+  };
+  linea.addEventListener('pointerdown', ev => { linea.setPointerCapture(ev.pointerId); tocarLinea(ev); });
+  linea.addEventListener('pointermove', ev => { if (linea.hasPointerCapture(ev.pointerId)) tocarLinea(ev); });
+  linea.addEventListener('keydown', ev => {
+    if (ev.key === 'ArrowRight') buscar(posicion() + 10);
+    if (ev.key === 'ArrowLeft') buscar(posicion() - 10);
+  });
   const alternar = () => {
     if (ocupado) return;
     if (a.paused) a.play(); else a.pause();
@@ -462,7 +482,7 @@ async function iniciarSesion(e, info) {
   }
 
   const terminar = (completa) => {
-    clearInterval(reloj); a.pause(); clip.pause(); a.src = ''; clip.src = '';
+    clearInterval(reloj); clearTimeout(temporizador); a.pause(); clip.pause(); a.src = ''; clip.src = '';
     finSesion = null;
     try { wakeLock?.release(); } catch { /* ya liberado */ }
     wakeLock = null;
@@ -482,7 +502,7 @@ async function iniciarSesion(e, info) {
 async function guardarSinConexion(e, info) {
   if (!('caches' in window)) return;
   try {
-    const c = await caches.open('audio-v2');
+    const c = await caches.open('audio-v3');
     const urls = [`audio/${info.archivo}`, ...(info.eventos || []).filter(ev => ev.clip).map(ev => `audio/${ev.clip}`)];
     if (info.ciclo) urls.push(`audio/${info.ciclo.enlace_clip}`);
     for (const u of urls) if (!(await c.match(u))) await c.add(u);

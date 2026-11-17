@@ -56,7 +56,7 @@
       "subtitulo": "La técnica del refugio",
       "sesion": 5,
       "tipo": "guiada",
-      "minutos": 7,
+      "minutos": 6,
       "requisitos": [
         "voz_alta",
         "sentado"
@@ -74,12 +74,11 @@
         "Brazos cruzados, manos sobre los hombros, ojos cerrados.",
         "Tres pases acariciando los brazos de los hombros a los codos: playa, jardín y escalera, contando en voz alta del 1 al 20.",
         "Entre pase y pase, abre los ojos y muévelos a derecha e izquierda.",
-        "Vuelve a valorar el malestar. Si sigue en 5 o más, repite el ciclo."
+        "Si el malestar no ha disminuido, vuelve a hacer el Havening."
       ],
       "contexto": "Desarrollada por los doctores Steven y Ronald Ruden. Según el método, el toque genera ondas cerebrales delta y aumenta la serotonina. El movimiento ocular lateral procede de la estimulación bilateral del EMDR.",
       "aviso": "Si el recuerdo es muy intenso (9 o 10) o traumático, trabájalo con Gerard en sesión.",
-      "audio": "havening",
-      "voz": true
+      "audio": "havening"
     },
     {
       "id": "neurotap",

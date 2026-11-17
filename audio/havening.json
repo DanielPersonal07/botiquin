@@ -1,7 +1,7 @@
 {
   "archivo": "havening.mp3",
   "ritmo": "normal",
-  "duracion": 365.03,
+  "duracion": 344.01,
   "marcas": [
     {
       "id": "0",
@@ -16,73 +16,43 @@
     {
       "id": "2",
       "titulo": "Posición de partida",
-      "inicio": 75.84
+      "inicio": 71.24
     },
     {
       "id": "3",
       "titulo": "Pase 1 · La playa",
-      "inicio": 92.22
+      "inicio": 87.62
     },
     {
       "id": "4",
       "titulo": "Movimiento ocular",
-      "inicio": 158.82
+      "inicio": 154.22
     },
     {
       "id": "5",
       "titulo": "Pase 2 · El jardín",
-      "inicio": 184.89
+      "inicio": 180.29
     },
     {
       "id": "6",
       "titulo": "Movimiento ocular",
-      "inicio": 239.81
+      "inicio": 235.21
     },
     {
       "id": "7",
       "titulo": "Pase 3 · La escalera",
-      "inicio": 260.39
+      "inicio": 255.79
     },
     {
       "id": "8",
       "titulo": "Última serie de movimientos oculares",
-      "inicio": 306.95
+      "inicio": 302.35
     },
     {
       "id": "9",
-      "titulo": "Reevaluación",
-      "inicio": 333.11
-    },
-    {
-      "id": "10",
-      "titulo": "Cierre",
-      "inicio": 354.69
+      "titulo": "Final",
+      "inicio": 328.51
     }
   ],
-  "eventos": [
-    {
-      "t": 354.69,
-      "tipo": "escuchar",
-      "modo": "numero",
-      "guardar": "sud_final",
-      "espera": 8
-    },
-    {
-      "t": 354.69,
-      "tipo": "rama",
-      "si": "repetir_ciclo",
-      "condicion": "sud_final >= 5",
-      "clip": "havening-rama1.mp3",
-      "escuchar": {
-        "modo": "si_no",
-        "guardar": "repetir",
-        "espera": 8
-      }
-    }
-  ],
-  "ciclo": {
-    "desde": "2",
-    "max": 3,
-    "enlace_clip": "havening-enlace.mp3"
-  }
+  "eventos": []
 }
