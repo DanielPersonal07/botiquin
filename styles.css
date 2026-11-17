@@ -187,7 +187,6 @@ ol.pasos li { margin-bottom: 10px; }
 
 .pie { margin-top: 30px; display: flex; gap: 18px; justify-content: center; }
 .pie button { background: none; border: 0; color: var(--fucsia); padding: 8px; }
-.crisis { text-align: center; font-size: 13px; color: var(--muted); margin-top: 14px; }
 
 /* Sesión (se queda en negro) */
 body.en-sesion { background: #000; }

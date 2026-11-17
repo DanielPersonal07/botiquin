@@ -196,8 +196,7 @@ function vistaInicio() {
       </button>
       <div class="recursos" id="lista-recursos" hidden>${recursos.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.tipo === 'expres' ? `${e.minutos} min · al momento` : esc(e.subtitulo || '')}</span></button>`).join('')}</div>
     </div>
-    <button class="btn btn-todos" data-ir="#/catalogo">Todos los ejercicios</button>
-    <p class="crisis">Si estás en crisis o piensas en hacerte daño: 024 (24 h, gratuito) o 112.</p>`;
+    <button class="btn btn-todos" data-ir="#/catalogo">Todos los ejercicios</button>`;
 
   let crisis = false;
   const pintarChips = () => {
