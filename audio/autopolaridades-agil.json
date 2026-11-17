@@ -1,0 +1,33 @@
+{
+  "archivo": "autopolaridades-agil.mp3",
+  "ritmo": "agil",
+  "duracion": 290.68,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Primera posición · frente y nuca",
+      "inicio": 16.8
+    },
+    {
+      "id": "2",
+      "titulo": "Segunda posición · ojos",
+      "inicio": 122.7
+    },
+    {
+      "id": "3",
+      "titulo": "Tercera posición · cuna occipital",
+      "inicio": 201.0
+    },
+    {
+      "id": "4",
+      "titulo": "Final",
+      "inicio": 274.8
+    }
+  ],
+  "eventos": []
+}

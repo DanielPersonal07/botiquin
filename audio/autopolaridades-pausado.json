@@ -1,0 +1,33 @@
+{
+  "archivo": "autopolaridades-pausado.mp3",
+  "ritmo": "pausado",
+  "duracion": 423.18,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Primera posición · frente y nuca",
+      "inicio": 20.8
+    },
+    {
+      "id": "2",
+      "titulo": "Segunda posición · ojos",
+      "inicio": 176.7
+    },
+    {
+      "id": "3",
+      "titulo": "Tercera posición · cuna occipital",
+      "inicio": 290.5
+    },
+    {
+      "id": "4",
+      "titulo": "Final",
+      "inicio": 401.8
+    }
+  ],
+  "eventos": []
+}
