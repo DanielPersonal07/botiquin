@@ -1,13 +1,13 @@
 // Service worker: la app funciona sin conexión.
 // - Interfaz y datos: red primero y, sin red, la copia guardada.
 // - Audio: si está guardado (caché "audio-v2"), se sirve de ahí respetando los rangos de bytes.
-const SHELL = 'shell-v5';
+const SHELL = 'shell-v6';
 const AUDIO = 'audio-v3'; // súbelo cuando cambien los audios para que el móvil descargue los nuevos
 const ARCHIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
   'data/catalogo.json', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'img/inicio.jpg'];
 
 self.addEventListener('install', ev => {
-  ev.waitUntil(caches.open(SHELL).then(c => c.addAll(ARCHIVOS)).then(() => self.skipWaiting()));
+  ev.waitUntil(caches.open(SHELL).then(c => c.addAll(ARCHIVOS.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', ev => {
@@ -61,7 +61,8 @@ self.addEventListener('fetch', ev => {
 
   ev.respondWith((async () => {
     try {
-      const r = await fetch(req);
+      // "no-cache": pregunta siempre al servidor si hay versión nueva (GitHub deja copias de hasta 10 min en el navegador)
+      const r = await fetch(new Request(req.url, { cache: 'no-cache', credentials: 'same-origin' }));
       if (r.ok) { const c = await caches.open(SHELL); c.put(req, r.clone()); }
       return r;
     } catch {

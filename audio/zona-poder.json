@@ -1,7 +1,7 @@
 {
   "archivo": "zona-poder.mp3",
   "ritmo": "normal",
-  "duracion": 497.74,
+  "duracion": 496.37,
   "marcas": [
     {
       "id": "0",
@@ -21,32 +21,32 @@
     {
       "id": "3",
       "titulo": "La sensación de «MÍO»",
-      "inicio": 146.21
+      "inicio": 144.84
     },
     {
       "id": "4",
       "titulo": "«MÍO» en tus cuatro poderes",
-      "inicio": 236.94
+      "inicio": 235.57
     },
     {
       "id": "5",
       "titulo": "Mío y no mío",
-      "inicio": 274.38
+      "inicio": 273.01
     },
     {
       "id": "6",
       "titulo": "Maravillosa falibilidad humana",
-      "inicio": 342.36
+      "inicio": 340.99
     },
     {
       "id": "7",
       "titulo": "Puente al futuro",
-      "inicio": 386.9
+      "inicio": 385.53
     },
     {
       "id": "8",
       "titulo": "Cierre",
-      "inicio": 481.16
+      "inicio": 479.79
     }
   ],
   "eventos": []

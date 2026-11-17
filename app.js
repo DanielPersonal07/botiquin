@@ -262,7 +262,7 @@ async function vistaFicha(id) {
   }
   const infos = {};
   await Promise.all(RITMOS.map(async ([r]) => {
-    try { infos[r] = await (await fetch(`audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`)).json(); } catch { /* no disponible */ }
+    try { infos[r] = await (await fetch(`audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`, { cache: 'no-cache' })).json(); } catch { /* no disponible */ }
   }));
   const disponibles = RITMOS.filter(([r]) => infos[r]);
   if (!infos[ui.ritmo]) ui.ritmo = disponibles[0]?.[0] || 'normal';
@@ -563,7 +563,7 @@ function bienvenida() {
 
 (async () => {
   bienvenida();
-  CAT = await (await fetch('data/catalogo.json')).json();
+  CAT = await (await fetch('data/catalogo.json', { cache: 'no-cache' })).json();
   window.addEventListener('hashchange', rutear);
   rutear();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
