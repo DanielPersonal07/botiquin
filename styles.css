@@ -129,6 +129,33 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .recursos b { display: block; font-weight: 600; }
 .recursos span { color: var(--muted); font-size: 14px; }
 
+/* Portada: las cuatro secciones */
+.secciones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+.seccion {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px 14px 18px; text-align: left; min-height: 172px; box-shadow: var(--sombra); color: var(--text);
+}
+.seccion b { font-family: var(--serif); font-weight: 500; font-size: 18px; line-height: 1.2; }
+.seccion-texto { color: var(--muted); font-size: 14px; line-height: 1.35; }
+.seccion-icono {
+  display: inline-grid; place-items: center; width: 50px; height: 50px; border-radius: 50%;
+  background: var(--fucsia-suave); color: var(--fucsia); margin-bottom: 6px;
+}
+.seccion-icono.grande { width: 76px; height: 76px; margin-bottom: 14px; }
+.seccion.pronto { background: rgba(255,255,255,.6); box-shadow: none; }
+.seccion.pronto .seccion-icono { background: var(--surface-2); color: var(--muted); }
+.seccion-pronto {
+  margin-top: auto; font-size: 12px; font-weight: 600; letter-spacing: .03em;
+  padding: 3px 9px; border-radius: 999px; background: var(--surface-2); color: var(--muted);
+}
+.seccion:not(.pronto) { border-color: var(--fucsia-suave); }
+.seccion:active { transform: scale(.98); }
+.vacia { text-align: center; padding: 40px 8px; display: flex; flex-direction: column; align-items: center; }
+.vacia h1 { font-size: 26px; margin-bottom: 8px; }
+.vacia p { margin: 6px 0; }
+.muted { color: var(--muted); }
+
 /* Ficha */
 .ficha-meta { color: var(--muted); margin: 6px 0 16px; }
 .bloque { margin: 22px 0; }

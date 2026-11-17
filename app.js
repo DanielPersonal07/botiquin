@@ -114,10 +114,58 @@ function oirFrase() {
 // ---------- Vistas ----------
 let ultimaFrase = null;
 
+// Portada: las cuatro secciones de la app. Solo «coaching» tiene contenido por ahora.
+const ICONOS = {
+  // brote: crecer desde dentro
+  coaching: '<path d="M12 21v-9"/><path d="M12 12c0-4 3-6.5 7-6.5 0 4-3 6.5-7 6.5Z"/><path d="M12 15c0-3.2-2.4-5.2-5.8-5.2 0 3.2 2.4 5.2 5.8 5.2Z"/>',
+  // loto
+  meditaciones: '<path d="M12 4.5c2.1 2.3 2.7 5.8 0 9.8-2.7-4-2.1-7.5 0-9.8Z"/><path d="M12 14.3c-1-3.3-3.6-5.2-7.6-5.2.1 3.9 3.1 6 7.6 5.2Z"/><path d="M12 14.3c1-3.3 3.6-5.2 7.6-5.2-.1 3.9-3.1 6-7.6 5.2Z"/><path d="M6 18.5c3 1.4 9 1.4 12 0"/>',
+  // sol que sale: el día a día
+  recursos: '<path d="M4 18h16"/><path d="M7.5 18a4.5 4.5 0 0 1 9 0"/><path d="M12 9.5V7M6.3 11.8 4.8 10.3M17.7 11.8l1.5-1.5"/>',
+  // auriculares
+  podcasts: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4" height="6" rx="1.5"/><rect x="16.5" y="14" width="4" height="6" rx="1.5"/>',
+};
+const SECCIONES = [
+  { id: 'coaching', titulo: 'Coaching y biodescodificación', texto: 'Los ejercicios de tus sesiones, para cuando los necesites.' },
+  { id: 'meditaciones', titulo: 'Meditaciones', texto: 'Para parar, respirar y volver a ti.' },
+  { id: 'recursos', titulo: 'Recursos para el día a día', texto: 'Pequeñas herramientas para tu rutina.' },
+  { id: 'podcasts', titulo: 'Podcasts', texto: 'Escucha, aprende e inspírate a tu ritmo.' },
+];
+const conContenido = id => id === 'coaching';
+const icono = (id, t = 32) => `<svg width="${t}" height="${t}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONOS[id]}</svg>`;
+
+function vistaPortada() {
+  app.innerHTML = `
+    <p class="saludo">${saludo()}, Daniel</p>
+    <h1>¿Qué necesitas hoy?</h1>
+    <div class="secciones">${SECCIONES.map(x => `
+      <button class="seccion${conContenido(x.id) ? '' : ' pronto'}" data-ir="#/${x.id}">
+        <span class="seccion-icono">${icono(x.id)}</span>
+        <b>${esc(x.titulo)}</b>
+        <span class="seccion-texto">${esc(x.texto)}</span>
+        ${conContenido(x.id) ? '' : '<span class="seccion-pronto">Muy pronto</span>'}
+      </button>`).join('')}
+    </div>
+    <p class="crisis">Si estás en crisis o piensas en hacerte daño: 024 (24 h, gratuito) o 112.</p>`;
+  enlazar();
+}
+
+function vistaSeccionVacia(x) {
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+    <div class="vacia">
+      <span class="seccion-icono grande">${icono(x.id, 40)}</span>
+      <h1>${esc(x.titulo)}</h1>
+      <p class="muted">${esc(x.texto)}</p>
+      <p>Muy pronto habrá contenido aquí.</p>
+    </div>`;
+  enlazar();
+}
+
 function vistaInicio() {
   const recursos = CAT.ejercicios.filter(e => e.tipo === 'expres' || e.tipo === 'ficha');
   app.innerHTML = `
-    <p class="saludo">${saludo()}, Daniel</p>
+    <div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+    <p class="saludo">Coaching y biodescodificación</p>
     <h1>¿Cómo te sientes ahora?</h1>
     <div class="hablar">
       <form class="hablar-fila" id="form-hablar">
@@ -235,7 +283,7 @@ function vistaCatalogo() {
     const l = CAT.ejercicios.filter(e => e.tipo === tipo);
     return `<h2>${titulo}</h2><div class="lista">${l.map(e => tarjeta(e)).join('')}</div>`;
   };
-  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/coaching">← Coaching</button></div>
     <h1>Todos los ejercicios</h1>
     ${grupo('guiada', 'Guiados con voz')}${grupo('expres', 'Exprés')}${grupo('ficha', 'Fichas')}`;
   enlazar();
@@ -243,9 +291,9 @@ function vistaCatalogo() {
 
 async function vistaFicha(id) {
   const e = ej(id);
-  if (!e) return ir('#/');
+  if (!e) return ir('#/coaching');
   const req = e.requisitos.map(r => CAT.requisitos[r]).filter(Boolean);
-  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/coaching">← Coaching</button></div>
     <h1>${esc(e.titulo)}</h1>
     <p class="ficha-meta">${esc(e.subtitulo || '')} · Sesión ${e.sesion} · ${e.minutos} min · ${TIPOS[e.tipo]}</p>
     ${req.length ? `<div class="meta">${req.map(r => `<span class="tag warm">${esc(r)}</span>`).join('')}</div>` : ''}
@@ -539,7 +587,10 @@ function rutear() {
   if (h.startsWith('#/ej/')) return vistaFicha(decodeURIComponent(h.slice(5)));
   if (h === '#/catalogo') return vistaCatalogo();
   if (h === '#/fin') return vistaFin();
-  return vistaInicio();
+  if (h === '#/coaching') return vistaInicio();
+  const sec = SECCIONES.find(x => `#/${x.id}` === h);
+  if (sec) return vistaSeccionVacia(sec);
+  return vistaPortada();
 }
 
 function bienvenida() {
