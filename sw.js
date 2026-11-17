@@ -1,7 +1,7 @@
 // Service worker: la app funciona sin conexión.
 // - Interfaz y datos: red primero y, sin red, la copia guardada.
-// - Audio: nunca se guarda; siempre llega del servidor (así se oye siempre la última versión).
-const SHELL = 'shell-v10';
+// - Audio: solo se guarda lo que Daniel descarga a mano (caché «descargas», la gestiona la app). Lo demás llega del servidor.
+const SHELL = 'shell-v11';
 const ARCHIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
   'data/catalogo.json', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'img/inicio.jpg'];
 

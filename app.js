@@ -145,8 +145,51 @@ function vistaPortada() {
         <span class="seccion-texto">${esc(x.texto)}</span>
         ${conContenido(x.id) ? '' : '<span class="seccion-pronto">Muy pronto</span>'}
       </button>`).join('')}
-    </div>`;
+    </div>
+    <button class="btn-sec mis-descargas" data-ir="#/descargas">${ICONO_DESCARGA}<span>Mis descargas</span><span class="cuenta" id="n-descargas" hidden></span></button>`;
   enlazar();
+  listarDescargas().then(l => { const n = $('#n-descargas'); if (n && l.length) { n.textContent = l.length; n.hidden = false; } }).catch(() => {});
+}
+
+async function vistaDescargas() {
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+    <h1>Mis descargas</h1>
+    <p class="ficha-meta">Los ejercicios descargados se pueden escuchar sin conexión, por ejemplo en un avión.</p>
+    <div id="lista-descargas"><p class="muted">Cargando…</p></div>`;
+  enlazar();
+  const pintar = async () => {
+    const l = await listarDescargas().catch(() => []);
+    const zona = $('#lista-descargas');
+    if (!zona) return;
+    if (!l.length) {
+      zona.innerHTML = '<p class="vacio">Todavía no has descargado nada. En la ficha de cada ejercicio encontrarás «Descargar para escuchar sin conexión».</p>';
+      return;
+    }
+    // ¿hay versión nueva? (solo si hay conexión)
+    const nuevas = await Promise.all(l.map(async ({ info }) => {
+      try { const e = ej(info.ej); const f = await (await fetch(rutaInfo(e, info.ritmo), { cache: 'no-cache' })).json(); return f.version !== info.version; } catch { return false; }
+    }));
+    const total = l.reduce((t, x) => t + x.bytes, 0);
+    zona.innerHTML = `<div class="lista">${l.map(({ info, bytes }, i) => {
+      const e = ej(info.ej);
+      return `<div class="card descargado">
+        <button class="descargado-info" data-ir="#/ej/${esc(info.ej)}"><h3>${esc(e?.titulo || info.ej)}</h3>
+          <span class="sub">Ritmo ${esc(NOMBRE_RITMO[info.ritmo]?.toLowerCase() || info.ritmo)} · ${fmtMin(info.duracion)} · ${fmtMB(bytes)}</span>
+          ${nuevas[i] ? '<span class="tag ok">Hay una versión nueva</span>' : ''}</button>
+        <button class="enlace" data-borrar="${i}">Borrar</button></div>`;
+    }).join('')}</div>
+      <p class="total-descargas">Ocupan ${fmtMB(total)} en el móvil.</p>
+      <button class="enlace" id="borrar-todo">Borrar todas las descargas</button>`;
+    enlazar(zona);
+    zona.querySelectorAll('[data-borrar]').forEach(b => b.addEventListener('click', async () => {
+      const { info } = l[+b.dataset.borrar]; await borrarDescarga(ej(info.ej), info.ritmo); pintar();
+    }));
+    $('#borrar-todo').addEventListener('click', async () => {
+      if (!confirm('¿Borrar todas las descargas? Podrás volver a descargarlas cuando tengas conexión.')) return;
+      await caches.delete(DESCARGAS); pintar();
+    });
+  };
+  pintar();
 }
 
 function vistaSeccionVacia(x) {
@@ -295,6 +338,79 @@ function vistaCatalogo() {
   enlazar();
 }
 
+// ---------- Descargas para escuchar sin conexión ----------
+// Solo se guarda lo que Daniel descarga a mano (caché «descargas»). Podcasts no se descargan.
+const DESCARGAS = 'descargas';
+const SECCIONES_DESCARGABLES = ['coaching', 'meditaciones'];
+const descargable = e => e.audio && SECCIONES_DESCARGABLES.includes(e.seccion || 'coaching') && 'caches' in window;
+const rutaInfo = (e, r) => `audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`;
+const archivosDe = info => [info.archivo,
+  ...(info.eventos || []).filter(ev => ev.clip).map(ev => ev.clip),
+  ...(info.ciclo?.enlace_clip ? [info.ciclo.enlace_clip] : [])];
+const NOMBRE_RITMO = Object.fromEntries(RITMOS);
+
+async function infoDescargada(e, r) {
+  if (!('caches' in window)) return null;
+  const resp = await (await caches.open(DESCARGAS)).match(rutaInfo(e, r));
+  return resp ? resp.json() : null;
+}
+
+async function descargar(e, r, info, progreso) {
+  try { await navigator.storage?.persist?.(); } catch { /* el sistema decide */ }
+  const c = await caches.open(DESCARGAS);
+  let hecho = 0, total = 0;
+  for (const f of archivosDe(info)) {
+    const resp = await fetch(`audio/${f}?v=${info.version || ''}`, { cache: 'no-store' });
+    if (!resp.ok || !resp.body) throw new Error('descarga');
+    total += +resp.headers.get('content-length') || 0;
+    const lector = resp.body.getReader(), trozos = [];
+    for (;;) {
+      const { done, value } = await lector.read();
+      if (done) break;
+      trozos.push(value); hecho += value.length; progreso(total ? hecho / total : 0);
+    }
+    const blob = new Blob(trozos, { type: 'audio/mpeg' });
+    await c.put(`audio/${f}`, new Response(blob, { headers: { 'Content-Type': 'audio/mpeg', 'Content-Length': String(blob.size) } }));
+  }
+  // la ficha de la descarga se guarda al final: si se corta a medias, no cuenta como descargado
+  await c.put(rutaInfo(e, r), new Response(JSON.stringify({ ...info, ej: e.id, ritmo: r }), { headers: { 'Content-Type': 'application/json' } }));
+}
+
+async function borrarDescarga(e, r) {
+  const c = await caches.open(DESCARGAS);
+  const info = await infoDescargada(e, r);
+  await c.delete(rutaInfo(e, r));
+  if (info) for (const f of archivosDe(info)) await c.delete(`audio/${f}`);
+}
+
+async function listarDescargas() {
+  if (!('caches' in window)) return [];
+  const c = await caches.open(DESCARGAS);
+  const out = [];
+  for (const req of await c.keys()) {
+    if (!req.url.endsWith('.json')) continue;
+    const info = await (await c.match(req)).json();
+    let bytes = 0;
+    for (const f of archivosDe(info)) bytes += +(await c.match(`audio/${f}`))?.headers.get('content-length') || 0;
+    out.push({ info, bytes });
+  }
+  return out;
+}
+const fmtMB = b => `${(b / 1048576).toLocaleString('es-ES', { maximumFractionDigits: 1 })} MB`;
+
+// Dónde suena cada archivo: la copia descargada (blob) o el servidor
+async function fuentesDescargadas(info) {
+  const c = await caches.open(DESCARGAS), fuentes = {};
+  for (const f of archivosDe(info)) {
+    const resp = await c.match(`audio/${f}`);
+    if (!resp) return null;
+    fuentes[f] = URL.createObjectURL(await resp.blob());
+  }
+  return fuentes;
+}
+
+const ICONO_DESCARGA = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
+
 async function vistaFicha(id) {
   const e = ej(id);
   if (!e) return ir('#/coaching');
@@ -314,25 +430,73 @@ async function vistaFicha(id) {
     if (e.tipo !== 'ficha') $('#zona-empezar').innerHTML = '<p class="consejos">El audio guiado de este ejercicio todavía está en preparación.</p>';
     return;
   }
-  const infos = {};
+  const infos = {}, locales = {};
   await Promise.all(RITMOS.map(async ([r]) => {
-    try { infos[r] = await (await fetch(`audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`, { cache: 'no-cache' })).json(); } catch { /* no disponible */ }
+    try { infos[r] = await (await fetch(rutaInfo(e, r), { cache: 'no-cache' })).json(); } catch { /* sin red o no disponible */ }
+    if (descargable(e)) try { locales[r] = await infoDescargada(e, r); } catch { /* sin acceso */ }
   }));
-  const disponibles = RITMOS.filter(([r]) => infos[r]);
-  if (!infos[ui.ritmo]) ui.ritmo = disponibles[0]?.[0] || 'normal';
+  // sin conexión, cuenta lo descargado
+  const infoDe = r => infos[r] || locales[r];
+  const disponibles = RITMOS.filter(([r]) => infoDe(r));
+  if (!disponibles.length) {
+    $('#zona-empezar').innerHTML = '<p class="consejos">Ahora no hay conexión y este ejercicio no está descargado. Cuando vuelvas a tener internet podrás escucharlo o descargarlo.</p>';
+    return;
+  }
+  if (!infoDe(ui.ritmo)) ui.ritmo = disponibles[0][0];
   $('#zona-empezar').innerHTML = `
     <section class="bloque"><h2>Ritmo</h2>
-      <div class="seg">${disponibles.map(([r, t]) => `<button data-ritmo="${r}" aria-pressed="${ui.ritmo === r}">${t} · ${fmtMin(infos[r].duracion)}</button>`).join('')}</div>
+      <div class="seg">${disponibles.map(([r, t]) => `<button data-ritmo="${r}" aria-pressed="${ui.ritmo === r}">${t} · ${fmtMin(infoDe(r).duracion)}</button>`).join('')}</div>
     </section>
     <p class="consejos">Busca un sitio tranquilo. Durante el ejercicio la pantalla se queda en negro.${e.voz ? ' Al final te preguntará cómo de intenso es el malestar: dilo en voz alta y, si es 5 o más, te ofrecerá repetir el ciclo.' : ''}</p>
-    <div class="empezar"><button class="btn" id="empezar">Empezar</button></div>`;
+    <div class="empezar"><button class="btn" id="empezar">Empezar</button></div>
+    <div class="descarga" id="descarga"></div>`;
+
+  let descargando = false;
+  const pintarDescarga = () => {
+    const zona = $('#descarga');
+    if (!zona || !descargable(e) || descargando) return;
+    const r = ui.ritmo, local = locales[r], nueva = local && infos[r] && infos[r].version !== local.version;
+    const ritmo = disponibles.length > 1 ? ` · ritmo ${NOMBRE_RITMO[r].toLowerCase()}` : '';
+    if (!local) {
+      zona.innerHTML = infos[r] ? `<button class="btn-sec" id="bajar">${ICONO_DESCARGA}<span>Descargar para escuchar sin conexión</span></button>` : '';
+    } else if (nueva) {
+      zona.innerHTML = `<p class="descarga-estado nueva">Hay una versión nueva de este audio${ritmo}.</p>
+        <button class="btn-sec" id="bajar">${ICONO_DESCARGA}<span>Actualizar descarga</span></button>
+        <button class="enlace" id="borrar">Borrar descarga</button>`;
+    } else {
+      zona.innerHTML = `<p class="descarga-estado">✓ Descargado para escuchar sin conexión${ritmo}</p>
+        <button class="enlace" id="borrar">Borrar descarga</button>`;
+    }
+    $('#bajar')?.addEventListener('click', async () => {
+      descargando = true;
+      zona.innerHTML = `<p class="descarga-estado">Descargando… <b id="pct">0 %</b></p><div class="barra-descarga"><i id="barra"></i></div>`;
+      try {
+        await descargar(e, r, infos[r], x => { const p = Math.round(x * 100); $('#pct').textContent = `${p} %`; $('#barra').style.width = `${p}%`; });
+        locales[r] = await infoDescargada(e, r);
+      } catch {
+        zona.innerHTML = '<p class="descarga-estado error">No se ha podido descargar. Comprueba la conexión y vuelve a intentarlo.</p>';
+        descargando = false; setTimeout(pintarDescarga, 3000); return;
+      }
+      descargando = false; pintarDescarga();
+    });
+    $('#borrar')?.addEventListener('click', async () => {
+      await borrarDescarga(e, r); locales[r] = null; pintarDescarga();
+    });
+  };
+  pintarDescarga();
+
   app.querySelectorAll('[data-ritmo]').forEach(b => b.addEventListener('click', () => {
     ui.ritmo = b.dataset.ritmo; store.set('ritmo', ui.ritmo);
     app.querySelectorAll('[data-ritmo]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    pintarDescarga();
   }));
   $('#empezar').addEventListener('click', async () => {
     if (e.voz) await pedirMicrofono();   // el permiso se pide ahora, con los ojos abiertos
-    iniciarSesion(e, infos[ui.ritmo]);
+    const r = ui.ritmo, local = locales[r];
+    // suena la copia descargada si es la versión actual o si no hay conexión; si hay una nueva, la del servidor
+    const usarLocal = local && (!infos[r] || infos[r].version === local.version);
+    const fuentes = usarLocal ? await fuentesDescargadas(local).catch(() => null) : null;
+    iniciarSesion(e, usarLocal && fuentes ? local : infoDe(r), fuentes);
   });
 }
 
@@ -440,7 +604,8 @@ function tocar(audio, src) {
   });
 }
 
-async function iniciarSesion(e, info) {
+async function iniciarSesion(e, info, fuentes = null) {
+  const fuente = f => fuentes?.[f] || `audio/${f}?v=${info.version || ''}`;  // ?v= cambia con cada versión del audio
   document.body.classList.add('en-sesion');
   app.innerHTML = `<div class="sesion">
       <div class="centro"><div class="paso" id="paso">Preparando…</div><div class="num" id="num"></div>
@@ -457,7 +622,7 @@ async function iniciarSesion(e, info) {
 
   const ICONO_PAUSA = $('#pp').innerHTML;
   const ICONO_PLAY = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>';
-  const a = new Audio(`audio/${info.archivo}?v=${info.version || ''}`);  // ?v= cambia con cada versión del audio
+  const a = new Audio(fuente(info.archivo));
   a.preload = 'auto';
   const clip = new Audio();
   const marcas = info.marcas, eventos = info.eventos || [];
@@ -497,11 +662,11 @@ async function iniciarSesion(e, info) {
         const v = await escuchar(ev.modo, ev.espera);
         if (ev.guardar) vars[ev.guardar] = v;
       } else if (ev.tipo === 'rama' && cumple(ev.condicion, vars) && ev.si === 'repetir_ciclo' && info.ciclo && ciclos < info.ciclo.max) {
-        await tocar(clip, `audio/${ev.clip}`);
+        await tocar(clip, fuente(ev.clip));
         const quiere = ev.escuchar ? await escuchar(ev.escuchar.modo, ev.escuchar.espera) : true;
         if (quiere) {
           ciclos++; datos.ciclos = ciclos; pasoActual = -1;
-          await tocar(clip, `audio/${info.ciclo.enlace_clip}`);
+          await tocar(clip, fuente(info.ciclo.enlace_clip));
           irA(marcas.find(m => m.id === info.ciclo.desde).inicio);
           break;
         }
@@ -559,6 +724,7 @@ async function iniciarSesion(e, info) {
 
   const terminar = (completa) => {
     clearInterval(reloj); clearTimeout(temporizador); a.pause(); clip.pause(); a.src = ''; clip.src = '';
+    if (fuentes) Object.values(fuentes).forEach(u => URL.revokeObjectURL(u));
     finSesion = null;
     try { wakeLock?.release(); } catch { /* ya liberado */ }
     wakeLock = null;
@@ -594,6 +760,7 @@ function rutear() {
   if (h === '#/catalogo') return vistaCatalogo();
   if (h === '#/fin') return vistaFin();
   if (h === '#/coaching') return vistaInicio();
+  if (h === '#/descargas') return vistaDescargas();
   const sec = SECCIONES.find(x => `#/${x.id}` === h);
   if (sec) return vistaSeccionVacia(sec);
   return vistaPortada();
@@ -602,7 +769,7 @@ function rutear() {
 function bienvenida() {
   const s = document.createElement('div');
   s.className = 'splash';
-  s.innerHTML = '<h1>Tu roca, tus vistas, tu paz.</h1><p class="toca">Toca para entrar</p>';
+  s.innerHTML = '<p class="toca">Toca para entrar</p>';
   s.addEventListener('click', () => { s.classList.add('fuera'); setTimeout(() => s.remove(), 1000); });
   document.body.appendChild(s);
 }
