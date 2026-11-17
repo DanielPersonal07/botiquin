@@ -213,7 +213,7 @@
       "subtitulo": "El anclaje de «MÍO»",
       "sesion": 4,
       "tipo": "guiada",
-      "minutos": 10,
+      "minutos": 9,
       "requisitos": [
         "de_pie"
       ],
@@ -232,7 +232,7 @@
         "Visualiza una situación futura respondiendo desde tu Zona de Poder."
       ],
       "contexto": "Herramienta neurosemántica.",
-      "audio": null
+      "audio": "zona-poder"
     },
     {
       "id": "silva",
