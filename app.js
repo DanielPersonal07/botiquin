@@ -145,8 +145,7 @@ function vistaPortada() {
         <span class="seccion-texto">${esc(x.texto)}</span>
         ${conContenido(x.id) ? '' : '<span class="seccion-pronto">Muy pronto</span>'}
       </button>`).join('')}
-    </div>
-    <p class="crisis">Si estás en crisis o piensas en hacerte daño: 024 (24 h, gratuito) o 112.</p>`;
+    </div>`;
   enlazar();
 }
 
@@ -191,9 +190,13 @@ function vistaInicio() {
     <label class="toggle"><span>Puedo hablar en voz alta aquí</span><input type="checkbox" id="voz" ${ui.vozAlta ? 'checked' : ''}></label>
     <h2 id="titulo-recs">Te propongo</h2>
     <div class="lista" id="recs"></div>
-    <h2>Recursos</h2>
-    <div class="recursos">${recursos.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.tipo === 'expres' ? `${e.minutos} min · al momento` : esc(e.subtitulo || '')}</span></button>`).join('')}</div>
-    <nav class="pie"><button data-ir="#/catalogo">Todos los ejercicios</button></nav>
+    <div class="plegable">
+      <button class="sentir-cab" id="abrir-recursos" aria-expanded="false" aria-controls="lista-recursos">
+        <span>Recursos <span class="cuenta">${recursos.length}</span></span><span class="mas" aria-hidden="true">+</span>
+      </button>
+      <div class="recursos" id="lista-recursos" hidden>${recursos.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.tipo === 'expres' ? `${e.minutos} min · al momento` : esc(e.subtitulo || '')}</span></button>`).join('')}</div>
+    </div>
+    <button class="btn btn-todos" data-ir="#/catalogo">Todos los ejercicios</button>
     <p class="crisis">Si estás en crisis o piensas en hacerte daño: 024 (24 h, gratuito) o 112.</p>`;
 
   let crisis = false;
@@ -205,6 +208,10 @@ function vistaInicio() {
       ui.estados.delete(b.dataset.quitar); store.set('estados', [...ui.estados]); crisis = false; pintarChips(); pintarRecs();
     }));
   };
+  const abrirRec = $('#abrir-recursos'), listaRec = $('#lista-recursos');
+  abrirRec.addEventListener('click', () => {
+    listaRec.hidden = !listaRec.hidden; abrirRec.setAttribute('aria-expanded', !listaRec.hidden);
+  });
   const nube = $('#nube'), abrir = $('#abrir-nube');
   const ponerNube = abierta => {
     nube.hidden = !abierta; abrir.setAttribute('aria-expanded', abierta);

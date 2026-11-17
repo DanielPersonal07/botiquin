@@ -127,6 +127,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
   padding: 14px; text-align: left; min-height: 74px; box-shadow: var(--sombra);
 }
 .recursos b { display: block; font-weight: 600; }
+.recursos[hidden] { display: none; }
+.plegable { margin-top: 26px; }
+.plegable .recursos { margin-top: 10px; animation: aparecer .25s ease; }
+.cuenta {
+  display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 7px; margin-left: 6px;
+  border-radius: 999px; background: var(--surface-2); color: var(--muted); font: 600 13px/1 var(--sans); vertical-align: 2px;
+}
+.btn-todos { margin-top: 28px; }
+@media (prefers-reduced-motion: reduce) { .plegable .recursos { animation: none; } }
 .recursos span { color: var(--muted); font-size: 14px; }
 
 /* Portada: las cuatro secciones */
