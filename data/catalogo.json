@@ -205,7 +205,7 @@
         "Elegir una respuesta consciente: una acción o un límite pequeño que honre esa necesidad.",
         "Mantener una actitud de cuidado interno: un diálogo amable contigo mismo."
       ],
-      "audio": null
+      "audio": "escucha-interna"
     },
     {
       "id": "zona-poder",
@@ -240,7 +240,7 @@
       "subtitulo": "Autohipnosis y la Gran Puerta",
       "sesion": 5,
       "tipo": "guiada",
-      "minutos": 20,
+      "minutos": 14,
       "requisitos": [],
       "estados": {
         "rumbo": 1,
@@ -259,7 +259,7 @@
         "Agradece y despierta con la cuenta del 10 al 0."
       ],
       "contexto": "Basado en el método de José Silva y en la fórmula de Émile Coué.",
-      "audio": null
+      "audio": "silva"
     },
     {
       "id": "respiracion-478",
