@@ -1,49 +1,53 @@
 {
- "archivo": "silva-agil.mp3",
- "version": "da2f6d5751",
- "ritmo": "agil",
- "duracion": 697.32,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "silva-agil.mp3",
+  "version": "d051681cd7",
+  "ritmo": "agil",
+  "duracion": 694.68,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Respiración 4-7-8",
+      "inicio": 22.74
+    },
+    {
+      "id": "2",
+      "titulo": "Los números 3, 2 y 1",
+      "inicio": 118.28
+    },
+    {
+      "id": "3",
+      "titulo": "Cuenta atrás del 10 al 0",
+      "inicio": 187.28
+    },
+    {
+      "id": "4",
+      "titulo": "Cada día, mejor y mejor",
+      "inicio": 290.82
+    },
+    {
+      "id": "5",
+      "titulo": "Unicidad y sanación",
+      "inicio": 358.8
+    },
+    {
+      "id": "6",
+      "titulo": "El pasillo y la Gran Puerta",
+      "inicio": 448.76
+    },
+    {
+      "id": "7",
+      "titulo": "Agradecimiento y despertar",
+      "inicio": 626.92
+    }
+  ],
+  "personal": {
+    "saludo": "silva-agil-saludo.mp3",
+    "salto": 0.6
   },
-  {
-   "id": "1",
-   "titulo": "Respiración 4-7-8",
-   "inicio": 25.38
-  },
-  {
-   "id": "2",
-   "titulo": "Los números 3, 2 y 1",
-   "inicio": 120.92
-  },
-  {
-   "id": "3",
-   "titulo": "Cuenta atrás del 10 al 0",
-   "inicio": 189.92
-  },
-  {
-   "id": "4",
-   "titulo": "Cada día, mejor y mejor",
-   "inicio": 293.46
-  },
-  {
-   "id": "5",
-   "titulo": "Unicidad y sanación",
-   "inicio": 361.44
-  },
-  {
-   "id": "6",
-   "titulo": "El pasillo y la Gran Puerta",
-   "inicio": 451.4
-  },
-  {
-   "id": "7",
-   "titulo": "Agradecimiento y despertar",
-   "inicio": 629.56
-  }
- ],
- "eventos": []
+  "eventos": []
 }

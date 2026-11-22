@@ -1,54 +1,63 @@
 {
- "archivo": "zona-poder-pausado.mp3",
- "version": "c0e91ac105",
- "ritmo": "pausado",
- "duracion": 581.61,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "zona-poder-pausado.mp3",
+  "version": "d0f81fde90",
+  "ritmo": "pausado",
+  "duracion": 581.23,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Delimitación del territorio",
+      "inicio": 34.6
+    },
+    {
+      "id": "2",
+      "titulo": "Tus cuatro poderes",
+      "inicio": 83.18
+    },
+    {
+      "id": "3",
+      "titulo": "La sensación de «MÍO»",
+      "inicio": 167.66
+    },
+    {
+      "id": "4",
+      "titulo": "«MÍO» en tus cuatro poderes",
+      "inicio": 275.19
+    },
+    {
+      "id": "5",
+      "titulo": "Mío y no mío",
+      "inicio": 320.73
+    },
+    {
+      "id": "6",
+      "titulo": "Maravillosa falibilidad humana",
+      "inicio": 398.31
+    },
+    {
+      "id": "7",
+      "titulo": "Puente al futuro",
+      "inicio": 449.45
+    },
+    {
+      "id": "8",
+      "titulo": "Cierre",
+      "inicio": 563.51
+    }
+  ],
+  "personal": {
+    "saludo": "zona-poder-pausado-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "zona-poder-pausado-final.mp3",
+      "desde": 571.028,
+      "duracion": 11.16
+    }
   },
-  {
-   "id": "1",
-   "titulo": "Delimitación del territorio",
-   "inicio": 34.02
-  },
-  {
-   "id": "2",
-   "titulo": "Tus cuatro poderes",
-   "inicio": 82.6
-  },
-  {
-   "id": "3",
-   "titulo": "La sensación de «MÍO»",
-   "inicio": 167.08
-  },
-  {
-   "id": "4",
-   "titulo": "«MÍO» en tus cuatro poderes",
-   "inicio": 274.61
-  },
-  {
-   "id": "5",
-   "titulo": "Mío y no mío",
-   "inicio": 320.15
-  },
-  {
-   "id": "6",
-   "titulo": "Maravillosa falibilidad humana",
-   "inicio": 397.73
-  },
-  {
-   "id": "7",
-   "titulo": "Puente al futuro",
-   "inicio": 448.87
-  },
-  {
-   "id": "8",
-   "titulo": "Cierre",
-   "inicio": 562.93
-  }
- ],
- "eventos": []
+  "eventos": []
 }

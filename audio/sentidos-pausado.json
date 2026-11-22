@@ -1,59 +1,63 @@
 {
- "archivo": "sentidos-pausado.mp3",
- "version": "9af64eb024",
- "ritmo": "pausado",
- "duracion": 816.46,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "sentidos-pausado.mp3",
+  "version": "4cc93e9736",
+  "ritmo": "pausado",
+  "duracion": 813.55,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Apertura · ¿Dónde estoy?",
+      "inicio": 16.35
+    },
+    {
+      "id": "2",
+      "titulo": "Respiración consciente",
+      "inicio": 68.77
+    },
+    {
+      "id": "3",
+      "titulo": "El oído",
+      "inicio": 99.35
+    },
+    {
+      "id": "4",
+      "titulo": "La vista",
+      "inicio": 230.25
+    },
+    {
+      "id": "5",
+      "titulo": "El olfato",
+      "inicio": 349.43
+    },
+    {
+      "id": "6",
+      "titulo": "El tacto",
+      "inicio": 459.05
+    },
+    {
+      "id": "7",
+      "titulo": "El gusto",
+      "inicio": 567.73
+    },
+    {
+      "id": "8",
+      "titulo": "Integración",
+      "inicio": 684.49
+    },
+    {
+      "id": "9",
+      "titulo": "Cierre",
+      "inicio": 787.65
+    }
+  ],
+  "personal": {
+    "saludo": "sentidos-pausado-saludo.mp3",
+    "salto": 0.6
   },
-  {
-   "id": "1",
-   "titulo": "Apertura · ¿Dónde estoy?",
-   "inicio": 18.12
-  },
-  {
-   "id": "2",
-   "titulo": "Respiración consciente",
-   "inicio": 70.54
-  },
-  {
-   "id": "3",
-   "titulo": "El oído",
-   "inicio": 101.12
-  },
-  {
-   "id": "4",
-   "titulo": "La vista",
-   "inicio": 232.02
-  },
-  {
-   "id": "5",
-   "titulo": "El olfato",
-   "inicio": 351.2
-  },
-  {
-   "id": "6",
-   "titulo": "El tacto",
-   "inicio": 460.82
-  },
-  {
-   "id": "7",
-   "titulo": "El gusto",
-   "inicio": 569.5
-  },
-  {
-   "id": "8",
-   "titulo": "Integración",
-   "inicio": 686.26
-  },
-  {
-   "id": "9",
-   "titulo": "Cierre",
-   "inicio": 789.42
-  }
- ],
- "eventos": []
+  "eventos": []
 }

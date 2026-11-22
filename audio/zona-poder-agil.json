@@ -1,54 +1,63 @@
 {
- "archivo": "zona-poder-agil.mp3",
- "version": "b89addd9eb",
- "ritmo": "agil",
- "duracion": 439.61,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "zona-poder-agil.mp3",
+  "version": "8742a8849d",
+  "ritmo": "agil",
+  "duracion": 439.23,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Delimitación del territorio",
+      "inicio": 27.6
+    },
+    {
+      "id": "2",
+      "titulo": "Tus cuatro poderes",
+      "inicio": 65.18
+    },
+    {
+      "id": "3",
+      "titulo": "La sensación de «MÍO»",
+      "inicio": 130.66
+    },
+    {
+      "id": "4",
+      "titulo": "«MÍO» en tus cuatro poderes",
+      "inicio": 210.19
+    },
+    {
+      "id": "5",
+      "titulo": "Mío y no mío",
+      "inicio": 242.23
+    },
+    {
+      "id": "6",
+      "titulo": "Maravillosa falibilidad humana",
+      "inicio": 303.81
+    },
+    {
+      "id": "7",
+      "titulo": "Puente al futuro",
+      "inicio": 343.95
+    },
+    {
+      "id": "8",
+      "titulo": "Cierre",
+      "inicio": 425.01
+    }
+  ],
+  "personal": {
+    "saludo": "zona-poder-agil-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "zona-poder-agil-final.mp3",
+      "desde": 431.028,
+      "duracion": 9.16
+    }
   },
-  {
-   "id": "1",
-   "titulo": "Delimitación del territorio",
-   "inicio": 27.02
-  },
-  {
-   "id": "2",
-   "titulo": "Tus cuatro poderes",
-   "inicio": 64.6
-  },
-  {
-   "id": "3",
-   "titulo": "La sensación de «MÍO»",
-   "inicio": 130.08
-  },
-  {
-   "id": "4",
-   "titulo": "«MÍO» en tus cuatro poderes",
-   "inicio": 209.61
-  },
-  {
-   "id": "5",
-   "titulo": "Mío y no mío",
-   "inicio": 241.65
-  },
-  {
-   "id": "6",
-   "titulo": "Maravillosa falibilidad humana",
-   "inicio": 303.23
-  },
-  {
-   "id": "7",
-   "titulo": "Puente al futuro",
-   "inicio": 343.37
-  },
-  {
-   "id": "8",
-   "titulo": "Cierre",
-   "inicio": 424.43
-  }
- ],
- "eventos": []
+  "eventos": []
 }

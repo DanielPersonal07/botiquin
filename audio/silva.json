@@ -1,49 +1,53 @@
 {
- "archivo": "silva.mp3",
- "version": "dfd327eced",
- "ritmo": "normal",
- "duracion": 800.32,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "silva.mp3",
+  "version": "f332fce79b",
+  "ritmo": "normal",
+  "duracion": 797.68,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Respiración 4-7-8",
+      "inicio": 24.54
+    },
+    {
+      "id": "2",
+      "titulo": "Los números 3, 2 y 1",
+      "inicio": 121.88
+    },
+    {
+      "id": "3",
+      "titulo": "Cuenta atrás del 10 al 0",
+      "inicio": 201.08
+    },
+    {
+      "id": "4",
+      "titulo": "Cada día, mejor y mejor",
+      "inicio": 322.62
+    },
+    {
+      "id": "5",
+      "titulo": "Unicidad y sanación",
+      "inicio": 400.8
+    },
+    {
+      "id": "6",
+      "titulo": "El pasillo y la Gran Puerta",
+      "inicio": 507.76
+    },
+    {
+      "id": "7",
+      "titulo": "Agradecimiento y despertar",
+      "inicio": 719.92
+    }
+  ],
+  "personal": {
+    "saludo": "silva-saludo.mp3",
+    "salto": 0.6
   },
-  {
-   "id": "1",
-   "titulo": "Respiración 4-7-8",
-   "inicio": 27.18
-  },
-  {
-   "id": "2",
-   "titulo": "Los números 3, 2 y 1",
-   "inicio": 124.52
-  },
-  {
-   "id": "3",
-   "titulo": "Cuenta atrás del 10 al 0",
-   "inicio": 203.72
-  },
-  {
-   "id": "4",
-   "titulo": "Cada día, mejor y mejor",
-   "inicio": 325.26
-  },
-  {
-   "id": "5",
-   "titulo": "Unicidad y sanación",
-   "inicio": 403.44
-  },
-  {
-   "id": "6",
-   "titulo": "El pasillo y la Gran Puerta",
-   "inicio": 510.4
-  },
-  {
-   "id": "7",
-   "titulo": "Agradecimiento y despertar",
-   "inicio": 722.56
-  }
- ],
- "eventos": []
+  "eventos": []
 }

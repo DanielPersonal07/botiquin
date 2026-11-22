@@ -1,59 +1,63 @@
 {
- "archivo": "havening-pausado.mp3",
- "version": "93aa82757e",
- "ritmo": "pausado",
- "duracion": 413.13,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "havening-pausado.mp3",
+  "version": "e9c98ce84e",
+  "ritmo": "pausado",
+  "duracion": 413.87,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Línea base",
+      "inicio": 50.4
+    },
+    {
+      "id": "2",
+      "titulo": "Posición de partida",
+      "inicio": 83.98
+    },
+    {
+      "id": "3",
+      "titulo": "Pase 1 · La playa",
+      "inicio": 102.76
+    },
+    {
+      "id": "4",
+      "titulo": "Movimiento ocular",
+      "inicio": 183.4
+    },
+    {
+      "id": "5",
+      "titulo": "Pase 2 · El jardín",
+      "inicio": 214.57
+    },
+    {
+      "id": "6",
+      "titulo": "Movimiento ocular",
+      "inicio": 281.73
+    },
+    {
+      "id": "7",
+      "titulo": "Pase 3 · La escalera",
+      "inicio": 307.41
+    },
+    {
+      "id": "8",
+      "titulo": "Última serie de movimientos oculares",
+      "inicio": 364.71
+    },
+    {
+      "id": "9",
+      "titulo": "Final",
+      "inicio": 396.27
+    }
+  ],
+  "personal": {
+    "saludo": "havening-pausado-saludo.mp3",
+    "salto": 0.6
   },
-  {
-   "id": "1",
-   "titulo": "Línea base",
-   "inicio": 49.66
-  },
-  {
-   "id": "2",
-   "titulo": "Posición de partida",
-   "inicio": 83.24
-  },
-  {
-   "id": "3",
-   "titulo": "Pase 1 · La playa",
-   "inicio": 102.02
-  },
-  {
-   "id": "4",
-   "titulo": "Movimiento ocular",
-   "inicio": 182.66
-  },
-  {
-   "id": "5",
-   "titulo": "Pase 2 · El jardín",
-   "inicio": 213.83
-  },
-  {
-   "id": "6",
-   "titulo": "Movimiento ocular",
-   "inicio": 280.99
-  },
-  {
-   "id": "7",
-   "titulo": "Pase 3 · La escalera",
-   "inicio": 306.67
-  },
-  {
-   "id": "8",
-   "titulo": "Última serie de movimientos oculares",
-   "inicio": 363.97
-  },
-  {
-   "id": "9",
-   "titulo": "Final",
-   "inicio": 395.53
-  }
- ],
- "eventos": []
+  "eventos": []
 }

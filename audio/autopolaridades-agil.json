@@ -1,34 +1,38 @@
 {
- "archivo": "autopolaridades-agil.mp3",
- "version": "e780f1cc6e",
- "ritmo": "agil",
- "duracion": 290.68,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "autopolaridades-agil.mp3",
+  "version": "57f960c460",
+  "ritmo": "agil",
+  "duracion": 289.88,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Primera posición · frente y nuca",
+      "inicio": 16.0
+    },
+    {
+      "id": "2",
+      "titulo": "Segunda posición · ojos",
+      "inicio": 121.9
+    },
+    {
+      "id": "3",
+      "titulo": "Tercera posición · cuna occipital",
+      "inicio": 200.2
+    },
+    {
+      "id": "4",
+      "titulo": "Final",
+      "inicio": 274.0
+    }
+  ],
+  "personal": {
+    "saludo": "autopolaridades-agil-saludo.mp3",
+    "salto": 0.6
   },
-  {
-   "id": "1",
-   "titulo": "Primera posición · frente y nuca",
-   "inicio": 16.8
-  },
-  {
-   "id": "2",
-   "titulo": "Segunda posición · ojos",
-   "inicio": 122.7
-  },
-  {
-   "id": "3",
-   "titulo": "Tercera posición · cuna occipital",
-   "inicio": 201.0
-  },
-  {
-   "id": "4",
-   "titulo": "Final",
-   "inicio": 274.8
-  }
- ],
- "eventos": []
+  "eventos": []
 }

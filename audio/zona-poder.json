@@ -1,54 +1,63 @@
 {
- "archivo": "zona-poder.mp3",
- "version": "b35de85445",
- "ritmo": "normal",
- "duracion": 496.41,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "zona-poder.mp3",
+  "version": "9fcb3b5299",
+  "ritmo": "normal",
+  "duracion": 496.03,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Delimitación del territorio",
+      "inicio": 30.4
+    },
+    {
+      "id": "2",
+      "titulo": "Tus cuatro poderes",
+      "inicio": 72.38
+    },
+    {
+      "id": "3",
+      "titulo": "La sensación de «MÍO»",
+      "inicio": 145.46
+    },
+    {
+      "id": "4",
+      "titulo": "«MÍO» en tus cuatro poderes",
+      "inicio": 236.19
+    },
+    {
+      "id": "5",
+      "titulo": "Mío y no mío",
+      "inicio": 273.63
+    },
+    {
+      "id": "6",
+      "titulo": "Maravillosa falibilidad humana",
+      "inicio": 341.61
+    },
+    {
+      "id": "7",
+      "titulo": "Puente al futuro",
+      "inicio": 386.15
+    },
+    {
+      "id": "8",
+      "titulo": "Cierre",
+      "inicio": 480.41
+    }
+  ],
+  "personal": {
+    "saludo": "zona-poder-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "zona-poder-final.mp3",
+      "desde": 487.028,
+      "duracion": 9.96
+    }
   },
-  {
-   "id": "1",
-   "titulo": "Delimitación del territorio",
-   "inicio": 29.82
-  },
-  {
-   "id": "2",
-   "titulo": "Tus cuatro poderes",
-   "inicio": 71.8
-  },
-  {
-   "id": "3",
-   "titulo": "La sensación de «MÍO»",
-   "inicio": 144.88
-  },
-  {
-   "id": "4",
-   "titulo": "«MÍO» en tus cuatro poderes",
-   "inicio": 235.61
-  },
-  {
-   "id": "5",
-   "titulo": "Mío y no mío",
-   "inicio": 273.05
-  },
-  {
-   "id": "6",
-   "titulo": "Maravillosa falibilidad humana",
-   "inicio": 341.03
-  },
-  {
-   "id": "7",
-   "titulo": "Puente al futuro",
-   "inicio": 385.57
-  },
-  {
-   "id": "8",
-   "titulo": "Cierre",
-   "inicio": 479.83
-  }
- ],
- "eventos": []
+  "eventos": []
 }

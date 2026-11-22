@@ -1,0 +1,43 @@
+{
+  "archivo": "triangulo-agil.mp3",
+  "version": "7724419ee9",
+  "ritmo": "agil",
+  "duracion": 653.5,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Primer vértice · La autoridad interna",
+      "inicio": 75.53
+    },
+    {
+      "id": "2",
+      "titulo": "Segundo vértice · El corazón y la confianza",
+      "inicio": 260.31
+    },
+    {
+      "id": "3",
+      "titulo": "Tercer vértice · La creación",
+      "inicio": 454.76
+    },
+    {
+      "id": "4",
+      "titulo": "Cierre e integración",
+      "inicio": 599.66
+    }
+  ],
+  "personal": {
+    "saludo": "triangulo-agil-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "triangulo-agil-final.mp3",
+      "desde": 647.498,
+      "duracion": 7.14
+    }
+  },
+  "eventos": []
+}

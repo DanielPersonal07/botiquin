@@ -28,6 +28,14 @@ const nombreEstado = id => CAT.estados.find(s => s.id === id)?.nombre.toLowerCas
 const ir = h => { if (location.hash === h) rutear(); else location.hash = h; };
 const fmtMin = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
+// ---------- Perfil: todo se guarda solo en este móvil ----------
+const nombre = () => store.get('nombre', '');
+// los audios que dicen «Daniel» solo suenan en el móvil de Daniel; los demás oyen la versión sin nombre
+const esDaniel = () => sinTildes(nombre()).trim() === 'daniel';
+const animoActivo = () => store.get('animoActivo', true);
+const PERFIL = 'perfil';   // caché con la foto de portada elegida
+const URL_FOTO = 'perfil/foto-portada';
+
 function saludo() {
   const h = new Date().getHours();
   return h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 21 ? 'Buenas tardes' : 'Buenas noches';
@@ -74,11 +82,11 @@ const CLAVES = {
   emocion: ['triste', 'tristeza', 'rabia', 'enfad', 'frustr', 'ira', 'dolid', 'decepcion', 'decepcionad', 'llorar', 'culpa', 'celos', 'rencor', 'resentid', 'atascad', 'hundid', 'desanimad', 'mal'],
   recuerdo: ['recuerdo', 'duelo', 'perdida', 'ruptura', 'separacion', 'divorcio', 'muerte', 'fallec', 'trauma', 'echo de menos', 'nostalgi', 'me dejo', 'lo dejamos'],
   limites: ['opinion', 'critica', 'criticad', 'lo que dicen', 'lo que piensen', 'me afecta', 'limite', 'juzgad', 'me juzgan', 'presion', 'decir que no', 'manipul', 'invadid', 'me pisan'],
-  confianza: ['confianza', 'insegur', 'no valgo', 'no soy capaz', 'no puedo con', 'merec', 'autoestima', 'inutil', 'fracas', 'dudo de mi', 'pequeno', 'incapaz'],
+  confianza: ['confianza', 'insegur', 'no valgo', 'no soy capaz', 'no puedo con', 'merec', 'autoestima', 'inutil', 'fracas', 'dudo de mi', 'pequeno', 'incapaz', 'duda', 'dudo', 'indecis', 'no me atrevo', 'me da miedo dar el paso', 'hablar en publico', 'exponerme'],
   disperso: ['dispers', 'desconect', 'despist', 'concentr', 'en las nubes', 'piloto automatico', 'ausente', 'no estoy presente', 'distraid', 'en otra parte'],
   dormir: ['dormir', 'insomnio', 'sueno', 'desvel', 'no duermo', 'dormido', 'descansar'],
-  rumbo: ['rumbo', 'objetivo', 'perdido', 'sin sentido', 'que hacer con mi vida', 'motivac', 'proposito', 'meta', 'desorientad', 'estancad'],
-  pendientes: ['pendiente', 'cerrar', 'procrastin', 'no acabo', 'tareas', 'aplazo', 'dejo para manana', 'sin terminar'],
+  rumbo: ['rumbo', 'objetivo', 'perdido', 'sin sentido', 'que hacer con mi vida', 'motivac', 'proposito', 'meta', 'desorientad', 'estancad', 'decision', 'decidir', 'no se que hacer', 'no se por donde', 'elegir', 'escoger'],
+  pendientes: ['pendiente', 'cerrar', 'procrastin', 'no acabo', 'tareas', 'aplazo', 'dejo para manana', 'sin terminar', 'conversacion pendiente', 'evitando', 'evito', 'dar el paso'],
   impulsos: ['impulso', 'fumar', 'tabaco', 'picar', 'atracon', 'beber', 'alcohol', 'comprar', 'adicc', 'compuls', 'antojo'],
 };
 const CRISIS = ['suicid', 'matarme', 'quitarme la vida', 'hacerme dano', 'no quiero vivir', 'autolesion', 'acabar con todo', 'desaparecer para siempre'];
@@ -135,9 +143,17 @@ const conContenido = id => id === 'coaching';
 const icono = (id, t = 32) => `<svg width="${t}" height="${t}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONOS[id]}</svg>`;
 
 function vistaPortada() {
+  const preguntar = !nombre() && !store.get('nombrePreguntado', false);
   app.innerHTML = `
-    <p class="saludo">${saludo()}, Daniel</p>
+    <div class="top portada-top"><p class="saludo">${saludo()}${nombre() ? `, ${esc(nombre())}` : ''}</p>
+      <button class="icono-btn" data-ir="#/ajustes" aria-label="Ajustes">${ICONO_AJUSTES}</button></div>
+    ${preguntar ? `<form class="card pedir-nombre" id="pedir-nombre">
+      <label for="nombre-nuevo"><b>¿Cómo quieres que te llame?</b></label>
+      <div class="fila"><input id="nombre-nuevo" type="text" autocomplete="given-name" enterkeyhint="done" maxlength="30" placeholder="Tu nombre">
+        <button class="btn-mini" type="submit">Guardar</button></div>
+      <button class="enlace" type="button" id="no-nombre">Ahora no</button></form>` : ''}
     <h1>¿Qué necesitas hoy?</h1>
+    ${animoActivo() ? tarjetaAnimoHoy() : ''}
     <div class="secciones">${SECCIONES.map(x => `
       <button class="seccion${conContenido(x.id) ? '' : ' pronto'}" data-ir="#/${x.id}">
         <span class="seccion-icono">${icono(x.id)}</span>
@@ -148,6 +164,16 @@ function vistaPortada() {
     </div>
     <button class="btn-sec mis-descargas" data-ir="#/descargas">${ICONO_DESCARGA}<span>Mis descargas</span><span class="cuenta" id="n-descargas" hidden></span></button>`;
   enlazar();
+  if (preguntar) {
+    $('#pedir-nombre').addEventListener('submit', ev => {
+      ev.preventDefault();
+      const v = $('#nombre-nuevo').value.trim();
+      if (!v) return;
+      store.set('nombre', v); store.set('nombrePreguntado', true); vistaPortada();
+    });
+    $('#no-nombre').addEventListener('click', () => { store.set('nombrePreguntado', true); vistaPortada(); });
+  }
+  enlazarCaras(app, n => { animoElegido = n; ir('#/registro'); });
   listarDescargas().then(l => { const n = $('#n-descargas'); if (n && l.length) { n.textContent = l.length; n.hidden = false; } }).catch(() => {});
 }
 
@@ -346,7 +372,10 @@ const descargable = e => e.audio && SECCIONES_DESCARGABLES.includes(e.seccion ||
 const rutaInfo = (e, r) => `audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`;
 const archivosDe = info => [info.archivo,
   ...(info.eventos || []).filter(ev => ev.clip).map(ev => ev.clip),
-  ...(info.ciclo?.enlace_clip ? [info.ciclo.enlace_clip] : [])];
+  ...(info.ciclo?.enlace_clip ? [info.ciclo.enlace_clip] : []),
+  // saludo y final con el nombre de Daniel: pesan muy poco y se guardan siempre, por si cambia el nombre
+  ...(info.personal?.saludo ? [info.personal.saludo] : []),
+  ...(info.personal?.final ? [info.personal.final.archivo] : [])];
 const NOMBRE_RITMO = Object.fromEntries(RITMOS);
 
 async function infoDescargada(e, r) {
@@ -422,6 +451,9 @@ async function vistaFicha(id) {
     <section class="bloque"><h2>Para qué sirve</h2><p>${esc(e.para_que)}</p></section>
     <section class="bloque"><h2>Cuándo</h2><p>${esc(e.cuando)}</p></section>
     <section class="bloque"><h2>${e.tipo === 'ficha' ? 'Cómo se hace' : 'Los pasos'}</h2><ol class="pasos">${e.pasos.map(p => `<li>${esc(p)}</li>`).join('')}</ol></section>
+    ${e.ilustracion ? `<section class="bloque"><h2>${esc(e.ilustracion.titulo)}</h2><figure class="ilustracion">
+      <img src="${esc(e.ilustracion.src)}" alt="${esc(e.ilustracion.pie)}" loading="lazy" width="680" height="400">
+      <figcaption>${esc(e.ilustracion.pie)}</figcaption></figure></section>` : ''}
     ${e.contexto ? `<section class="bloque"><h2>Contexto</h2><p class="contexto">${esc(e.contexto)}</p></section>` : ''}
     ${e.aviso ? `<p class="aviso">${esc(e.aviso)}</p>` : ''}
     <div id="zona-empezar"></div>`;
@@ -610,7 +642,7 @@ async function iniciarSesion(e, info, fuentes = null) {
   app.innerHTML = `<div class="sesion">
       <div class="centro"><div class="paso" id="paso">Preparando…</div><div class="num" id="num"></div>
       <div class="linea" id="linea" role="slider" aria-label="Posición del audio" tabindex="0"><div class="barra"><i id="prog"></i></div></div>
-      <div class="tiempos"><span id="t-act">0:00</span><span>${fmtMin(info.duracion)}</span></div></div>
+      <div class="tiempos"><span id="t-act">0:00</span><span id="t-total">${fmtMin(info.duracion)}</span></div></div>
       <div class="controles">
         <button id="ant" aria-label="Repetir paso"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
         <button id="pp" aria-label="Pausa"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
@@ -625,22 +657,45 @@ async function iniciarSesion(e, info, fuentes = null) {
   const a = new Audio(fuente(info.archivo));
   a.preload = 'auto';
   const clip = new Audio();
+  // En el móvil de Daniel: «Hola, Daniel.» antes del audio, y al final se funde con la versión que dice su nombre
+  const per = esDaniel() && info.personal ? info.personal : null;
+  const pf = per?.final || null;
+  const fin = new Audio();
+  if (pf) { fin.src = fuente(pf.archivo); fin.preload = 'auto'; }
+  let enFinal = false;
+  const total = pf ? pf.desde + pf.duracion : info.duracion;
+  const activo = () => (enFinal ? fin : a);
+  const ahora = () => (enFinal ? pf.desde + fin.currentTime : a.currentTime);
+  const espera = ms => new Promise(r => setTimeout(r, ms));
+  async function pasarAlFinal() {
+    enFinal = true;
+    fin.volume = 0; fin.currentTime = Math.max(0, a.currentTime - pf.desde);
+    try { await fin.play(); } catch { enFinal = false; return; }
+    fin.currentTime = Math.max(0, a.currentTime - pf.desde);   // vuelve a alinearlos tras el arranque
+    for (let i = 1; i <= 10; i++) { await espera(30); fin.volume = i / 10; a.volume = 1 - i / 10; }
+    a.pause(); a.volume = 1;
+  }
   const marcas = info.marcas, eventos = info.eventos || [];
   const vars = {}; let ciclos = 1, ocupado = false, pasoActual = -1;
   let disparados = new Set();
   const datos = { id: e.id, titulo: e.titulo, ritmo: info.ritmo, inicio: Date.now(), vars, ciclos: 1 };
-  window.__sesion = { a, clip, vars, get ciclos() { return ciclos; }, get ocupado() { return ocupado; } }; // para depurar
+  window.__sesion = { a, clip, fin, vars, irA: t => irA(t), get enFinal() { return enFinal; }, get ciclos() { return ciclos; }, get ocupado() { return ocupado; } }; // para depurar
 
   const indicePaso = t => { let i = 0; marcas.forEach((m, k) => { if (t >= m.inicio - 0.05) i = k; }); return i; };
   const irA = t => {
+    if (pf && t >= pf.desde) {   // dentro del final con el nombre
+      a.pause(); enFinal = true; fin.volume = 1; fin.currentTime = t - pf.desde; fin.play().catch(() => {});
+      return;
+    }
+    if (enFinal) { fin.pause(); enFinal = false; a.volume = 1; a.play().catch(() => {}); }
     a.currentTime = t;
     disparados = new Set(eventos.map((ev, i) => (ev.t < t - 0.01 ? i : -1)).filter(i => i >= 0));
   };
   let destino = null, temporizador = null;   // salto pendiente: varias pulsaciones seguidas = un solo salto
-  const posicion = () => (destino ?? a.currentTime);
+  const posicion = () => (destino ?? ahora());
   const pintar = (t = posicion()) => {
     const i = indicePaso(t);
-    $('#prog').style.width = `${Math.min(100, (t / info.duracion) * 100)}%`;
+    $('#prog').style.width = `${Math.min(100, (t / total) * 100)}%`;
     $('#t-act').textContent = fmtMin(t);
     if (i === pasoActual) return;
     pasoActual = i;
@@ -677,15 +732,17 @@ async function iniciarSesion(e, info, fuentes = null) {
   }
 
   const reloj = setInterval(() => {
-    if (ocupado || a.paused || destino !== null) return;
+    if (ocupado || activo().paused || destino !== null) return;
     pintar();
+    if (enFinal) return;
+    if (pf && a.currentTime >= pf.desde && a.currentTime < pf.desde + 0.6) { pasarAlFinal(); return; }
     const i = eventos.findIndex((ev, k) => !disparados.has(k) && a.currentTime >= ev.t - 0.08);
     if (i >= 0) procesar(i);
   }, 100);
 
   const buscar = t => {
     if (ocupado) return;
-    destino = Math.max(0, Math.min(t, info.duracion - 0.5));
+    destino = Math.max(0, Math.min(t, total - 0.5));
     pintar(destino);
     clearTimeout(temporizador);
     temporizador = setTimeout(() => { const t2 = destino; destino = null; irA(t2); pintar(t2); }, 350);
@@ -698,7 +755,7 @@ async function iniciarSesion(e, info, fuentes = null) {
   const linea = $('#linea');
   const tocarLinea = ev => {
     const r = linea.getBoundingClientRect();
-    buscar(Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)) * info.duracion);
+    buscar(Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)) * total);
   };
   linea.addEventListener('pointerdown', ev => { linea.setPointerCapture(ev.pointerId); tocarLinea(ev); });
   linea.addEventListener('pointermove', ev => { if (linea.hasPointerCapture(ev.pointerId)) tocarLinea(ev); });
@@ -708,36 +765,47 @@ async function iniciarSesion(e, info, fuentes = null) {
   });
   const alternar = () => {
     if (ocupado) return;
-    if (a.paused) a.play(); else a.pause();
+    const r = activo();
+    if (r.paused) r.play(); else r.pause();
   };
-  a.onplay = () => { $('#pp').innerHTML = ICONO_PAUSA; };
-  a.onpause = () => { if (!ocupado) $('#pp').innerHTML = ICONO_PLAY; };
+  a.onplay = fin.onplay = () => { $('#pp').innerHTML = ICONO_PAUSA; };
+  a.onpause = () => { if (!ocupado && !enFinal) $('#pp').innerHTML = ICONO_PLAY; };
+  fin.onpause = () => { if (enFinal) $('#pp').innerHTML = ICONO_PLAY; };
   $('#pp').onclick = alternar; $('#sig').onclick = () => saltar(1); $('#ant').onclick = () => saltar(-1);
 
   if ('mediaSession' in navigator) {
     const ms = navigator.mediaSession;
-    ms.setActionHandler('play', () => { if (!ocupado) a.play(); });
-    ms.setActionHandler('pause', () => { if (!ocupado) a.pause(); });
+    ms.setActionHandler('play', () => { if (!ocupado) activo().play(); });
+    ms.setActionHandler('pause', () => { if (!ocupado) activo().pause(); });
     ms.setActionHandler('nexttrack', () => saltar(1));
     ms.setActionHandler('previoustrack', () => saltar(-1));
   }
 
   const terminar = (completa) => {
-    clearInterval(reloj); clearTimeout(temporizador); a.pause(); clip.pause(); a.src = ''; clip.src = '';
+    clearInterval(reloj); clearTimeout(temporizador); a.pause(); clip.pause(); fin.pause(); a.src = ''; clip.src = ''; fin.src = '';
     if (fuentes) Object.values(fuentes).forEach(u => URL.revokeObjectURL(u));
     finSesion = null;
     try { wakeLock?.release(); } catch { /* ya liberado */ }
     wakeLock = null;
     document.body.classList.remove('en-sesion');
     if ('mediaSession' in navigator) ['play', 'pause', 'nexttrack', 'previoustrack'].forEach(k => navigator.mediaSession.setActionHandler(k, null));
-    if (completa) { sesionActual = datos; ir('#/fin'); } else ir(`#/ej/${e.id}`);
+    if (completa) { apuntarSesion(datos); sesionActual = datos; ir('#/fin'); } else ir(`#/ej/${e.id}`);
   };
   finSesion = () => terminar(false);
-  a.onended = () => terminar(true);
+  a.onended = () => { if (!enFinal) terminar(true); };
+  fin.onended = () => terminar(true);
   $('#salir').onclick = () => terminar(false);
 
-  a.play().catch(() => { $('#pp').innerHTML = ICONO_PLAY; });
   pintar();
+  if (per?.saludo) {
+    ocupado = true;
+    $('#t-total').textContent = fmtMin(total);
+    await tocar(clip, fuente(per.saludo));
+    ocupado = false;
+    if (!finSesion) return;   // ha salido durante el saludo
+    a.currentTime = per.salto || 0;
+  } else if (pf) $('#t-total').textContent = fmtMin(total);
+  a.play().catch(() => { $('#pp').innerHTML = ICONO_PLAY; });
 }
 
 function vistaFin() {
@@ -747,8 +815,248 @@ function vistaFin() {
   app.innerHTML = `<div class="fin"><h1>Bien hecho</h1>
     <p class="ficha-meta">${esc(d.titulo)}${d.ciclos > 1 ? ` · ${d.ciclos} ciclos` : ''}</p>
     <p class="muted">Quédate un momento con lo que sientes antes de seguir.</p>
+    ${animoActivo() ? `<div class="animo-fin" id="animo-fin"><p><b>¿Cómo estás ahora?</b></p>${filaCaras()}</div>` : ''}
     <button class="btn" data-ir="#/">Volver al inicio</button></div>`;
   enlazar();
+  enlazarCaras(app, n => {
+    apuntarAnimo({ n, tipo: 'tras', ej: d.id });
+    $('#animo-fin').innerHTML = `<p class="guardado">${cara(n, 28)} Apuntado: ${ANIMOS[n - 1].toLowerCase()}. Lo verás en tu evolución.</p>`;
+  });
+}
+
+// ---------- Registro de ánimo ----------
+const ANIMOS = ['Muy mal', 'Mal', 'Regular', 'Bien', 'Muy bien'];
+const COLOR_ANIMO = ['#c96f6a', '#e39a72', '#e6c06c', '#9cc596', '#5aa98a'];
+const BOCA = ['M8 16.5q4-3.2 8 0', 'M8.3 16q3.7-1.8 7.4 0', 'M8.5 15.5h7', 'M8.3 14.6q3.7 1.8 7.4 0', 'M7.8 14q4.2 3.6 8.4 0'];
+const cara = (n, t = 40) => `<svg width="${t}" height="${t}" viewBox="0 0 24 24" aria-hidden="true">
+  <circle cx="12" cy="12" r="10.5" fill="${COLOR_ANIMO[n - 1]}"/>
+  <circle cx="8.8" cy="10" r="1.15" fill="#3d1f2d"/><circle cx="15.2" cy="10" r="1.15" fill="#3d1f2d"/>
+  <path d="${BOCA[n - 1]}" fill="none" stroke="#3d1f2d" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+const filaCaras = (sel = 0) => `<div class="caras" role="group" aria-label="Cómo estás">${ANIMOS.map((t, i) =>
+  `<button class="cara" data-animo="${i + 1}" aria-pressed="${sel === i + 1}" aria-label="${t}">${cara(i + 1)}<span>${t}</span></button>`).join('')}</div>`;
+const enlazarCaras = (root, fn) => root.querySelectorAll('[data-animo]').forEach(b => b.addEventListener('click', () => fn(+b.dataset.animo)));
+let animoElegido = 0;
+
+const dia = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const registros = () => store.get('animo', []);
+function apuntarAnimo(r) {
+  const l = registros(); l.push({ f: dia(), t: Date.now(), e: [], nota: '', ...r }); store.set('animo', l);
+}
+function apuntarSesion(d) {
+  const l = store.get('sesiones', []);
+  l.push({ f: dia(), t: Date.now(), ej: d.id, ritmo: d.ritmo, min: Math.round((Date.now() - d.inicio) / 60000) });
+  store.set('sesiones', l);
+}
+const hoyRegistrado = () => registros().filter(r => r.f === dia() && r.tipo === 'dia').pop();
+
+function tarjetaAnimoHoy() {
+  const hoy = hoyRegistrado();
+  if (hoy) return `<div class="animo-hoy hecho">${cara(hoy.n, 30)}<span>Hoy te sientes <b>${ANIMOS[hoy.n - 1].toLowerCase()}</b></span>
+    <button class="enlace" data-ir="#/evolucion">Tu evolución</button></div>`;
+  return `<div class="animo-hoy"><p><b>¿Cómo estás hoy?</b></p>${filaCaras()}
+    <button class="enlace" data-ir="#/evolucion">Ver tu evolución</button></div>`;
+}
+
+function vistaRegistro() {
+  if (!animoElegido) return ir('#/');
+  const sel = new Set();
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+    <h1>¿Cómo estás hoy?</h1>
+    ${filaCaras(animoElegido)}
+    <h2>¿Qué hay hoy? <span class="opcional">Opcional</span></h2>
+    <div class="chips">${CAT.estados.map(x => `<button class="chip" data-estado="${x.id}" aria-pressed="false">${esc(x.nombre)}</button>`).join('')}</div>
+    <h2><label for="nota">Una nota para ti</label> <span class="opcional">Opcional</span></h2>
+    <textarea id="nota" rows="3" maxlength="500" placeholder="Qué ha pasado, qué te ha ayudado…"></textarea>
+    <button class="btn" id="guardar-animo">Guardar</button>`;
+  enlazar();
+  enlazarCaras(app, n => { animoElegido = n; app.querySelectorAll('[data-animo]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.animo === n)); });
+  app.querySelectorAll('[data-estado]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.estado; if (sel.has(id)) sel.delete(id); else sel.add(id);
+    b.setAttribute('aria-pressed', sel.has(id));
+  }));
+  $('#guardar-animo').addEventListener('click', () => {
+    apuntarAnimo({ n: animoElegido, tipo: 'dia', e: [...sel], nota: $('#nota').value.trim() });
+    animoElegido = 0; ir('#/');
+  });
+}
+
+// ---------- Tu evolución: resumen de cada mes ----------
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const media = l => (l.length ? l.reduce((a, b) => a + b, 0) / l.length : null);
+const fmt1 = x => x.toLocaleString('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const mesDe = f => f.slice(0, 7);
+const mesSiguiente = (m, k) => { const [y, mm] = m.split('-').map(Number); const d = new Date(y, mm - 1 + k, 1); return dia(d).slice(0, 7); };
+const nombreMes = m => MESES[+m.slice(5) - 1];
+
+function resumenMes(m) {
+  const regs = registros().filter(r => mesDe(r.f) === m);
+  const ses = store.get('sesiones', []).filter(x => mesDe(x.f) === m);
+  const porDia = {};
+  regs.forEach(r => (porDia[r.f] ||= []).push(r.n));
+  const medias = Object.values(porDia).map(media);
+  const cuenta = {};
+  regs.forEach(r => (r.e || []).forEach(id => { cuenta[id] = (cuenta[id] || 0) + 1; }));
+  const estados = Object.entries(cuenta).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  const porEj = {};
+  ses.forEach(x => { (porEj[x.ej] ||= { veces: 0, tras: [] }).veces++; });
+  regs.filter(r => r.tipo === 'tras' && r.ej).forEach(r => (porEj[r.ej] ||= { veces: 0, tras: [] }).tras.push(r.n));
+  return { regs, ses, porDia, media: media(medias), dias: medias.length, estados, porEj };
+}
+
+const y = l => (l.length > 1 ? `${l.slice(0, -1).join(', ')} y ${l[l.length - 1]}` : l[0]);
+
+function textoResumen(m, r, ant) {
+  const mes = nombreMes(m), partes = [];
+  if (!r.dias) return '';
+  partes.push(`En ${mes} has apuntado cómo estabas ${r.dias} ${r.dias === 1 ? 'día' : 'días'} y, de media, te has sentido ${ANIMOS[Math.round(r.media) - 1].toLowerCase()} (${fmt1(r.media)} sobre 5).`);
+  if (ant.media != null) {
+    const d = r.media - ant.media;
+    partes.push(Math.abs(d) < 0.25 ? `Muy parecido a ${nombreMes(mesSiguiente(m, -1))}.`
+      : d > 0 ? `Mejor que en ${nombreMes(mesSiguiente(m, -1))}, cuando la media fue ${fmt1(ant.media)}.`
+        : `Algo más bajo que en ${nombreMes(mesSiguiente(m, -1))}, cuando la media fue ${fmt1(ant.media)}.`);
+  }
+  if (r.estados.length) partes.push(`Lo que más ha aparecido: ${y(r.estados.map(([id]) => `«${nombreEstado(id)}»`))}.`);
+  const mejor = Object.entries(r.porEj).filter(([, v]) => v.tras.length).map(([id, v]) => [id, media(v.tras)]).sort((a, b) => b[1] - a[1])[0];
+  if (mejor) partes.push(`El ejercicio después del que mejor te has sentido: ${ej(mejor[0])?.titulo || mejor[0]}.`);
+  return partes.join(' ');
+}
+
+function vistaEvolucion(param) {
+  const hoyMes = dia().slice(0, 7);
+  const m = /^\d{4}-\d{2}$/.test(param || '') ? param : hoyMes;
+  const r = resumenMes(m), ant = resumenMes(mesSiguiente(m, -1));
+  const [y, mm] = m.split('-').map(Number);
+  const primero = (new Date(y, mm - 1, 1).getDay() + 6) % 7;   // lunes = 0
+  const nDias = new Date(y, mm, 0).getDate();
+  const celdas = [...Array(primero).fill('<span></span>'), ...Array.from({ length: nDias }, (_, i) => {
+    const f = `${m}-${String(i + 1).padStart(2, '0')}`, v = r.porDia[f];
+    const n = v ? Math.round(media(v)) : 0;
+    return `<span class="dia${n ? '' : ' vacio-dia'}${f === dia() ? ' hoy' : ''}" ${n ? `style="background:${COLOR_ANIMO[n - 1]}" title="${ANIMOS[n - 1]}"` : ''}>${i + 1}</span>`;
+  })];
+  // gráfica: los últimos 6 meses
+  const meses = Array.from({ length: 6 }, (_, i) => mesSiguiente(m, i - 5)).map(x => ({ m: x, v: resumenMes(x).media }));
+  const barras = meses.map(({ m: x, v }, i) => {
+    const h = v ? (v / 5) * 90 : 0, c = v ? COLOR_ANIMO[Math.round(v) - 1] : 'none';
+    return `<g><rect x="${i * 50 + 10}" y="${100 - h}" width="30" height="${h}" rx="5" fill="${c}"/>
+      ${v ? `<text x="${i * 50 + 25}" y="${94 - h}" text-anchor="middle" class="graf-num">${fmt1(v)}</text>` : ''}
+      <text x="${i * 50 + 25}" y="118" text-anchor="middle" class="graf-mes">${nombreMes(x).slice(0, 3)}</text></g>`;
+  }).join('');
+  const notas = r.regs.filter(x => x.nota).sort((a, b) => a.t - b.t);
+  const ejs = Object.entries(r.porEj).filter(([, v]) => v.veces).sort((a, b) => b[1].veces - a[1].veces);
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+    <h1>Tu evolución</h1>
+    <div class="mes-nav"><button class="icono-btn" data-ir="#/evolucion/${mesSiguiente(m, -1)}" aria-label="Mes anterior">‹</button>
+      <b>${nombreMes(m)[0].toUpperCase() + nombreMes(m).slice(1)} ${y}</b>
+      <button class="icono-btn" data-ir="#/evolucion/${mesSiguiente(m, 1)}" aria-label="Mes siguiente" ${m >= hoyMes ? 'disabled' : ''}>›</button></div>
+    ${r.dias ? `<p class="resumen-mes">${esc(textoResumen(m, r, ant))}</p>` : `<p class="vacio">No hay nada apuntado en ${nombreMes(m)}. ${m === hoyMes ? 'En la portada puedes decir cómo estás hoy.' : ''}</p>`}
+    <div class="calendario" aria-label="Ánimo de cada día">
+      ${['L', 'M', 'X', 'J', 'V', 'S', 'D'].map(d => `<span class="dsem">${d}</span>`).join('')}${celdas.join('')}</div>
+    <div class="leyenda">${ANIMOS.map((t, i) => `<span><i style="background:${COLOR_ANIMO[i]}"></i>${t}</span>`).join('')}</div>
+    ${r.dias ? `<div class="cifras">
+      <div><b>${fmt1(r.media)}</b><span>ánimo medio</span></div>
+      <div><b>${r.dias}</b><span>${r.dias === 1 ? 'día apuntado' : 'días apuntados'}</span></div>
+      <div><b>${r.ses.length}</b><span>${r.ses.length === 1 ? 'ejercicio hecho' : 'ejercicios hechos'}</span></div></div>` : ''}
+    ${r.estados.length ? `<h2>Lo que más ha aparecido</h2><div class="chips">${r.estados.map(([id, n]) => `<span class="chip">${esc(CAT.estados.find(x => x.id === id)?.nombre || id)} · ${n}</span>`).join('')}</div>` : ''}
+    ${ejs.length ? `<h2>Tus ejercicios</h2><div class="lista">${ejs.map(([id, v]) => `<div class="card fila-ej"><span><b>${esc(ej(id)?.titulo || id)}</b>
+      <span class="sub">${v.veces} ${v.veces === 1 ? 'vez' : 'veces'}${v.tras.length ? ` · después: ${ANIMOS[Math.round(media(v.tras)) - 1].toLowerCase()}` : ''}</span></span>
+      ${v.tras.length ? cara(Math.round(media(v.tras)), 28) : ''}</div>`).join('')}</div>` : ''}
+    <h2>Mes a mes</h2>
+    <svg class="grafica" viewBox="0 0 300 124" role="img" aria-label="Ánimo medio de los últimos seis meses">${barras}</svg>
+    ${notas.length ? `<h2>Tus notas</h2><div class="notas">${notas.map(x => `<p><span class="muted">${+x.f.slice(8)} de ${nombreMes(m)} ·</span> ${cara(x.n, 18)} ${esc(x.nota)}</p>`).join('')}</div>` : ''}`;
+  enlazar();
+}
+
+// ---------- Ajustes ----------
+const ICONO_AJUSTES = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>';
+
+async function fotoPortada() {
+  if (!('caches' in window)) return null;
+  const r = await (await caches.open(PERFIL)).match(URL_FOTO);
+  return r ? URL.createObjectURL(await r.blob()) : null;
+}
+// la foto se reduce a 1600 px como máximo para que no ocupe mucho
+async function guardarFoto(file) {
+  const img = await createImageBitmap(file);
+  const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+  const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+  c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+  await (await caches.open(PERFIL)).put(URL_FOTO, new Response(blob, { headers: { 'Content-Type': 'image/jpeg' } }));
+}
+const blobADataURL = b => new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(b); });
+const CLAVES_PERFIL = ['nombre', 'nombrePreguntado', 'animoActivo', 'animo', 'sesiones', 'estados', 'tiempo', 'vozAlta', 'ritmo'];
+
+async function vistaAjustes() {
+  const foto = await fotoPortada().catch(() => null);
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
+    <h1>Ajustes</h1>
+    <section class="bloque"><h2><label for="nombre">Tu nombre</label></h2>
+      <form class="fila" id="form-nombre"><input id="nombre" type="text" autocomplete="given-name" maxlength="30" value="${esc(nombre())}" placeholder="Tu nombre">
+        <button class="btn-mini" type="submit">Guardar</button></form>
+      <p class="ayuda" id="ayuda-nombre">${esDaniel() ? 'Aparece en el saludo de la portada y los audios te llaman por tu nombre.' : 'Aparece en el saludo de la portada.'}</p></section>
+    <section class="bloque"><h2>Foto de portada</h2>
+      <div class="foto-ajuste"><img src="${foto || 'img/inicio.jpg'}" alt="Foto de portada actual">
+        <div><label class="btn-sec elegir-foto">Elegir foto<input type="file" accept="image/*" id="foto" hidden></label>
+        ${foto ? '<button class="enlace" id="foto-original">Volver a la foto original</button>' : ''}</div></div>
+      <p class="ayuda">La foto se queda en este móvil.</p></section>
+    <section class="bloque"><h2>Registro de ánimo</h2>
+      <label class="toggle"><span>Preguntarme cómo estoy, cada día y al terminar un ejercicio</span><input type="checkbox" id="animo-activo" ${animoActivo() ? 'checked' : ''}></label>
+      <button class="enlace" data-ir="#/evolucion">Ver tu evolución</button></section>
+    <section class="bloque"><h2>Descargas</h2>
+      <button class="btn-sec" data-ir="#/descargas">${ICONO_DESCARGA}<span>Mis descargas</span></button></section>
+    <section class="bloque"><h2>Tus datos</h2>
+      <p class="ayuda">Tu nombre, tu foto y tu registro de ánimo se guardan solo en este móvil. No se envían a ningún sitio y nadie más puede verlos. Si cambias de móvil o borras los datos del navegador, se pierden: guarda una copia de vez en cuando.</p>
+      <div class="botones-datos">
+        <button class="btn-sec" id="copia">Guardar una copia</button>
+        <label class="btn-sec">Recuperar una copia<input type="file" accept="application/json,.json" id="recuperar" hidden></label>
+      </div>
+      <button class="enlace peligro" id="borrar-datos">Borrar mis datos</button></section>
+    <p class="estado-ajustes" id="estado" role="status"></p>`;
+  enlazar();
+  const aviso = t => { $('#estado').textContent = t; setTimeout(() => { const x = $('#estado'); if (x) x.textContent = ''; }, 3500); };
+  $('#form-nombre').addEventListener('submit', ev => {
+    ev.preventDefault();
+    store.set('nombre', $('#nombre').value.trim()); store.set('nombrePreguntado', true);
+    $('#ayuda-nombre').textContent = esDaniel() ? 'Aparece en el saludo de la portada y los audios te llaman por tu nombre.' : 'Aparece en el saludo de la portada.';
+    aviso('Nombre guardado.');
+  });
+  $('#foto').addEventListener('change', async ev => {
+    const f = ev.target.files[0]; if (!f) return;
+    try { await guardarFoto(f); vistaAjustes(); } catch { aviso('No se ha podido usar esa foto. Prueba con otra.'); }
+  });
+  $('#foto-original')?.addEventListener('click', async () => { await (await caches.open(PERFIL)).delete(URL_FOTO); vistaAjustes(); });
+  $('#animo-activo').addEventListener('change', ev => store.set('animoActivo', ev.target.checked));
+  $('#copia').addEventListener('click', async () => {
+    const datos = { app: 'botiquin', version: 1, fecha: new Date().toISOString(), datos: {} };
+    CLAVES_PERFIL.forEach(k => { const v = store.get(k, null); if (v !== null) datos.datos[k] = v; });
+    const r = await (await caches.open(PERFIL)).match(URL_FOTO).catch(() => null);
+    if (r) datos.foto = await blobADataURL(await r.blob());
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(datos)], { type: 'application/json' }));
+    a.download = `botiquin-copia-${dia()}.json`; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    aviso('Copia guardada en tus descargas del móvil.');
+  });
+  $('#recuperar').addEventListener('change', async ev => {
+    const f = ev.target.files[0]; if (!f) return;
+    try {
+      const c = JSON.parse(await f.text());
+      if (c.app !== 'botiquin' || !c.datos) throw new Error('formato');
+      if (!confirm('¿Recuperar esta copia? Sustituye tu nombre, tu foto y tu registro de ánimo actuales.')) return;
+      CLAVES_PERFIL.forEach(k => { try { localStorage.removeItem(k); } catch { /* nada */ } });
+      Object.entries(c.datos).forEach(([k, v]) => { if (CLAVES_PERFIL.includes(k)) store.set(k, v); });
+      const cache = await caches.open(PERFIL);
+      if (c.foto) await cache.put(URL_FOTO, await fetch(c.foto)); else await cache.delete(URL_FOTO);
+      ui.estados = new Set(store.get('estados', [])); ui.tiempo = store.get('tiempo', 10); ui.ritmo = store.get('ritmo', 'normal');
+      await vistaAjustes(); aviso('Copia recuperada.');
+    } catch { aviso('Ese archivo no es una copia de Botiquín.'); }
+  });
+  $('#borrar-datos').addEventListener('click', async () => {
+    if (!confirm('¿Borrar tu nombre, tu foto y tu registro de ánimo de este móvil? No se puede deshacer. Las descargas se mantienen.')) return;
+    CLAVES_PERFIL.forEach(k => { try { localStorage.removeItem(k); } catch { /* nada */ } });
+    await caches.delete(PERFIL).catch(() => {});
+    ui.estados = new Set(); ir('#/');
+  });
 }
 
 // ---------- Rutas ----------
@@ -761,6 +1069,9 @@ function rutear() {
   if (h === '#/fin') return vistaFin();
   if (h === '#/coaching') return vistaInicio();
   if (h === '#/descargas') return vistaDescargas();
+  if (h === '#/ajustes') return vistaAjustes();
+  if (h === '#/registro') return vistaRegistro();
+  if (h.startsWith('#/evolucion')) return vistaEvolucion(h.split('/')[2]);
   const sec = SECCIONES.find(x => `#/${x.id}` === h);
   if (sec) return vistaSeccionVacia(sec);
   return vistaPortada();
@@ -770,11 +1081,18 @@ function bienvenida() {
   const s = document.createElement('div');
   s.className = 'splash';
   s.innerHTML = '<p class="toca">Toca para entrar</p>';
+  fotoPortada().then(u => { if (u) s.style.backgroundImage = `url("${u}")`; }).catch(() => {});
   s.addEventListener('click', () => { s.classList.add('fuera'); setTimeout(() => s.remove(), 1000); });
   document.body.appendChild(s);
 }
 
 (async () => {
+  // enlace personal de Daniel: …/botiquin/?yo=daniel (solo hace falta abrirlo una vez en su móvil)
+  const q = new URLSearchParams(location.search);
+  if (q.get('yo') === 'daniel') {
+    store.set('nombre', 'Daniel'); store.set('nombrePreguntado', true);
+    history.replaceState(null, '', location.pathname + location.hash);
+  }
   bienvenida();
   CAT = await (await fetch('data/catalogo.json', { cache: 'no-cache' })).json();
   window.addEventListener('hashchange', rutear);

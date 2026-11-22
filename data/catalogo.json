@@ -262,6 +262,35 @@
       "audio": "silva"
     },
     {
+      "id": "triangulo",
+      "titulo": "Triángulo Virtuoso",
+      "subtitulo": "De la duda a la creación",
+      "sesion": 6,
+      "tipo": "guiada",
+      "minutos": 12,
+      "requisitos": [],
+      "estados": {
+        "confianza": 1,
+        "rumbo": 2,
+        "pendientes": 2
+      },
+      "para_que": "Aclarar la energía de la duda. Reúne tres fuerzas, la autoridad interna para escoger, la confianza para sostener lo escogido y la creación para llevarlo a la realidad, y las alinea en un solo gesto consciente.",
+      "cuando": "Cuando dudas ante una conversación pendiente, una decisión importante, una exposición pública o un paso que llevas tiempo evitando.",
+      "pasos": [
+        "Primer vértice, la autoridad interna: adopta la postura del guerrero (de pie con las piernas un poco flexionadas, o sentado y erguido), cierra los ojos e imagina tu energía de guerrero. Ponle un nombre si quieres.",
+        "Segundo vértice, el corazón y la confianza: suaviza el cuerpo, lleva las manos al corazón e invoca «confianza». Si quieres, usa el mantra «Confío en la vida…».",
+        "Tercer vértice, la creación: lleva las manos hacia delante, extiende los brazos, forma un triángulo con las manos y piensa «Yo soy creador. Y ahora transformo mi realidad».",
+        "Proyecta la energía del triángulo hacia una situación que te genere duda o miedo. No imagines resultados: solo emite."
+      ],
+      "contexto": "Puedes alargar o acortar cada fase, o trabajar solo el vértice en el que sientas que estás desequilibrado.",
+      "audio": "triangulo",
+      "ilustracion": {
+        "src": "img/guerrero.svg",
+        "titulo": "La postura del guerrero",
+        "pie": "De pie, con las rodillas un poco flexionadas, o sentado y erguido. Los brazos delante del pecho: un puño cerrado y la otra mano envolviéndolo para afianzarlo."
+      }
+    },
+    {
       "id": "respiracion-478",
       "titulo": "Respiración 4-7-8",
       "subtitulo": "Al momento",

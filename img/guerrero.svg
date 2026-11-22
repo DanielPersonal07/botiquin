@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" role="img" aria-labelledby="t d">
+  <title id="t">La postura del guerrero</title>
+  <desc id="d">De pie, con las rodillas un poco flexionadas y la espalda recta. Los brazos delante del pecho: una mano cerrada en puño y la otra envolviéndola para afianzarla.</desc>
+  <style>
+    .o { stroke: #c2306f; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .f { stroke: #fbd9e6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .piel { fill: #fbd9e6; stroke: #c2306f; stroke-width: 4; stroke-linejoin: round; }
+    .linea { stroke: #c2306f; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .suelo { stroke: #e0558f; stroke-width: 3; stroke-linecap: round; fill: none; opacity: .55; }
+  </style>
+
+  <!-- ===== Cuerpo entero ===== -->
+  <ellipse cx="150" cy="215" rx="138" ry="190" fill="#fbe7ee"/>
+  <!-- suelo y raíces -->
+  <path class="suelo" d="M45 389 H255"/>
+  <path class="suelo" d="M100 396 q-6 8 -14 12 M118 396 v12 M182 396 v12 M200 396 q6 8 14 12" opacity=".35"/>
+
+  <!-- piernas: rodillas un poco flexionadas -->
+  <path class="o" stroke-width="34" d="M134 228 L100 300 L112 372"/>
+  <path class="o" stroke-width="34" d="M166 228 L200 300 L188 372"/>
+  <path class="f" stroke-width="27" d="M134 228 L100 300 L112 372"/>
+  <path class="f" stroke-width="27" d="M166 228 L200 300 L188 372"/>
+  <!-- pies -->
+  <ellipse class="piel" cx="108" cy="380" rx="20" ry="8"/>
+  <ellipse class="piel" cx="192" cy="380" rx="20" ry="8"/>
+
+  <!-- tronco -->
+  <path class="piel" d="M103 120 Q150 104 197 120 L188 200 Q186 222 172 238 L128 238 Q114 222 112 200 Z"/>
+  <!-- cuello y cabeza -->
+  <path class="piel" d="M140 92 h20 v20 h-20z"/>
+  <circle class="piel" cx="150" cy="70" r="29"/>
+  <path class="linea" d="M139 80 q11 7 22 0" stroke-width="2.5"/>
+  <path class="linea" d="M136 66 h7 M157 66 h7" stroke-width="2.5"/>
+
+  <!-- brazos: codos abiertos, antebrazos hacia el centro del pecho -->
+  <path class="o" stroke-width="28" d="M108 128 L86 186 L138 168"/>
+  <path class="o" stroke-width="28" d="M192 128 L214 186 L162 168"/>
+  <path class="f" stroke-width="21" d="M108 128 L86 186 L138 168"/>
+  <path class="f" stroke-width="21" d="M192 128 L214 186 L162 168"/>
+  <!-- manos juntas delante del pecho -->
+  <rect class="piel" x="132" y="152" width="36" height="32" rx="12"/>
+  <path class="linea" d="M137 158 q4 -5 8 0 M145 158 q4 -5 8 0 M140 165 h22 M139 172 h23 M141 179 h21" stroke-width="2.2"/>
+  <!-- marca de zoom -->
+  <circle cx="150" cy="168" r="30" fill="none" stroke="#c2306f" stroke-width="2.5" stroke-dasharray="5 5"/>
+  <path d="M180 168 L318 168" stroke="#c2306f" stroke-width="2.5" stroke-dasharray="5 5" fill="none"/>
+
+  <!-- ===== Detalle de las manos ===== -->
+  <circle cx="500" cy="200" r="178" fill="#fbe7ee" stroke="#c2306f" stroke-width="2.5" stroke-dasharray="5 5"/>
+  <clipPath id="zoom"><circle cx="500" cy="200" r="176"/></clipPath>
+  <g clip-path="url(#zoom)">
+    <!-- antebrazos -->
+    <path class="o" stroke-width="78" d="M330 380 L438 232"/>
+    <path class="o" stroke-width="78" d="M670 380 L562 232"/>
+    <path class="f" stroke-width="70" d="M330 380 L438 232"/>
+    <path class="f" stroke-width="70" d="M670 380 L562 232"/>
+
+    <!-- puño (mano derecha): asoman los nudillos por arriba y el lateral izquierdo -->
+    <path class="piel" d="M412 182 Q412 150 442 150 L524 150 Q550 150 550 180 L550 258 Q550 282 522 282 L440 282 Q412 282 412 256 Z"/>
+    <path class="linea" d="M424 154 q11 -16 24 -1 M448 153 q12 -17 26 -1 M474 153 q12 -17 26 -1"/>
+
+    <!-- mano izquierda envolviéndolo: cuatro dedos que lo rodean por delante -->
+    <path class="piel" d="M552 170 L462 172 Q434 173 434 187 Q434 200 462 199 L552 198"/>
+    <path class="piel" d="M552 199 L452 201 Q424 202 424 215 Q424 228 452 228 L552 228"/>
+    <path class="piel" d="M552 229 L454 230 Q426 231 426 244 Q426 257 454 257 L552 257"/>
+    <path class="piel" d="M552 258 L466 259 Q440 260 440 272 Q440 284 466 284 L552 284"/>
+    <path class="linea" d="M452 176 q-9 10 0 20 M442 205 q-9 9 0 19 M444 234 q-9 9 0 19 M456 263 q-8 8 0 17" stroke-width="2.2"/>
+    <!-- dorso de la mano -->
+    <path class="piel" d="M606 176 Q616 232 602 286 Q588 304 556 298 Q536 296 536 276 L536 186 Q536 160 562 156 L582 156 Q602 158 606 176 Z"/>
+    <path class="linea" d="M556 190 q4 40 0 84" stroke-width="2.2" opacity=".6"/>
+    <!-- pulgar apoyado por encima del puño -->
+    <path class="piel" d="M600 176 Q596 140 560 134 L516 132 Q500 132 500 145 Q500 157 516 157 L548 159 Q566 162 570 182 Z"/>
+    <path class="linea" d="M512 137 q-8 8 0 16" stroke-width="2.2"/>
+  </g>
+
+</svg>

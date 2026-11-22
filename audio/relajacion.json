@@ -1,54 +1,58 @@
 {
- "archivo": "relajacion.mp3",
- "version": "5b285951f2",
- "ritmo": "normal",
- "duracion": 569.46,
- "marcas": [
-  {
-   "id": "0",
-   "titulo": "Preparación",
-   "inicio": 1.0
+  "archivo": "relajacion.mp3",
+  "version": "31b306ea82",
+  "ritmo": "normal",
+  "duracion": 564.95,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Masaje",
+      "inicio": 17.04
+    },
+    {
+      "id": "2",
+      "titulo": "Respiración completa",
+      "inicio": 82.72
+    },
+    {
+      "id": "3",
+      "titulo": "Retención y exhalación",
+      "inicio": 148.86
+    },
+    {
+      "id": "4.1",
+      "titulo": "Retención · serie 1",
+      "inicio": 167.48
+    },
+    {
+      "id": "4.2",
+      "titulo": "Retención · serie 2",
+      "inicio": 241.82
+    },
+    {
+      "id": "4.3",
+      "titulo": "Retención · serie 3",
+      "inicio": 316.2
+    },
+    {
+      "id": "5",
+      "titulo": "Extensión de la calma",
+      "inicio": 391.02
+    },
+    {
+      "id": "6",
+      "titulo": "Final",
+      "inicio": 532.83
+    }
+  ],
+  "personal": {
+    "saludo": "relajacion-saludo.mp3",
+    "salto": 0.6
   },
-  {
-   "id": "1",
-   "titulo": "Masaje",
-   "inicio": 18.32
-  },
-  {
-   "id": "2",
-   "titulo": "Respiración completa",
-   "inicio": 84.0
-  },
-  {
-   "id": "3",
-   "titulo": "Retención y exhalación",
-   "inicio": 152.2
-  },
-  {
-   "id": "4.1",
-   "titulo": "Retención · serie 1",
-   "inicio": 170.82
-  },
-  {
-   "id": "4.2",
-   "titulo": "Retención · serie 2",
-   "inicio": 245.16
-  },
-  {
-   "id": "4.3",
-   "titulo": "Retención · serie 3",
-   "inicio": 320.72
-  },
-  {
-   "id": "5",
-   "titulo": "Extensión de la calma",
-   "inicio": 395.54
-  },
-  {
-   "id": "6",
-   "titulo": "Final",
-   "inicio": 537.34
-  }
- ],
- "eventos": []
+  "eventos": []
 }

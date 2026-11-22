@@ -1,0 +1,43 @@
+{
+  "archivo": "triangulo.mp3",
+  "version": "bfc3d6a731",
+  "ritmo": "normal",
+  "duracion": 728.3,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Primer vértice · La autoridad interna",
+      "inicio": 79.73
+    },
+    {
+      "id": "2",
+      "titulo": "Segundo vértice · El corazón y la confianza",
+      "inicio": 287.91
+    },
+    {
+      "id": "3",
+      "titulo": "Tercer vértice · La creación",
+      "inicio": 507.56
+    },
+    {
+      "id": "4",
+      "titulo": "Cierre e integración",
+      "inicio": 670.86
+    }
+  ],
+  "personal": {
+    "saludo": "triangulo-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "triangulo-final.mp3",
+      "desde": 721.498,
+      "duracion": 7.94
+    }
+  },
+  "eventos": []
+}
