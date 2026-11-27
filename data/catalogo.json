@@ -291,6 +291,128 @@
       }
     },
     {
+      "id": "tapping-3d",
+      "titulo": "Tapping 3D",
+      "subtitulo": "Describir, adscribir y prescribir",
+      "sesion": 7,
+      "tipo": "guiada",
+      "minutos": 12,
+      "requisitos": [
+        "voz_alta",
+        "sentado"
+      ],
+      "estados": {
+        "recuerdo": 1,
+        "emocion": 1,
+        "ansiedad": 2
+      },
+      "para_que": "Transformar cómo percibes una experiencia conflictiva mientras das golpecitos en puntos del cuerpo. Te ayuda a comprender lo que pasó, darle un significado constructivo y crear una nueva representación mental y emocional de tu realidad.",
+      "cuando": "Cuando una experiencia, una discusión o un conflicto todavía te afecta y quieres cerrarlo sin forzar pensamientos positivos.",
+      "pasos": [
+        "Automasaje de cabeza, cuello y entrecejo.",
+        "Piensa en la experiencia y valora del 1 al 10 el malestar.",
+        "Describir: una ronda de golpecitos contando qué pasó y cómo te afectó.",
+        "Adscribir: otra ronda buscando el contexto y una explicación constructiva.",
+        "Prescribir: otra ronda imaginando cómo se resolverá y la nueva versión de ti.",
+        "Manos en el corazón. Vuelve a valorar el malestar; si persiste, repite."
+      ],
+      "puntos": [
+        "Cabeza",
+        "Encima de las cejas",
+        "Sien",
+        "Debajo de la nariz",
+        "Mentón",
+        "Clavículas",
+        "Corazón",
+        "Esternón",
+        "Costillas",
+        "Parte baja del vientre",
+        "Costados"
+      ],
+      "contexto": "La potencia está en no saltarse ninguna fase: primero reconoces la experiencia, después amplías su significado y por último construyes una alternativa.",
+      "audio": "tapping-3d",
+      "explicacion": "tapping-3d-explicacion"
+    },
+    {
+      "id": "yo-ideal",
+      "titulo": "Yo Ideal",
+      "subtitulo": "Auditoría del plano personal",
+      "sesion": 7,
+      "tipo": "guiada",
+      "minutos": 7,
+      "requisitos": [
+        "sentado"
+      ],
+      "estados": {
+        "confianza": 1,
+        "rumbo": 2
+      },
+      "para_que": "Revisar cómo te describes hoy y dónde te estancas, y construir la imagen de la versión de ti que quieres cultivar hasta habitarla.",
+      "cuando": "Cuando notas que te frena una idea de ti mismo, o que avanzas hasta cierto punto y luego te estancas.",
+      "pasos": [
+        "Pregúntate «¿Quién soy yo?» y observa las etiquetas con las que te describes.",
+        "Localiza tus techos: dónde avanzas y luego te estancas o retrocedes.",
+        "Con los ojos cerrados, imagina a tu Yo Ideal a dos metros: su postura, su mirada, su voz y cómo afronta los retos.",
+        "Da un paso mental y entra en él: mira, escucha y siente desde dentro.",
+        "Afirma: «Esta es mi naturaleza real. Acepto y valoro quién soy»."
+      ],
+      "audio": "yo-ideal",
+      "explicacion": "yo-ideal-explicacion",
+      "lectura": "autoimagen"
+    },
+    {
+      "id": "modelado-genios",
+      "titulo": "Modelado de genios",
+      "subtitulo": "Aprender de quien admiras",
+      "sesion": 7,
+      "tipo": "guiada",
+      "minutos": 5,
+      "requisitos": [
+        "sentado"
+      ],
+      "estados": {
+        "confianza": 1,
+        "rumbo": 2
+      },
+      "para_que": "Integrar la maestría, la serenidad o la audacia de una persona que admiras, observándola y poniéndote en su piel.",
+      "cuando": "Antes de un reto, o cuando te falta un recurso que ves claramente en otra persona, como calma, seguridad o determinación.",
+      "pasos": [
+        "Elige a una persona viva o histórica que encarne lo que quieres integrar.",
+        "Reproduce una película mental de esa persona: su postura, su respiración, sus movimientos y su voz.",
+        "Entra en su cuerpo: mira con sus ojos, adopta su postura y siente cómo piensa.",
+        "Sal agradeciéndole la lección y quédate con la huella.",
+        "Manos en el corazón."
+      ],
+      "audio": "modelado-genios",
+      "explicacion": "modelado-genios-explicacion",
+      "lectura": "creencias-genios"
+    },
+    {
+      "id": "pronoya",
+      "titulo": "Reencuadre de Pronoya",
+      "subtitulo": "¿Cómo me beneficia esto?",
+      "sesion": 7,
+      "tipo": "guiada",
+      "minutos": 3,
+      "requisitos": [],
+      "estados": {
+        "bucle": 1,
+        "emocion": 1,
+        "rumbo": 2
+      },
+      "para_que": "Convertir un problema que te genera fricción en una lección y una acción concreta.",
+      "cuando": "Cuando le das vueltas a un problema, te sientes a merced de las circunstancias o algo te ha salido mal.",
+      "pasos": [
+        "Elige un problema actual que te genere fricción o disgusto.",
+        "¿Qué presuposición limitante estás asumiendo?",
+        "Si ese obstáculo estuviera en tu camino para enseñarte algo, ¿cuál sería exactamente la lección?",
+        "¿Qué microacción concreta puedes hacer hoy?"
+      ],
+      "audio": "pronoya",
+      "explicacion": "pronoya-explicacion",
+      "lectura": "creencias-genios"
+    },
+    {
       "id": "respiracion-478",
       "titulo": "Respiración 4-7-8",
       "subtitulo": "Al momento",
@@ -425,6 +547,170 @@
         "Apóyate en los cinco nuevos valores que estáis trabajando en las sesiones."
       ],
       "audio": null
+    },
+    {
+      "id": "actor-metodo",
+      "titulo": "Actor del método",
+      "subtitulo": "7 días con tu nueva autoimagen",
+      "sesion": 7,
+      "tipo": "ficha",
+      "minutos": 1,
+      "requisitos": [],
+      "estados": {
+        "confianza": 1
+      },
+      "para_que": "Entrenar tu nueva autoimagen en la vida real, como un actor que encarna su nuevo papel.",
+      "cuando": "Durante los 7 días siguientes a hacer el Yo Ideal.",
+      "pasos": [
+        "Durante 7 días, actúa como un actor que encarna su nuevo papel: camina, habla y mantén el contacto visual con la soltura y la calma de tu nueva autoimagen.",
+        "Cada mañana, mírate a los ojos en el espejo durante un minuto, con la postura erguida.",
+        "Repite tu nombre junto con una frase de aprecio sincero hacia ti."
+      ],
+      "audio": null,
+      "lectura": "autoimagen"
+    },
+    {
+      "id": "autoimagen",
+      "titulo": "La autoimagen y su termostato",
+      "subtitulo": "Apuntes Supercoaching",
+      "sesion": 7,
+      "tipo": "lectura",
+      "minutos": 4,
+      "requisitos": [],
+      "estados": {},
+      "contenido": [
+        {
+          "h": "Qué es la autoimagen"
+        },
+        {
+          "p": "A principios de los años 70, el cirujano plástico Maxwell Maltz observó que, tras corregir un rasgo físico o una cicatriz, muchos pacientes ganaban una seguridad enorme. A otros la operación no les cambiaba nada por dentro: seguían sintiéndose acomplejados o inseguros."
+        },
+        {
+          "p": "Maltz entendió que cambiar el exterior sirve de poco si sigues sintiéndote «marcado» por dentro. Así descubrió la autoimagen: el mapa interno e inconsciente que define quién crees ser de verdad. Con autohipnosis y visualización ayudó a sus pacientes a transformarla y a recuperar la confianza de forma duradera."
+        },
+        {
+          "h": "El termostato"
+        },
+        {
+          "p": "La cibernética (de kybernetes, «timonel») estudia cómo un sistema detecta que se desvía de su meta y corrige el rumbo solo. Tu mente funciona igual que un termostato:"
+        },
+        {
+          "ul": [
+            [
+              "En casa: ",
+              "si lo pones a 20\u00a0°C y la habitación sube a 28\u00a0°C, el aire salta para devolverla a 20\u00a0°C."
+            ],
+            [
+              "En tu autoimagen: ",
+              "si está ajustada en la escasez, la inseguridad o la sensación de no merecer lo bueno, cualquier éxito que supere ese límite activa una corrección inconsciente: autosabotaje, dejar las cosas para luego o dudas sin motivo. Y vuelves a la «temperatura emocional» a la que estás acostumbrado."
+            ]
+          ]
+        },
+        {
+          "h": "La regla de oro: actuamos según el plano interno"
+        },
+        {
+          "p": "Actuamos, sentimos y nos comportamos en coherencia con la imagen que tenemos de nosotros mismos."
+        },
+        {
+          "ul": [
+            "Las afirmaciones repetidas frente al espejo a menudo no funcionan si chocan con una creencia profunda: la mente nota la fricción y refuerza el pensamiento limitante.",
+            "No puedes desplegar hacia fuera más de lo que te permites creer por dentro.",
+            "Gran parte de la comunicación es no verbal: tu autoimagen se nota en tu postura, tu mirada, tu voz y tu presencia."
+          ]
+        },
+        {
+          "h": "Separar el «ser» del «hacer»"
+        },
+        {
+          "p": "Como decía John Bradshaw, eres un ser humano, no un «hacer humano»."
+        },
+        {
+          "ul": [
+            "Los tropiezos, las decisiones pasadas o los momentos difíciles son hechos puntuales; no definen quién eres.",
+            "Los errores no prueban que estés «fallado»: son la forma natural en que aprendes, te reajustas y creces."
+          ]
+        }
+      ],
+      "relacionados": [
+        "yo-ideal",
+        "actor-metodo"
+      ]
+    },
+    {
+      "id": "creencias-genios",
+      "titulo": "Las creencias de los genios",
+      "subtitulo": "Apuntes Supercoaching",
+      "sesion": 7,
+      "tipo": "lectura",
+      "minutos": 5,
+      "requisitos": [],
+      "estados": {},
+      "contenido": [
+        {
+          "h": "Las creencias son mapas"
+        },
+        {
+          "p": "Una creencia no es un hecho tallado en la roca: es un mapa subjetivo, una orden a tu sistema nervioso sobre cómo interpretar lo que percibes. Como decía Alfred Korzybski, «el mapa no es el territorio»."
+        },
+        {
+          "ul": [
+            [
+              "Sesgo de confirmación: ",
+              "tu mente busca validar lo que ya crees. Si crees que «la gente se aprovecha de ti», verás antes los gestos egoístas que la generosidad."
+            ],
+            [
+              "Utilidad: ",
+              "para adoptar una creencia no importa si es una verdad absoluta, sino si te sirve. ¿Te deja en un estado de fuerza y recursos, o te hunde en la impotencia?"
+            ]
+          ]
+        },
+        {
+          "h": "El efecto Bannister"
+        },
+        {
+          "p": "Durante siglos se creyó imposible correr una milla en menos de cuatro minutos. En mayo de 1954, Roger Bannister lo hizo. En los doce meses siguientes, otros 37 corredores rompieron la marca, y al año siguiente más de 300. La fisiología no cambió: cambió la creencia sobre lo posible. La barrera estaba en la mente."
+        },
+        {
+          "h": "Las 7 presuposiciones de los genios"
+        },
+        {
+          "ol": [
+            [
+              "No existe el fracaso, solo la retroalimentación. ",
+              "Un error es información sobre qué método no funciona, como un avión que pasa el 90\u00a0% del vuelo corrigiendo desviaciones. Thomas Watson, fundador de IBM: «Si quieres duplicar tu tasa de éxito, tienes que estar dispuesto a duplicar tu tasa de fracaso»."
+            ],
+            [
+              "Ya tienes todos los recursos que necesitas. ",
+              "Si no sientes confianza o calma, no es que te falten: has perdido el acceso a ese estado. Cambiando tu fisiología y tus imágenes internas puedes activarlo."
+            ],
+            [
+              "Cualquier meta es alcanzable si la divides en trozos pequeños. ",
+              "Las tareas enormes paralizan; los genios las parten en microbloques y los resuelven uno a uno."
+            ],
+            [
+              "El significado de tu comunicación es la respuesta que obtienes. ",
+              "Si el otro no te entiende, en vez de culparle, cambia tu tono, tu lenguaje o tu estrategia."
+            ],
+            [
+              "Si lo que haces no funciona, haz otra cosa. ",
+              "No fuerces la misma puerta cerrada: cambia el ángulo y la táctica."
+            ],
+            [
+              "Todo ocurre por una razón que te beneficia: la pronoya. ",
+              "Frente a la paranoia, asume que cada contratiempo encierra una lección o una oportunidad. Pregúntate: «¿Cómo me beneficia esto?»."
+            ],
+            [
+              "Tu pasado no equivale a tu futuro. ",
+              "En cuanto cambias tu fisiología, tus preguntas y tus decisiones, tu cerebro empieza a construir un camino distinto."
+            ]
+          ]
+        }
+      ],
+      "relacionados": [
+        "modelado-genios",
+        "pronoya"
+      ]
     }
   ],
   "requisitos": {

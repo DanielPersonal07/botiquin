@@ -8,7 +8,7 @@ const store = {
 };
 
 const esc = (s = '') => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const TIPOS = { guiada: 'Guiada', expres: 'Exprés', ficha: 'Ficha' };
+const TIPOS = { guiada: 'Guiada', expres: 'Exprés', ficha: 'Ficha', lectura: 'Lectura' };
 const RITMOS = [['pausado', 'Pausado'], ['normal', 'Normal'], ['agil', 'Ágil']];
 
 let CAT = null;
@@ -43,7 +43,7 @@ function saludo() {
 
 function tarjeta(e, extra = '') {
   const tags = [`<span class="tag">${e.minutos} min</span>`, `<span class="tag">${TIPOS[e.tipo]}</span>`];
-  if (e.audio) tags.push('<span class="tag ok">Con voz</span>');
+  if (e.audio) tags.push(`<span class="tag ok">${e.explicacion ? 'Con voz y explicación' : 'Con voz'}</span>`);
   else if (e.tipo === 'guiada') tags.push('<span class="tag">Audio pendiente</span>');
   return `<button class="card" data-ir="#/ej/${e.id}">
     <h3>${esc(e.titulo)}</h3><div class="sub">${esc(e.subtitulo || '')}</div>
@@ -79,14 +79,14 @@ const CLAVES = {
   ansiedad: ['ansi', 'nervio', 'inquiet', 'agobi', 'panico', 'angusti', 'miedo', 'acelerad', 'alterad', 'intranquil', 'taquicardia', 'preocupad'],
   bucle: ['no paro de pensar', 'no dejo de pensar', 'pensamiento', 'rumi', 'vueltas', 'obses', 'bucle', 'la cabeza no para', 'mente no para', 'no puedo parar de pensar'],
   saturacion: ['estres', 'estresad', 'saturad', 'colapsad', 'desbordad', 'bloquead', 'agotad', 'quemad', 'mucho trabajo', 'tension', 'cargad', 'presionad'],
-  emocion: ['triste', 'tristeza', 'rabia', 'enfad', 'frustr', 'ira', 'dolid', 'decepcion', 'decepcionad', 'llorar', 'culpa', 'celos', 'rencor', 'resentid', 'atascad', 'hundid', 'desanimad', 'mal'],
-  recuerdo: ['recuerdo', 'duelo', 'perdida', 'ruptura', 'separacion', 'divorcio', 'muerte', 'fallec', 'trauma', 'echo de menos', 'nostalgi', 'me dejo', 'lo dejamos'],
+  emocion: ['triste', 'tristeza', 'rabia', 'enfad', 'frustr', 'ira', 'dolid', 'decepcion', 'decepcionad', 'llorar', 'culpa', 'celos', 'rencor', 'resentid', 'atascad', 'hundid', 'desanimad', 'conflicto', 'discusion', 'pelea', 'mal'],
+  recuerdo: ['recuerdo', 'duelo', 'perdida', 'ruptura', 'separacion', 'divorcio', 'muerte', 'fallec', 'trauma', 'echo de menos', 'nostalgi', 'me dejo', 'lo dejamos', 'conflicto', 'discusion', 'pelea'],
   limites: ['opinion', 'critica', 'criticad', 'lo que dicen', 'lo que piensen', 'me afecta', 'limite', 'juzgad', 'me juzgan', 'presion', 'decir que no', 'manipul', 'invadid', 'me pisan'],
-  confianza: ['confianza', 'insegur', 'no valgo', 'no soy capaz', 'no puedo con', 'merec', 'autoestima', 'inutil', 'fracas', 'dudo de mi', 'pequeno', 'incapaz', 'duda', 'dudo', 'indecis', 'no me atrevo', 'me da miedo dar el paso', 'hablar en publico', 'exponerme'],
+  confianza: ['confianza', 'insegur', 'no valgo', 'no soy capaz', 'no puedo con', 'merec', 'autoestima', 'inutil', 'fracas', 'dudo de mi', 'pequeno', 'incapaz', 'sabote', 'acomplejad', 'autoimagen', 'duda', 'dudo', 'indecis', 'no me atrevo', 'me da miedo dar el paso', 'hablar en publico', 'exponerme'],
   disperso: ['dispers', 'desconect', 'despist', 'concentr', 'en las nubes', 'piloto automatico', 'ausente', 'no estoy presente', 'distraid', 'en otra parte'],
   dormir: ['dormir', 'insomnio', 'sueno', 'desvel', 'no duermo', 'dormido', 'descansar'],
   rumbo: ['rumbo', 'objetivo', 'perdido', 'sin sentido', 'que hacer con mi vida', 'motivac', 'proposito', 'meta', 'desorientad', 'estancad', 'decision', 'decidir', 'no se que hacer', 'no se por donde', 'elegir', 'escoger'],
-  pendientes: ['pendiente', 'cerrar', 'procrastin', 'no acabo', 'tareas', 'aplazo', 'dejo para manana', 'sin terminar', 'conversacion pendiente', 'evitando', 'evito', 'dar el paso'],
+  pendientes: ['pendiente', 'cerrar', 'procrastin', 'no acabo', 'tareas', 'aplazo', 'dejo para manana', 'sin terminar', 'lo dejo para luego', 'postergo', 'conversacion pendiente', 'evitando', 'evito', 'dar el paso'],
   impulsos: ['impulso', 'fumar', 'tabaco', 'picar', 'atracon', 'beber', 'alcohol', 'comprar', 'adicc', 'compuls', 'antojo'],
 };
 const CRISIS = ['suicid', 'matarme', 'quitarme la vida', 'hacerme dano', 'no quiero vivir', 'autolesion', 'acabar con todo', 'desaparecer para siempre'];
@@ -200,7 +200,7 @@ async function vistaDescargas() {
       const e = ej(info.ej);
       return `<div class="card descargado">
         <button class="descargado-info" data-ir="#/ej/${esc(info.ej)}"><h3>${esc(e?.titulo || info.ej)}</h3>
-          <span class="sub">Ritmo ${esc(NOMBRE_RITMO[info.ritmo]?.toLowerCase() || info.ritmo)} · ${fmtMin(info.duracion)} · ${fmtMB(bytes)}</span>
+          <span class="sub">${info.ritmo === 'explicacion' ? 'Explicación' : `Ritmo ${esc(NOMBRE_RITMO[info.ritmo]?.toLowerCase() || info.ritmo)}`} · ${fmtMin(info.duracion)} · ${fmtMB(bytes)}</span>
           ${nuevas[i] ? '<span class="tag ok">Hay una versión nueva</span>' : ''}</button>
         <button class="enlace" data-borrar="${i}">Borrar</button></div>`;
     }).join('')}</div>
@@ -230,7 +230,7 @@ function vistaSeccionVacia(x) {
 }
 
 function vistaInicio() {
-  const recursos = CAT.ejercicios.filter(e => e.tipo === 'expres' || e.tipo === 'ficha');
+  const recursos = CAT.ejercicios.filter(e => ['expres', 'ficha', 'lectura'].includes(e.tipo));
   app.innerHTML = `
     <div class="top"><button class="back" data-ir="#/">← Inicio</button></div>
     <p class="saludo">Coaching y biodescodificación</p>
@@ -263,7 +263,7 @@ function vistaInicio() {
       <button class="sentir-cab" id="abrir-recursos" aria-expanded="false" aria-controls="lista-recursos">
         <span>Recursos <span class="cuenta">${recursos.length}</span></span><span class="mas" aria-hidden="true">+</span>
       </button>
-      <div class="recursos" id="lista-recursos" hidden>${recursos.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.tipo === 'expres' ? `${e.minutos} min · al momento` : esc(e.subtitulo || '')}</span></button>`).join('')}</div>
+      <div class="recursos" id="lista-recursos" hidden>${recursos.map(e => `<button data-ir="#/ej/${e.id}"><b>${esc(e.titulo)}</b><span>${e.tipo === 'expres' ? `${e.minutos} min · al momento` : e.tipo === 'lectura' ? `Lectura · ${e.minutos} min` : esc(e.subtitulo || '')}</span></button>`).join('')}</div>
     </div>
     <button class="btn btn-todos" data-ir="#/catalogo">Todos los ejercicios</button>`;
 
@@ -360,7 +360,7 @@ function vistaCatalogo() {
   };
   app.innerHTML = `<div class="top"><button class="back" data-ir="#/coaching">← Coaching</button></div>
     <h1>Todos los ejercicios</h1>
-    ${grupo('guiada', 'Guiados con voz')}${grupo('expres', 'Exprés')}${grupo('ficha', 'Fichas')}`;
+    ${grupo('guiada', 'Guiados con voz')}${grupo('expres', 'Exprés')}${grupo('ficha', 'Fichas')}${grupo('lectura', 'Lecturas')}`;
   enlazar();
 }
 
@@ -369,7 +369,7 @@ function vistaCatalogo() {
 const DESCARGAS = 'descargas';
 const SECCIONES_DESCARGABLES = ['coaching', 'meditaciones'];
 const descargable = e => e.audio && SECCIONES_DESCARGABLES.includes(e.seccion || 'coaching') && 'caches' in window;
-const rutaInfo = (e, r) => `audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`;
+const rutaInfo = (e, r) => (r === 'explicacion' ? `audio/${e.explicacion}.json` : `audio/${e.audio}${r === 'normal' ? '' : '-' + r}.json`);
 const archivosDe = info => [info.archivo,
   ...(info.eventos || []).filter(ev => ev.clip).map(ev => ev.clip),
   ...(info.ciclo?.enlace_clip ? [info.ciclo.enlace_clip] : []),
@@ -443,7 +443,9 @@ const ICONO_DESCARGA = '<svg width="20" height="20" viewBox="0 0 24 24" fill="no
 async function vistaFicha(id) {
   const e = ej(id);
   if (!e) return ir('#/coaching');
+  if (e.tipo === 'lectura') return vistaLectura(e);
   const req = e.requisitos.map(r => CAT.requisitos[r]).filter(Boolean);
+  const lectura = e.lectura && ej(e.lectura);
   app.innerHTML = `<div class="top"><button class="back" data-ir="#/coaching">← Coaching</button></div>
     <h1>${esc(e.titulo)}</h1>
     <p class="ficha-meta">${esc(e.subtitulo || '')} · Sesión ${e.sesion} · ${e.minutos} min · ${TIPOS[e.tipo]}</p>
@@ -451,10 +453,13 @@ async function vistaFicha(id) {
     <section class="bloque"><h2>Para qué sirve</h2><p>${esc(e.para_que)}</p></section>
     <section class="bloque"><h2>Cuándo</h2><p>${esc(e.cuando)}</p></section>
     <section class="bloque"><h2>${e.tipo === 'ficha' ? 'Cómo se hace' : 'Los pasos'}</h2><ol class="pasos">${e.pasos.map(p => `<li>${esc(p)}</li>`).join('')}</ol></section>
+    ${e.puntos ? `<section class="bloque"><h2>Los puntos, por orden</h2><ol class="puntos">${e.puntos.map(p => `<li>${esc(p)}</li>`).join('')}</ol></section>` : ''}
     ${e.ilustracion ? `<section class="bloque"><h2>${esc(e.ilustracion.titulo)}</h2><figure class="ilustracion">
       <img src="${esc(e.ilustracion.src)}" alt="${esc(e.ilustracion.pie)}" loading="lazy" width="680" height="400">
       <figcaption>${esc(e.ilustracion.pie)}</figcaption></figure></section>` : ''}
     ${e.contexto ? `<section class="bloque"><h2>Contexto</h2><p class="contexto">${esc(e.contexto)}</p></section>` : ''}
+    ${lectura ? `<section class="bloque"><h2>Para entenderlo</h2><button class="card lectura-enlace" data-ir="#/ej/${lectura.id}">
+      <h3>${esc(lectura.titulo)}</h3><div class="sub">Lectura · ${lectura.minutos} min · ${esc(lectura.subtitulo || '')}</div></button></section>` : ''}
     ${e.aviso ? `<p class="aviso">${esc(e.aviso)}</p>` : ''}
     <div id="zona-empezar"></div>`;
   enlazar();
@@ -463,20 +468,29 @@ async function vistaFicha(id) {
     return;
   }
   const infos = {}, locales = {};
-  await Promise.all(RITMOS.map(async ([r]) => {
+  const opciones = [...RITMOS.map(([r]) => r), ...(e.explicacion ? ['explicacion'] : [])];
+  await Promise.all(opciones.map(async r => {
     try { infos[r] = await (await fetch(rutaInfo(e, r), { cache: 'no-cache' })).json(); } catch { /* sin red o no disponible */ }
     if (descargable(e)) try { locales[r] = await infoDescargada(e, r); } catch { /* sin acceso */ }
   }));
   // sin conexión, cuenta lo descargado
   const infoDe = r => infos[r] || locales[r];
   const disponibles = RITMOS.filter(([r]) => infoDe(r));
-  if (!disponibles.length) {
+  const hayExplicacion = !!infoDe('explicacion');
+  let modo = disponibles.length ? 'guiado' : 'explicacion';   // ejercicio guiado o explicación locutada
+  const actual = () => (modo === 'explicacion' ? 'explicacion' : ui.ritmo);
+  if (!disponibles.length && !hayExplicacion) {
     $('#zona-empezar').innerHTML = '<p class="consejos">Ahora no hay conexión y este ejercicio no está descargado. Cuando vuelvas a tener internet podrás escucharlo o descargarlo.</p>';
     return;
   }
-  if (!infoDe(ui.ritmo)) ui.ritmo = disponibles[0][0];
+  if (disponibles.length && !infoDe(ui.ritmo)) ui.ritmo = disponibles[0][0];
   $('#zona-empezar').innerHTML = `
-    <section class="bloque"><h2>Ritmo</h2>
+    ${hayExplicacion ? `<section class="bloque"><h2>Qué quieres escuchar</h2>
+      <div class="seg" role="group" aria-label="Qué quieres escuchar">
+        <button data-modo="guiado" aria-pressed="${modo === 'guiado'}" ${disponibles.length ? '' : 'disabled'}>Ejercicio guiado<span class="dur" id="dur-guiado">${disponibles.length ? ` · ${fmtMin(infoDe(ui.ritmo).duracion)}` : ''}</span></button>
+        <button data-modo="explicacion" aria-pressed="${modo === 'explicacion'}">Explicación · ${fmtMin(infoDe('explicacion').duracion)}</button>
+      </div></section>` : ''}
+    <section class="bloque" id="bloque-ritmo" ${modo === 'explicacion' ? 'hidden' : ''}><h2>Ritmo</h2>
       <div class="seg">${disponibles.map(([r, t]) => `<button data-ritmo="${r}" aria-pressed="${ui.ritmo === r}">${t} · ${fmtMin(infoDe(r).duracion)}</button>`).join('')}</div>
     </section>
     <p class="consejos">Busca un sitio tranquilo. Durante el ejercicio la pantalla se queda en negro.${e.voz ? ' Al final te preguntará cómo de intenso es el malestar: dilo en voz alta y, si es 5 o más, te ofrecerá repetir el ciclo.' : ''}</p>
@@ -487,8 +501,8 @@ async function vistaFicha(id) {
   const pintarDescarga = () => {
     const zona = $('#descarga');
     if (!zona || !descargable(e) || descargando) return;
-    const r = ui.ritmo, local = locales[r], nueva = local && infos[r] && infos[r].version !== local.version;
-    const ritmo = disponibles.length > 1 ? ` · ritmo ${NOMBRE_RITMO[r].toLowerCase()}` : '';
+    const r = actual(), local = locales[r], nueva = local && infos[r] && infos[r].version !== local.version;
+    const ritmo = r === 'explicacion' ? ' · explicación' : disponibles.length > 1 ? ` · ritmo ${NOMBRE_RITMO[r].toLowerCase()}` : '';
     if (!local) {
       zona.innerHTML = infos[r] ? `<button class="btn-sec" id="bajar">${ICONO_DESCARGA}<span>Descargar para escuchar sin conexión</span></button>` : '';
     } else if (nueva) {
@@ -520,16 +534,36 @@ async function vistaFicha(id) {
   app.querySelectorAll('[data-ritmo]').forEach(b => b.addEventListener('click', () => {
     ui.ritmo = b.dataset.ritmo; store.set('ritmo', ui.ritmo);
     app.querySelectorAll('[data-ritmo]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    const d = $('#dur-guiado'); if (d) d.textContent = ` · ${fmtMin(infoDe(ui.ritmo).duracion)}`;
+    pintarDescarga();
+  }));
+  app.querySelectorAll('[data-modo]').forEach(b => b.addEventListener('click', () => {
+    modo = b.dataset.modo;
+    app.querySelectorAll('[data-modo]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    $('#bloque-ritmo').hidden = modo === 'explicacion';
     pintarDescarga();
   }));
   $('#empezar').addEventListener('click', async () => {
     if (e.voz) await pedirMicrofono();   // el permiso se pide ahora, con los ojos abiertos
-    const r = ui.ritmo, local = locales[r];
+    const r = actual(), local = locales[r];
     // suena la copia descargada si es la versión actual o si no hay conexión; si hay una nueva, la del servidor
     const usarLocal = local && (!infos[r] || infos[r].version === local.version);
     const fuentes = usarLocal ? await fuentesDescargadas(local).catch(() => null) : null;
-    iniciarSesion(e, usarLocal && fuentes ? local : infoDe(r), fuentes);
+    iniciarSesion(e, usarLocal && fuentes ? local : infoDe(r), fuentes, { explicacion: r === 'explicacion' });
   });
+}
+
+// ---------- Lecturas (apuntes) ----------
+const itemLectura = x => `<li>${Array.isArray(x) ? `<b>${esc(x[0])}</b>${esc(x[1])}` : esc(x)}</li>`;
+function vistaLectura(e) {
+  const rel = (e.relacionados || []).map(ej).filter(Boolean);
+  app.innerHTML = `<div class="top"><button class="back" data-ir="#/coaching">← Coaching</button></div>
+    <h1>${esc(e.titulo)}</h1>
+    <p class="ficha-meta">${esc(e.subtitulo || '')} · Sesión ${e.sesion} · ${e.minutos} min de lectura</p>
+    <article class="lectura">${e.contenido.map(b => b.h ? `<h2>${esc(b.h)}</h2>` : b.p ? `<p>${esc(b.p)}</p>`
+      : b.ul ? `<ul>${b.ul.map(itemLectura).join('')}</ul>` : b.ol ? `<ol>${b.ol.map(itemLectura).join('')}</ol>` : '').join('')}</article>
+    ${rel.length ? `<section class="bloque"><h2>Para practicarlo</h2><div class="lista">${rel.map(x => tarjeta(x)).join('')}</div></section>` : ''}`;
+  enlazar();
 }
 
 // ---------- Voz: reconocimiento ----------
@@ -636,7 +670,7 @@ function tocar(audio, src) {
   });
 }
 
-async function iniciarSesion(e, info, fuentes = null) {
+async function iniciarSesion(e, info, fuentes = null, opciones = {}) {
   const fuente = f => fuentes?.[f] || `audio/${f}?v=${info.version || ''}`;  // ?v= cambia con cada versión del audio
   document.body.classList.add('en-sesion');
   app.innerHTML = `<div class="sesion">
@@ -789,7 +823,7 @@ async function iniciarSesion(e, info, fuentes = null) {
     wakeLock = null;
     document.body.classList.remove('en-sesion');
     if ('mediaSession' in navigator) ['play', 'pause', 'nexttrack', 'previoustrack'].forEach(k => navigator.mediaSession.setActionHandler(k, null));
-    if (completa) { apuntarSesion(datos); sesionActual = datos; ir('#/fin'); } else ir(`#/ej/${e.id}`);
+    if (completa && !opciones.explicacion) { apuntarSesion(datos); sesionActual = datos; ir('#/fin'); } else ir(`#/ej/${e.id}`);
   };
   finSesion = () => terminar(false);
   a.onended = () => { if (!enFinal) terminar(true); };

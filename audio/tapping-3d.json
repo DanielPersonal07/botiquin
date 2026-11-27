@@ -1,0 +1,58 @@
+{
+  "archivo": "tapping-3d.mp3",
+  "version": "c6c28edd93",
+  "ritmo": "normal",
+  "duracion": 703.51,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Automasaje",
+      "inicio": 23.95
+    },
+    {
+      "id": "2",
+      "titulo": "La experiencia",
+      "inicio": 83.11
+    },
+    {
+      "id": "3",
+      "titulo": "Fase 1 · Describir",
+      "inicio": 134.83
+    },
+    {
+      "id": "4",
+      "titulo": "Fase 2 · Adscribir",
+      "inicio": 292.95
+    },
+    {
+      "id": "5",
+      "titulo": "Fase 3 · Prescribir",
+      "inicio": 453.23
+    },
+    {
+      "id": "6",
+      "titulo": "Manos en el corazón",
+      "inicio": 619.41
+    },
+    {
+      "id": "7",
+      "titulo": "Valoración y cierre",
+      "inicio": 674.01
+    }
+  ],
+  "personal": {
+    "saludo": "tapping-3d-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "tapping-3d-final.mp3",
+      "desde": 694.59,
+      "duracion": 9.92
+    }
+  },
+  "eventos": []
+}

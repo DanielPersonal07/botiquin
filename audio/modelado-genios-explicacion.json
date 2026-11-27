@@ -1,0 +1,33 @@
+{
+  "archivo": "modelado-genios-explicacion.mp3",
+  "version": "ced37be5c0",
+  "ritmo": "normal",
+  "duracion": 217.7,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Música suave",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Las creencias son mapas",
+      "inicio": 1.0
+    },
+    {
+      "id": "2",
+      "titulo": "El efecto Bannister",
+      "inicio": 58.91
+    },
+    {
+      "id": "3",
+      "titulo": "Las siete presuposiciones",
+      "inicio": 97.6
+    }
+  ],
+  "personal": {
+    "saludo": "modelado-genios-explicacion-saludo.mp3",
+    "salto": 0.6
+  },
+  "eventos": []
+}

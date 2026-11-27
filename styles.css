@@ -377,3 +377,16 @@ textarea { width: 100%; resize: vertical; margin-bottom: 18px; }
 .grafica .graf-mes { font-size: 11px; fill: var(--muted); }
 .notas p { margin: 0 0 10px; display: block; }
 .notas svg { vertical-align: -3px; }
+
+/* Explicación locutada y lecturas */
+.seg button:disabled { opacity: .45; }
+.seg .dur { font-weight: inherit; }
+ol.puntos { margin: 0; padding: 0; list-style: none; counter-reset: punto; display: flex; flex-wrap: wrap; gap: 6px; }
+ol.puntos li { counter-increment: punto; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 15px; }
+ol.puntos li::before { content: counter(punto) ". "; color: var(--fucsia); font-weight: 600; }
+.lectura-enlace .sub { margin-top: 2px; }
+.lectura { margin-top: 8px; }
+.lectura h2 { margin: 26px 0 8px; }
+.lectura p { margin: 0 0 12px; }
+.lectura ul, .lectura ol { padding-left: 22px; margin: 0 0 14px; }
+.lectura li { margin-bottom: 9px; }

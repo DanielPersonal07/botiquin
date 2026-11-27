@@ -1,0 +1,23 @@
+{
+  "archivo": "pronoya-explicacion.mp3",
+  "version": "8caf790f64",
+  "ritmo": "normal",
+  "duracion": 78.57,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Música suave",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Qué es la pronoya",
+      "inicio": 1.0
+    }
+  ],
+  "personal": {
+    "saludo": "pronoya-explicacion-saludo.mp3",
+    "salto": 0.6
+  },
+  "eventos": []
+}

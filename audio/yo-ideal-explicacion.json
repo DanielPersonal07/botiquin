@@ -1,0 +1,38 @@
+{
+  "archivo": "yo-ideal-explicacion.mp3",
+  "version": "695da277fe",
+  "ritmo": "normal",
+  "duracion": 199.11,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Música suave",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "La autoimagen",
+      "inicio": 1.0
+    },
+    {
+      "id": "2",
+      "titulo": "El termostato",
+      "inicio": 67.44
+    },
+    {
+      "id": "3",
+      "titulo": "Actuamos según el plano interno",
+      "inicio": 108.59
+    },
+    {
+      "id": "4",
+      "titulo": "No eres tus resultados",
+      "inicio": 153.43
+    }
+  ],
+  "personal": {
+    "saludo": "yo-ideal-explicacion-saludo.mp3",
+    "salto": 0.6
+  },
+  "eventos": []
+}

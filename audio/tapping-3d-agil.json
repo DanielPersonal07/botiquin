@@ -1,0 +1,58 @@
+{
+  "archivo": "tapping-3d-agil.mp3",
+  "version": "6a28b8ab6b",
+  "ritmo": "agil",
+  "duracion": 608.83,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Automasaje",
+      "inicio": 22.35
+    },
+    {
+      "id": "2",
+      "titulo": "La experiencia",
+      "inicio": 75.83
+    },
+    {
+      "id": "3",
+      "titulo": "Fase 1 · Describir",
+      "inicio": 123.55
+    },
+    {
+      "id": "4",
+      "titulo": "Fase 2 · Adscribir",
+      "inicio": 257.47
+    },
+    {
+      "id": "5",
+      "titulo": "Fase 3 · Prescribir",
+      "inicio": 393.55
+    },
+    {
+      "id": "6",
+      "titulo": "Manos en el corazón",
+      "inicio": 535.53
+    },
+    {
+      "id": "7",
+      "titulo": "Valoración y cierre",
+      "inicio": 581.93
+    }
+  ],
+  "personal": {
+    "saludo": "tapping-3d-agil-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "tapping-3d-agil-final.mp3",
+      "desde": 600.51,
+      "duracion": 9.32
+    }
+  },
+  "eventos": []
+}

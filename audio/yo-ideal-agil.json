@@ -1,0 +1,53 @@
+{
+  "archivo": "yo-ideal-agil.mp3",
+  "version": "3e38069003",
+  "ritmo": "agil",
+  "duracion": 368.02,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "¿Quién soy yo?",
+      "inicio": 22.53
+    },
+    {
+      "id": "2",
+      "titulo": "Tus techos",
+      "inicio": 92.03
+    },
+    {
+      "id": "3",
+      "titulo": "Tu Yo Ideal, delante de ti",
+      "inicio": 143.79
+    },
+    {
+      "id": "4",
+      "titulo": "Entras en tu Yo Ideal",
+      "inicio": 246.95
+    },
+    {
+      "id": "5",
+      "titulo": "Fijación",
+      "inicio": 310.33
+    },
+    {
+      "id": "6",
+      "titulo": "Cierre",
+      "inicio": 352.97
+    }
+  ],
+  "personal": {
+    "saludo": "yo-ideal-agil-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "yo-ideal-agil-final.mp3",
+      "desde": 358.994,
+      "duracion": 10.58
+    }
+  },
+  "eventos": []
+}

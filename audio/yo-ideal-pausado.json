@@ -1,0 +1,53 @@
+{
+  "archivo": "yo-ideal-pausado.mp3",
+  "version": "789b01dfad",
+  "ritmo": "pausado",
+  "duracion": 505.02,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "¿Quién soy yo?",
+      "inicio": 26.53
+    },
+    {
+      "id": "2",
+      "titulo": "Tus techos",
+      "inicio": 120.53
+    },
+    {
+      "id": "3",
+      "titulo": "Tu Yo Ideal, delante de ti",
+      "inicio": 196.29
+    },
+    {
+      "id": "4",
+      "titulo": "Entras en tu Yo Ideal",
+      "inicio": 343.45
+    },
+    {
+      "id": "5",
+      "titulo": "Fijación",
+      "inicio": 433.33
+    },
+    {
+      "id": "6",
+      "titulo": "Cierre",
+      "inicio": 486.47
+    }
+  ],
+  "personal": {
+    "saludo": "yo-ideal-pausado-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "yo-ideal-pausado-final.mp3",
+      "desde": 493.994,
+      "duracion": 12.58
+    }
+  },
+  "eventos": []
+}

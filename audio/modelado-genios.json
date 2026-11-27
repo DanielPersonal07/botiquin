@@ -1,0 +1,53 @@
+{
+  "archivo": "modelado-genios.mp3",
+  "version": "d5ac2b8787",
+  "ritmo": "normal",
+  "duracion": 314.94,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "Elige tu referente",
+      "inicio": 22.27
+    },
+    {
+      "id": "2",
+      "titulo": "Observación multisensorial",
+      "inicio": 60.19
+    },
+    {
+      "id": "3",
+      "titulo": "El salto de inmersión",
+      "inicio": 124.74
+    },
+    {
+      "id": "4",
+      "titulo": "Retorno con aprendizaje",
+      "inicio": 188.78
+    },
+    {
+      "id": "5",
+      "titulo": "Manos en el corazón",
+      "inicio": 254.58
+    },
+    {
+      "id": "6",
+      "titulo": "Cierre",
+      "inicio": 299.18
+    }
+  ],
+  "personal": {
+    "saludo": "modelado-genios-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "modelado-genios-final.mp3",
+      "desde": 305.802,
+      "duracion": 10.5
+    }
+  },
+  "eventos": []
+}

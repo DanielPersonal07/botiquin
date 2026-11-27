@@ -1,0 +1,48 @@
+{
+  "archivo": "pronoya-pausado.mp3",
+  "version": "cd47ffed2f",
+  "ritmo": "pausado",
+  "duracion": 247.56,
+  "marcas": [
+    {
+      "id": "0",
+      "titulo": "Preparación",
+      "inicio": 1.0
+    },
+    {
+      "id": "1",
+      "titulo": "El problema",
+      "inicio": 27.84
+    },
+    {
+      "id": "2",
+      "titulo": "La presuposición limitante",
+      "inicio": 83.98
+    },
+    {
+      "id": "3",
+      "titulo": "La lección",
+      "inicio": 122.92
+    },
+    {
+      "id": "4",
+      "titulo": "La microacción",
+      "inicio": 173.12
+    },
+    {
+      "id": "5",
+      "titulo": "Cierre",
+      "inicio": 217.52
+    }
+  ],
+  "personal": {
+    "saludo": "pronoya-pausado-saludo.mp3",
+    "salto": 0.6,
+    "final": {
+      "archivo": "pronoya-pausado-final.mp3",
+      "desde": 236.6,
+      "duracion": 12.72
+    }
+  },
+  "eventos": []
+}
